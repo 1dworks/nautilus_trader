@@ -50,7 +50,19 @@ class ContractChain(Actor):
         self._instrument_id = self.bar_type.instrument_id
 
         assert self._start_month in self._hold_cycle
-
+    
+    def current_bar(self) -> Bar:
+        return self.cache.bar(self.current_bar_type, 0)
+    
+    def forward_bar(self) -> Bar:
+        return self.cache.bar(self.forward_bar_type, 0)
+    
+    def carry_bar(self) -> Bar:
+        return self.cache.bar(self.carry_bar_type, 0)
+    
+    def previous_bar(self) -> Bar:
+        return self.cache.bar(self.previous_bar_type, 0)
+        
     def on_start(self) -> None:
 
         self._roll(to_month=self._start_month)
@@ -87,7 +99,6 @@ class ContractChain(Actor):
                 ts_init=self.clock.timestamp_ns(),
                 ts_event=self.clock.timestamp_ns(),
             ),
-            
         )
         
     def _raise_expiry(self):
@@ -139,9 +150,6 @@ class ContractChain(Actor):
 
         self.roll()
         self.rolls.loc[len(self.rolls)] = (current_timestamp, self.current_month)
-
-    
-        
 
     def roll(self) -> None:
         """
