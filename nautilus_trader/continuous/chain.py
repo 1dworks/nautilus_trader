@@ -91,6 +91,12 @@ class ContractChain(Actor):
         self._publish()
 
     def _publish(self) -> None:
+        self._publish_forward_bar()
+        self._publish_carry_bar()
+        self._publish_current_bar()
+        self._publish_continuous_bar()
+        
+    def _publish_continuous_bar(self) -> None:
         current_bar = self.cache.bar(self.current_bar_type)
         if current_bar is None:
             return
@@ -105,6 +111,50 @@ class ContractChain(Actor):
                 ts_init=self.clock.timestamp_ns(),
                 ts_event=self.clock.timestamp_ns(),
             ),
+        )
+    
+    def _publish_current_bar(self) -> None:
+        current_bar = self.cache.bar(self.current_bar_type)
+        if current_bar is None:
+            return
+
+        is_previous = self._last_current is not None and current_bar == self._last_current
+        if is_previous:
+            return
+
+        self.msgbus.publish(
+            topic=f"{self.bar_type}",
+            msg=current_bar,
+        )
+
+    def _publish_forward_bar(self) -> None:
+
+        forward_bar = self.cache.bar(self.forward_bar_type)
+        if forward_bar is None:
+            return
+
+        is_previous = self._last_forward is not None and forward_bar == self._last_forward
+        if is_previous:
+            return
+
+        self.msgbus.publish(
+            topic=f"{self.bar_type}+1",
+            msg=forward_bar,
+        )
+
+    def _publish_carry_bar(self) -> None:
+
+        carry_bar = self.cache.bar(self.carry_bar_type)
+        if carry_bar is None:
+            return
+
+        is_previous = self._last_carry is not None and carry_bar == self._last_carry
+        if is_previous:
+            return
+
+        self.msgbus.publish(
+            topic=f"{self.bar_type}c",
+            msg=carry_bar,
         )
         
     def _raise_expiry(self):
