@@ -97,8 +97,6 @@ class ContinuousBarWrangler:
 
         for bar in bars:
 
-            self._cache.add_bar(bar)
-
             is_next = previous_timestamp is not None and bar.ts_init > previous_timestamp
             if is_next:
                 self._chain.handle_time_event(
@@ -111,7 +109,9 @@ class ContinuousBarWrangler:
                 )
                 if self._chain.current_month == self._end_month:
                     break
-
+            
+            self._cache.add_bar(bar)
+            
             self._data_engine.process(bar)
 
             previous_timestamp = bar.ts_init
