@@ -127,8 +127,8 @@ class ContractChain(Actor):
         if current_bar is None:
             return
 
-        is_previous = self._last_current is not None and current_bar == self._last_current
-        if is_previous:
+        is_last = self._last_current is not None and current_bar == self._last_current
+        if is_last:
             return
 
         self.msgbus.publish(
@@ -142,8 +142,8 @@ class ContractChain(Actor):
         if forward_bar is None:
             return
 
-        is_previous = self._last_forward is not None and forward_bar == self._last_forward
-        if is_previous:
+        is_last = self._last_forward is not None and forward_bar == self._last_forward
+        if is_last:
             return
 
         self.msgbus.publish(
@@ -157,8 +157,8 @@ class ContractChain(Actor):
         if carry_bar is None:
             return
 
-        is_previous = self._last_carry is not None and carry_bar == self._last_carry
-        if is_previous:
+        is_last = self._last_carry is not None and carry_bar == self._last_carry
+        if is_last:
             return
 
         self.msgbus.publish(
@@ -172,8 +172,8 @@ class ContractChain(Actor):
         if previous_bar is None:
             return
 
-        is_previous = self._last_previous is not None and previous_bar == self._last_previous
-        if is_previous:
+        is_last = self._last_previous is not None and previous_bar == self._last_previous
+        if is_last:
             return
 
         self.msgbus.publish(
