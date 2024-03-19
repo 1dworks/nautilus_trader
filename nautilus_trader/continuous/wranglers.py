@@ -14,6 +14,7 @@ from nautilus_trader.model.data import Bar
 from nautilus_trader.portfolio.portfolio import Portfolio
 from nautilus_trader.test_kit.stubs.identifiers import TestIdStubs
 from nautilus_trader.continuous.bar import ContinuousBar
+from nautilus_trader.core.correctness import PyCondition
 
 class ContinuousBarWrangler:
     """
@@ -27,8 +28,9 @@ class ContinuousBarWrangler:
         config: ContractChainConfig,
         end_month: ContractMonth,
     ):
-
-        assert isinstance(end_month, ContractMonth)
+        
+        PyCondition.type(config, ContractChainConfig, "config")
+        PyCondition.type(end_month, ContractMonth, "end_month")
 
         self._clock = TestClock()
 

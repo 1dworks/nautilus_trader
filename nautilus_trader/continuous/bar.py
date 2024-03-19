@@ -8,7 +8,7 @@ from nautilus_trader.model.data import BarType
 from nautilus_trader.model.objects import Price
 from nautilus_trader.model.objects import Quantity
 from nautilus_trader.continuous.contract_month import ContractMonth
-
+from nautilus_trader.core.correctness import PyCondition
 
 class ContinuousBar(Data):
     def __init__(
@@ -21,6 +21,16 @@ class ContinuousBar(Data):
         ts_event: int,
         ts_init: int,
     ):
+        
+        PyCondition.type(bar_type, Bar, "bar_type")
+        PyCondition.type(current_bar, Bar, "current_bar")
+        PyCondition.type_or_none(forward_bar, Bar, "forward_bar")
+        PyCondition.type_or_none(previous_bar, Bar, "previous_bar")
+        PyCondition.type_or_none(carry_bar, Bar, "carry_bar")
+        PyCondition.type_or_none(carry_bar, Bar, "carry_bar")
+        PyCondition.type(ts_event, int, "ts_event")
+        PyCondition.type(ts_init, int, "ts_init")
+        
         self.bar_type = bar_type
         self.instrument_id = bar_type.instrument_id
         self.current_bar = current_bar
