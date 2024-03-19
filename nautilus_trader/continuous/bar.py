@@ -22,7 +22,7 @@ class ContinuousBar(Data):
         ts_init: int,
     ):
         
-        PyCondition.type(bar_type, Bar, "bar_type")
+        PyCondition.type(bar_type, BarType, "bar_type")
         PyCondition.type(current_bar, Bar, "current_bar")
         PyCondition.type_or_none(forward_bar, Bar, "forward_bar")
         PyCondition.type_or_none(previous_bar, Bar, "previous_bar")
