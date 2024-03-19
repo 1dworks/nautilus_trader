@@ -56,7 +56,11 @@ class ContractChain(Actor):
         self._instrument_id = self.bar_type.instrument_id
 
         assert self._start_month in self._hold_cycle
-    
+        
+        self._last_current: Bar | None = None
+        self._last_forward: Bar | None = None
+        self._last_carry: Bar | None = None
+        
     def current_bar(self) -> Bar:
         return self.cache.bar(self.current_bar_type, 0)
     
