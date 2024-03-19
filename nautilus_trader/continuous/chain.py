@@ -60,6 +60,7 @@ class ContractChain(Actor):
         self._last_current: Bar | None = None
         self._last_forward: Bar | None = None
         self._last_carry: Bar | None = None
+        self._last_previous: Bar | None = None
         
     def current_bar(self) -> Bar:
         return self.cache.bar(self.current_bar_type, 0)
@@ -97,6 +98,7 @@ class ContractChain(Actor):
     def _publish(self) -> None:
         self._publish_forward_bar()
         self._publish_carry_bar()
+        self._publish_previous_bar()
         self._publish_current_bar()
         self._publish_continuous_bar()
         
@@ -162,6 +164,21 @@ class ContractChain(Actor):
         self.msgbus.publish(
             topic=f"{self.bar_type}c",
             msg=carry_bar,
+        )
+        
+    def _publish_previous_bar(self) -> None:
+
+        previous_bar = self.cache.bar(self.previous_bar_type)
+        if previous_bar is None:
+            return
+
+        is_previous = self._last_previous is not None and previous_bar == self._last_previous
+        if is_previous:
+            return
+
+        self.msgbus.publish(
+            topic=f"{self.bar_type}-1",
+            msg=previous_bar,
         )
         
     def _raise_expiry(self):
