@@ -1,4 +1,5 @@
 import pandas as pd
+from dataclasses import dataclass
 
 from nautilus_trader.common.actor import Actor
 from nautilus_trader.common.component import TimeEvent
@@ -9,6 +10,11 @@ from nautilus_trader.model.data import Bar
 from nautilus_trader.model.data import BarType
 from nautilus_trader.model.identifiers import InstrumentId
 from nautilus_trader.continuous.bar import ContinuousBar
+
+@dataclass
+class RollEvent:
+    from_instrument_id: InstrumentId
+    to_instrument_id: InstrumentId
 
 class ContractExpired(Exception):
     pass
@@ -157,6 +163,13 @@ class ContractChain(Actor):
         """
         to_month = self._hold_cycle.next_month(self.current_month)
         self._roll(to_month=to_month)
+        self.msgbus.publish(
+            topic=f"events.roll.{self.bar_type}",
+            msg=RollEvent(
+                from_instrument_id=self.previous_bar_type,
+                to_instrument_id=self.current_bar_type,
+            ),
+        )
 
     def _roll(self, to_month: ContractMonth) -> None:
         self._update_attributes(to_month=to_month)
