@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `common/src/logging/logger.rs`."><title>logger.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_common" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (f4b771bf1 2024-03-14)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `common/src/logging/logger.rs`."><title>logger.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_common" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (0ad927c0c 2024-03-21)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../nautilus_common/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -677,6 +677,63 @@
 <a href="#675" id="675">675</a>
 <a href="#676" id="676">676</a>
 <a href="#677" id="677">677</a>
+<a href="#678" id="678">678</a>
+<a href="#679" id="679">679</a>
+<a href="#680" id="680">680</a>
+<a href="#681" id="681">681</a>
+<a href="#682" id="682">682</a>
+<a href="#683" id="683">683</a>
+<a href="#684" id="684">684</a>
+<a href="#685" id="685">685</a>
+<a href="#686" id="686">686</a>
+<a href="#687" id="687">687</a>
+<a href="#688" id="688">688</a>
+<a href="#689" id="689">689</a>
+<a href="#690" id="690">690</a>
+<a href="#691" id="691">691</a>
+<a href="#692" id="692">692</a>
+<a href="#693" id="693">693</a>
+<a href="#694" id="694">694</a>
+<a href="#695" id="695">695</a>
+<a href="#696" id="696">696</a>
+<a href="#697" id="697">697</a>
+<a href="#698" id="698">698</a>
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
+<a href="#704" id="704">704</a>
+<a href="#705" id="705">705</a>
+<a href="#706" id="706">706</a>
+<a href="#707" id="707">707</a>
+<a href="#708" id="708">708</a>
+<a href="#709" id="709">709</a>
+<a href="#710" id="710">710</a>
+<a href="#711" id="711">711</a>
+<a href="#712" id="712">712</a>
+<a href="#713" id="713">713</a>
+<a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -703,6 +760,7 @@
     thread,
 };
 
+<span class="kw">use </span>indexmap::IndexMap;
 <span class="kw">use </span>log::{
     debug, error, info,
     kv::{ToValue, Value},
@@ -714,7 +772,7 @@
     uuid::UUID4,
 };
 <span class="kw">use </span>nautilus_model::identifiers::trader_id::TraderId;
-<span class="kw">use </span>serde::{Deserialize, Serialize};
+<span class="kw">use </span>serde::{Deserialize, Serialize, Serializer};
 <span class="kw">use </span>ustr::Ustr;
 
 <span class="kw">use super</span>::{LOGGING_BYPASSED, LOGGING_REALTIME};
@@ -854,6 +912,12 @@
     </span><span class="kw">pub </span>message: String,
 }
 
+<span class="kw">impl </span>fmt::Display <span class="kw">for </span>LogLine {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
+        <span class="macro">write!</span>(f, <span class="string">"[{}] {}: {}"</span>, <span class="self">self</span>.level, <span class="self">self</span>.component, <span class="self">self</span>.message)
+    }
+}
+
 <span class="kw">pub struct </span>LogLineWrapper {
     line: LogLine,
     cache: <span class="prelude-ty">Option</span>&lt;String&gt;,
@@ -891,7 +955,7 @@
             <span class="macro">format!</span>(
                 <span class="string">"\x1b[1m{}\x1b[0m {}[{}] {}.{}: {}\x1b[0m\n"</span>,
                 <span class="self">self</span>.timestamp,
-                <span class="kw-2">&amp;</span><span class="self">self</span>.line.color.to_string(),
+                <span class="kw-2">&amp;</span><span class="self">self</span>.line.color.as_ansi(),
                 <span class="self">self</span>.line.level,
                 <span class="self">self</span>.trader_id,
                 <span class="kw-2">&amp;</span><span class="self">self</span>.line.component,
@@ -902,14 +966,25 @@
 
     <span class="kw">pub fn </span>get_json(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="kw">let </span>json_string =
-            serde_json::to_string(<span class="kw-2">&amp;</span><span class="self">self</span>.line).expect(<span class="string">"Error serializing log event to string"</span>);
+            serde_json::to_string(<span class="kw-2">&amp;</span><span class="self">self</span>).expect(<span class="string">"Error serializing log event to string"</span>);
         <span class="macro">format!</span>(<span class="string">"{json_string}\n"</span>)
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>LogLine {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">"[{}] {}: {}"</span>, <span class="self">self</span>.level, <span class="self">self</span>.component, <span class="self">self</span>.message)
+<span class="kw">impl </span>Serialize <span class="kw">for </span>LogLineWrapper {
+    <span class="kw">fn </span>serialize&lt;S&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="kw">let </span><span class="kw-2">mut </span>json_obj = IndexMap::new();
+        json_obj.insert(<span class="string">"timestamp"</span>.to_string(), <span class="self">self</span>.timestamp.clone());
+        json_obj.insert(<span class="string">"trader_id"</span>.to_string(), <span class="self">self</span>.trader_id.to_string());
+        json_obj.insert(<span class="string">"level"</span>.to_string(), <span class="self">self</span>.line.level.to_string());
+        json_obj.insert(<span class="string">"color"</span>.to_string(), <span class="self">self</span>.line.color.to_string());
+        json_obj.insert(<span class="string">"component"</span>.to_string(), <span class="self">self</span>.line.component.to_string());
+        json_obj.insert(<span class="string">"message"</span>.to_string(), <span class="self">self</span>.line.message.to_string());
+
+        json_obj.serialize(serializer)
     }
 }
 
@@ -952,17 +1027,23 @@
 
 <span class="attr">#[allow(clippy::too_many_arguments)]
 </span><span class="kw">impl </span>Logger {
-    <span class="kw">pub fn </span>init_with_env(trader_id: TraderId, instance_id: UUID4, file_config: FileWriterConfig) {
+    <span class="attr">#[must_use]
+    </span><span class="kw">pub fn </span>init_with_env(
+        trader_id: TraderId,
+        instance_id: UUID4,
+        file_config: FileWriterConfig,
+    ) -&gt; LogGuard {
         <span class="kw">let </span>config = LoggerConfig::from_env();
-        Logger::init_with_config(trader_id, instance_id, config, file_config);
+        Logger::init_with_config(trader_id, instance_id, config, file_config)
     }
 
-    <span class="kw">pub fn </span>init_with_config(
+    <span class="attr">#[must_use]
+    </span><span class="kw">pub fn </span>init_with_config(
         trader_id: TraderId,
         instance_id: UUID4,
         config: LoggerConfig,
         file_config: FileWriterConfig,
-    ) {
+    ) -&gt; LogGuard {
         <span class="kw">let </span>(tx, rx) = channel::&lt;LogEvent&gt;();
 
         <span class="kw">let </span>logger = <span class="self">Self </span>{
@@ -1001,6 +1082,8 @@
                 <span class="macro">eprintln!</span>(<span class="string">"Cannot set logger because of error: {e}"</span>)
             }
         }
+
+        LogGuard::new()
     }
 
     <span class="kw">fn </span>handle_messages(
@@ -1114,6 +1197,31 @@
     }
 }
 
+<span class="attr">#[cfg_attr(
+    feature = <span class="string">"python"</span>,
+    pyo3::pyclass(module = <span class="string">"nautilus_trader.core.nautilus_pyo3.common"</span>)
+)]
+#[derive(Debug)]
+</span><span class="kw">pub struct </span>LogGuard {}
+
+<span class="kw">impl </span>LogGuard {
+    <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+        LogGuard {}
+    }
+}
+
+<span class="kw">impl </span>Default <span class="kw">for </span>LogGuard {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::new()
+    }
+}
+
+<span class="kw">impl </span>Drop <span class="kw">for </span>LogGuard {
+    <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        log::logger().flush();
+    }
+}
+
 <span class="comment">////////////////////////////////////////////////////////////////////////////////
 // Tests
 ////////////////////////////////////////////////////////////////////////////////
@@ -1200,7 +1308,7 @@
             ..Default::default()
         };
 
-        Logger::init_with_config(
+        <span class="kw">let </span>log_guard = Logger::init_with_config(
             TraderId::from(<span class="string">"TRADER-001"</span>),
             UUID4::new(),
             config,
@@ -1243,7 +1351,9 @@
             Duration::from_secs(<span class="number">2</span>),
         );
 
-        <span class="macro">assert_eq!</span>(
+        drop(log_guard); <span class="comment">// Ensure log buffers are flushed
+
+        </span><span class="macro">assert_eq!</span>(
             log_contents,
             <span class="string">"1970-01-20T02:20:00.000000000Z [INFO] TRADER-001.RiskEngine: This is a test.\n"
         </span>);
@@ -1259,7 +1369,7 @@
             ..Default::default()
         };
 
-        Logger::init_with_config(
+        <span class="kw">let </span>log_guard = Logger::init_with_config(
             TraderId::from(<span class="string">"TRADER-001"</span>),
             UUID4::new(),
             config,
@@ -1292,7 +1402,9 @@
             Duration::from_secs(<span class="number">3</span>),
         );
 
-        <span class="macro">assert!</span>(
+        drop(log_guard); <span class="comment">// Ensure log buffers are flushed
+
+        </span><span class="macro">assert!</span>(
             std::fs::read_dir(<span class="kw-2">&amp;</span>temp_dir)
                 .expect(<span class="string">"Failed to read directory"</span>)
                 .filter_map(Result::ok)
@@ -1313,7 +1425,7 @@
             ..Default::default()
         };
 
-        Logger::init_with_config(
+        <span class="kw">let </span>log_guard = Logger::init_with_config(
             TraderId::from(<span class="string">"TRADER-001"</span>),
             UUID4::new(),
             config,
@@ -1348,9 +1460,11 @@
             Duration::from_secs(<span class="number">2</span>),
         );
 
-        <span class="macro">assert_eq!</span>(
+        drop(log_guard); <span class="comment">// Ensure log buffers are flushed
+
+        </span><span class="macro">assert_eq!</span>(
         log_contents,
-        <span class="string">"{\"level\":\"INFO\",\"color\":\"Normal\",\"component\":\"RiskEngine\",\"message\":\"This is a test.\"}\n"
+        <span class="string">"{\"timestamp\":\"1970-01-20T02:20:00.000000000Z\",\"trader_id\":\"TRADER-001\",\"level\":\"INFO\",\"color\":\"NORMAL\",\"component\":\"RiskEngine\",\"message\":\"This is a test.\"}\n"
     </span>);
     }
 }

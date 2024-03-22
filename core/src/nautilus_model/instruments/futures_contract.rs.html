@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/instruments/futures_contract.rs`."><title>futures_contract.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (f4b771bf1 2024-03-14)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/instruments/futures_contract.rs`."><title>futures_contract.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (0ad927c0c 2024-03-21)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../nautilus_model/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -221,6 +221,31 @@
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
 <a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -241,8 +266,13 @@
     hash::{Hash, Hasher},
 };
 
-<span class="kw">use </span>anyhow::Result;
-<span class="kw">use </span>nautilus_core::time::UnixNanos;
+<span class="kw">use </span>nautilus_core::{
+    correctness::{
+        check_equal_u8, check_positive_i64, check_valid_string, check_valid_string_optional,
+    },
+    time::UnixNanos,
+};
+<span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>ustr::Ustr;
 
@@ -272,8 +302,12 @@
     <span class="kw">pub </span>currency: Currency,
     <span class="kw">pub </span>price_precision: u8,
     <span class="kw">pub </span>price_increment: Price,
+    <span class="kw">pub </span>size_increment: Quantity,
+    <span class="kw">pub </span>size_precision: u8,
     <span class="kw">pub </span>multiplier: Quantity,
     <span class="kw">pub </span>lot_size: Quantity,
+    <span class="kw">pub </span>margin_init: Decimal,
+    <span class="kw">pub </span>margin_maint: Decimal,
     <span class="kw">pub </span>max_quantity: <span class="prelude-ty">Option</span>&lt;Quantity&gt;,
     <span class="kw">pub </span>min_quantity: <span class="prelude-ty">Option</span>&lt;Quantity&gt;,
     <span class="kw">pub </span>max_price: <span class="prelude-ty">Option</span>&lt;Price&gt;,
@@ -301,9 +335,21 @@
         min_quantity: <span class="prelude-ty">Option</span>&lt;Quantity&gt;,
         max_price: <span class="prelude-ty">Option</span>&lt;Price&gt;,
         min_price: <span class="prelude-ty">Option</span>&lt;Price&gt;,
+        margin_init: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+        margin_maint: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
         ts_event: UnixNanos,
         ts_init: UnixNanos,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+    ) -&gt; anyhow::Result&lt;<span class="self">Self</span>&gt; {
+        check_valid_string_optional(exchange.map(|u| u.as_str()), <span class="macro">stringify!</span>(isin))<span class="question-mark">?</span>;
+        check_valid_string(underlying.as_str(), <span class="macro">stringify!</span>(underlying))<span class="question-mark">?</span>;
+        check_equal_u8(
+            price_precision,
+            price_increment.precision,
+            <span class="macro">stringify!</span>(price_precision),
+            <span class="macro">stringify!</span>(price_increment.precision),
+        )<span class="question-mark">?</span>;
+        check_positive_i64(price_increment.raw, <span class="macro">stringify!</span>(price_increment.raw))<span class="question-mark">?</span>;
+
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             id,
             raw_symbol,
@@ -315,10 +361,14 @@
             currency,
             price_precision,
             price_increment,
+            size_precision: <span class="number">0</span>,
+            size_increment: Quantity::from(<span class="string">"1"</span>),
             multiplier,
             lot_size,
+            margin_init: margin_init.unwrap_or(<span class="number">0</span>.into()),
+            margin_maint: margin_maint.unwrap_or(<span class="number">0</span>.into()),
             max_quantity,
-            min_quantity,
+            min_quantity: <span class="prelude-val">Some</span>(min_quantity.unwrap_or(<span class="number">1</span>.into())),
             max_price,
             min_price,
             ts_event,

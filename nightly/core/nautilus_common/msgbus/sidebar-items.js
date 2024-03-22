@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["is_matching"],"struct":["BusMessage","MessageBus","Subscription"]};

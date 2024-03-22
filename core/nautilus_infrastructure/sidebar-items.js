@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["cache","python","redis"]};
+window.SIDEBAR_ITEMS = {"mod":["python","redis"]};

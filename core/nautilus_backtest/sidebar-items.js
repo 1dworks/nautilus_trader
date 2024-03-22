@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["engine"]};
+window.SIDEBAR_ITEMS = {"mod":["engine","matching_engine"]};

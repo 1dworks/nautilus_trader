@@ -699,6 +699,11 @@
            </span>
            <ul class="submenu">
             <li class="md-nav__item">
+             <a class="md-nav__link" href="#status">
+              Status
+             </a>
+            </li>
+            <li class="md-nav__item">
              <a class="md-nav__link" href="#implementation-goals">
               Implementation goals
              </a>
@@ -727,20 +732,14 @@
         <div class="toctree-wrapper compound">
         </div>
         <p>
-         NautilusTrader is designed in a modular way to work with ‘adapters’ which provide
-connectivity to data providers and/or trading venues - converting their raw API
+         NautilusTrader is designed in a modular way to work with
+         <em>
+          adapters
+         </em>
+         which provide
+connectivity to trading venues and data providers - converting their raw API
 into a unified interface. The following integrations are currently supported:
         </p>
-        <div class="admonition warning">
-         <p class="admonition-title">
-          Warning
-         </p>
-         <p>
-          The initial integrations for the project are currently under heavy construction.
-It’s advised to conduct some of your own testing with small amounts of capital before
-running strategies which are able to access larger capital allocations.
-         </p>
-        </div>
         <table>
          <thead>
           <tr class="row-odd">
@@ -796,7 +795,7 @@ running strategies which are able to access larger capital allocations.
            </td>
            <td class="text-left">
             <p>
-             <img alt="status" src="https://img.shields.io/badge/beta-yellow"/>
+             <img alt="status" src="https://img.shields.io/badge/stable-green"/>
             </p>
            </td>
            <td class="text-left">
@@ -963,7 +962,7 @@ running strategies which are able to access larger capital allocations.
            </td>
            <td class="text-left">
             <p>
-             Data provider
+             Data Provider
             </p>
            </td>
            <td class="text-left">
@@ -1016,6 +1015,68 @@ running strategies which are able to access larger capital allocations.
           </tr>
          </tbody>
         </table>
+        <ul class="simple">
+         <li>
+          <p>
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             ID:
+            </span>
+           </code>
+           The default client ID for the integrations adapter clients
+          </p>
+         </li>
+         <li>
+          <p>
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             Type:
+            </span>
+           </code>
+           The type of integration (often the venue type)
+          </p>
+         </li>
+        </ul>
+        <section id="status">
+         <h2 id="status">
+          Status
+          <a class="headerlink" href="#status" title="Permalink to this heading">
+           ¶
+          </a>
+         </h2>
+         <ul class="simple">
+          <li>
+           <p>
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              building
+             </span>
+            </code>
+            - Under construction and likely not in a usable state
+           </p>
+          </li>
+          <li>
+           <p>
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              beta
+             </span>
+            </code>
+            - Completed to a minimally working state and in a ‘beta’ testing phase
+           </p>
+          </li>
+          <li>
+           <p>
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              stable
+             </span>
+            </code>
+            - Stabilized feature set and API, the integration has been tested by both developers and users to a reasonable level (some bugs may still remain)
+           </p>
+          </li>
+         </ul>
+        </section>
         <section id="implementation-goals">
          <h2 id="implementation-goals">
           Implementation goals

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/instruments/synthetic.rs`."><title>synthetic.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (f4b771bf1 2024-03-14)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/instruments/synthetic.rs`."><title>synthetic.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (0ad927c0c 2024-03-21)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../nautilus_model/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -231,7 +231,6 @@
 <a href="#229" id="229">229</a>
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -252,7 +251,6 @@
     hash::{Hash, Hasher},
 };
 
-<span class="kw">use </span>anyhow::{anyhow, <span class="prelude-ty">Result</span>};
 <span class="kw">use </span>evalexpr::{ContextWithMutableVariables, HashMapContext, Node, Value};
 <span class="kw">use </span>nautilus_core::time::UnixNanos;
 
@@ -289,7 +287,7 @@
         formula: String,
         ts_event: UnixNanos,
         ts_init: UnixNanos,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, anyhow::Error&gt; {
+    ) -&gt; anyhow::Result&lt;<span class="self">Self</span>&gt; {
         <span class="kw">let </span>price_increment = Price::new(<span class="number">10f64</span>.powi(-i32::from(price_precision)), price_precision)<span class="question-mark">?</span>;
 
         <span class="comment">// Extract variables from the component instruments
@@ -319,7 +317,7 @@
         evalexpr::build_operator_tree(formula).is_ok()
     }
 
-    <span class="kw">pub fn </span>change_formula(<span class="kw-2">&amp;mut </span><span class="self">self</span>, formula: String) -&gt; <span class="prelude-ty">Result</span>&lt;(), anyhow::Error&gt; {
+    <span class="kw">pub fn </span>change_formula(<span class="kw-2">&amp;mut </span><span class="self">self</span>, formula: String) -&gt; anyhow::Result&lt;()&gt; {
         <span class="kw">let </span>operator_tree = evalexpr::build_operator_tree(<span class="kw-2">&amp;</span>formula)<span class="question-mark">?</span>;
         <span class="self">self</span>.formula = formula;
         <span class="self">self</span>.operator_tree = operator_tree;
@@ -329,7 +327,7 @@
     <span class="doccomment">/// Calculates the price of the synthetic instrument based on the given component input prices
     /// provided as a map.
     </span><span class="attr">#[allow(dead_code)]
-    </span><span class="kw">pub fn </span>calculate_from_map(<span class="kw-2">&amp;mut </span><span class="self">self</span>, inputs: <span class="kw-2">&amp;</span>HashMap&lt;String, f64&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Price&gt; {
+    </span><span class="kw">pub fn </span>calculate_from_map(<span class="kw-2">&amp;mut </span><span class="self">self</span>, inputs: <span class="kw-2">&amp;</span>HashMap&lt;String, f64&gt;) -&gt; anyhow::Result&lt;Price&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>input_values = Vec::new();
 
         <span class="kw">for </span>variable <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.variables {
@@ -347,9 +345,9 @@
 
     <span class="doccomment">/// Calculates the price of the synthetic instrument based on the given component input prices
     /// provided as an array of `f64` values.
-    </span><span class="kw">pub fn </span>calculate(<span class="kw-2">&amp;mut </span><span class="self">self</span>, inputs: <span class="kw-2">&amp;</span>[f64]) -&gt; <span class="prelude-ty">Result</span>&lt;Price&gt; {
+    </span><span class="kw">pub fn </span>calculate(<span class="kw-2">&amp;mut </span><span class="self">self</span>, inputs: <span class="kw-2">&amp;</span>[f64]) -&gt; anyhow::Result&lt;Price&gt; {
         <span class="kw">if </span>inputs.len() != <span class="self">self</span>.variables.len() {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(<span class="string">"Invalid number of input values"</span>));
+            <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">"Invalid number of input values"</span>));
         }
 
         <span class="kw">for </span>(variable, input) <span class="kw">in </span><span class="self">self</span>.variables.iter().zip(inputs) {
@@ -361,7 +359,7 @@
 
         <span class="kw">match </span>result {
             Value::Float(price) =&gt; Price::new(price, <span class="self">self</span>.price_precision),
-            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
                 <span class="string">"Failed to evaluate formula to a floating point number"
             </span>)),
         }

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["book_mbo","book_mbp","level"]};

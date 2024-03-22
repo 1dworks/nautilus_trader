@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["convert_instrument_to_pyobject"]};

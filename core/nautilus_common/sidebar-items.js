@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["clock","enums","factories","ffi","generators","handlers","logging","msgbus","python","redis","runtime","stubs","testing","timer"]};
+window.SIDEBAR_ITEMS = {"mod":["cache","clock","enums","factories","ffi","generators","handlers","logging","msgbus","python","redis","runtime","stubs","testing","timer"]};

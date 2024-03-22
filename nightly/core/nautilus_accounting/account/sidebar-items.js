@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["base","cash","margin"],"trait":["Account"]};

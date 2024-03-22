@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["book","container","level"]};

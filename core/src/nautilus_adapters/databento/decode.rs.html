@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `adapters/src/databento/decode.rs`."><title>decode.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_adapters" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (f4b771bf1 2024-03-14)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `adapters/src/databento/decode.rs`."><title>decode.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_adapters" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (0ad927c0c 2024-03-21)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../nautilus_adapters/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -963,6 +963,24 @@
 <a href="#961" id="961">961</a>
 <a href="#962" id="962">962</a>
 <a href="#963" id="963">963</a>
+<a href="#964" id="964">964</a>
+<a href="#965" id="965">965</a>
+<a href="#966" id="966">966</a>
+<a href="#967" id="967">967</a>
+<a href="#968" id="968">968</a>
+<a href="#969" id="969">969</a>
+<a href="#970" id="970">970</a>
+<a href="#971" id="971">971</a>
+<a href="#972" id="972">972</a>
+<a href="#973" id="973">973</a>
+<a href="#974" id="974">974</a>
+<a href="#975" id="975">975</a>
+<a href="#976" id="976">976</a>
+<a href="#977" id="977">977</a>
+<a href="#978" id="978">978</a>
+<a href="#979" id="979">979</a>
+<a href="#980" id="980">980</a>
+<a href="#981" id="981">981</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -985,7 +1003,7 @@
     str::FromStr,
 };
 
-<span class="kw">use </span>anyhow::{anyhow, bail, <span class="prelude-ty">Result</span>};
+<span class="kw">use </span>databento::dbn;
 <span class="kw">use </span>nautilus_core::{datetime::NANOSECONDS_IN_SECOND, time::UnixNanos};
 <span class="kw">use </span>nautilus_model::{
     data::{
@@ -1059,29 +1077,31 @@
     }
 }
 
-<span class="kw">pub fn </span>parse_book_action(c: c_char) -&gt; <span class="prelude-ty">Result</span>&lt;BookAction&gt; {
+<span class="kw">pub fn </span>parse_book_action(c: c_char) -&gt; anyhow::Result&lt;BookAction&gt; {
     <span class="kw">match </span>c <span class="kw">as </span>u8 <span class="kw">as </span>char {
         <span class="string">'A' </span>=&gt; <span class="prelude-val">Ok</span>(BookAction::Add),
         <span class="string">'C' </span>=&gt; <span class="prelude-val">Ok</span>(BookAction::Delete),
         <span class="string">'F' </span>=&gt; <span class="prelude-val">Ok</span>(BookAction::Update),
         <span class="string">'M' </span>=&gt; <span class="prelude-val">Ok</span>(BookAction::Update),
         <span class="string">'R' </span>=&gt; <span class="prelude-val">Ok</span>(BookAction::Clear),
-        <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(<span class="string">"Invalid `BookAction`, was '{c}'"</span>),
+        <span class="kw">_ </span>=&gt; <span class="macro">anyhow::bail!</span>(<span class="string">"Invalid `BookAction`, was '{c}'"</span>),
     }
 }
 
-<span class="kw">pub fn </span>parse_option_kind(c: c_char) -&gt; <span class="prelude-ty">Result</span>&lt;OptionKind&gt; {
+<span class="kw">pub fn </span>parse_option_kind(c: c_char) -&gt; anyhow::Result&lt;OptionKind&gt; {
     <span class="kw">match </span>c <span class="kw">as </span>u8 <span class="kw">as </span>char {
         <span class="string">'C' </span>=&gt; <span class="prelude-val">Ok</span>(OptionKind::Call),
         <span class="string">'P' </span>=&gt; <span class="prelude-val">Ok</span>(OptionKind::Put),
-        <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(<span class="string">"Invalid `OptionKind`, was '{c}'"</span>),
+        <span class="kw">_ </span>=&gt; <span class="macro">anyhow::bail!</span>(<span class="string">"Invalid `OptionKind`, was '{c}'"</span>),
     }
 }
 
-<span class="kw">pub fn </span>parse_cfi_iso10926(value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="prelude-ty">Option</span>&lt;AssetClass&gt;, <span class="prelude-ty">Option</span>&lt;InstrumentClass&gt;)&gt; {
+<span class="kw">pub fn </span>parse_cfi_iso10926(
+    value: <span class="kw-2">&amp;</span>str,
+) -&gt; anyhow::Result&lt;(<span class="prelude-ty">Option</span>&lt;AssetClass&gt;, <span class="prelude-ty">Option</span>&lt;InstrumentClass&gt;)&gt; {
     <span class="kw">let </span>chars: Vec&lt;char&gt; = value.chars().collect();
     <span class="kw">if </span>chars.len() &lt; <span class="number">3 </span>{
-        <span class="macro">bail!</span>(<span class="string">"Value string is too short"</span>);
+        <span class="macro">anyhow::bail!</span>(<span class="string">"Value string is too short"</span>);
     }
 
     <span class="kw">let </span>cfi_category = chars[<span class="number">0</span>];
@@ -1110,21 +1130,21 @@
     <span class="prelude-val">Ok</span>((asset_class, instrument_class))
 }
 
-<span class="kw">pub fn </span>decode_price(value: i64, precision: u8) -&gt; <span class="prelude-ty">Result</span>&lt;Price&gt; {
+<span class="kw">pub fn </span>decode_price(value: i64, precision: u8) -&gt; anyhow::Result&lt;Price&gt; {
     <span class="kw">match </span>value {
         <span class="number">0 </span>| i64::MAX =&gt; Price::new(<span class="number">10f64</span>.powi(-i32::from(precision)), precision),
         <span class="kw">_ </span>=&gt; Price::from_raw(value, precision),
     }
 }
 
-<span class="kw">pub fn </span>decode_optional_price(value: i64, precision: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Price&gt;&gt; {
+<span class="kw">pub fn </span>decode_optional_price(value: i64, precision: u8) -&gt; anyhow::Result&lt;<span class="prelude-ty">Option</span>&lt;Price&gt;&gt; {
     <span class="kw">match </span>value {
         i64::MAX =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(Price::from_raw(value, precision)<span class="question-mark">?</span>)),
     }
 }
 
-<span class="kw">pub fn </span>decode_optional_quantity_i32(value: i32) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Quantity&gt;&gt; {
+<span class="kw">pub fn </span>decode_optional_quantity_i32(value: i32) -&gt; anyhow::Result&lt;<span class="prelude-ty">Option</span>&lt;Quantity&gt;&gt; {
     <span class="kw">match </span>value {
         i32::MAX =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(Quantity::new(f64::from(value), <span class="number">0</span>)<span class="question-mark">?</span>)),
@@ -1134,18 +1154,18 @@
 <span class="doccomment">/// # Safety
 ///
 /// - Assumes `ptr` is a valid C string pointer.
-</span><span class="kw">pub unsafe fn </span>raw_ptr_to_string(ptr: <span class="kw-2">*const </span>c_char) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+</span><span class="kw">pub unsafe fn </span>raw_ptr_to_string(ptr: <span class="kw-2">*const </span>c_char) -&gt; anyhow::Result&lt;String&gt; {
     <span class="kw">let </span>c_str: <span class="kw-2">&amp;</span>CStr = <span class="kw">unsafe </span>{ CStr::from_ptr(ptr) };
-    <span class="kw">let </span>str_slice: <span class="kw-2">&amp;</span>str = c_str.to_str().map_err(|e| <span class="macro">anyhow!</span>(e))<span class="question-mark">?</span>;
+    <span class="kw">let </span>str_slice: <span class="kw-2">&amp;</span>str = c_str.to_str().map_err(|e| <span class="macro">anyhow::anyhow!</span>(e))<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(str_slice.to_owned())
 }
 
 <span class="doccomment">/// # Safety
 ///
 /// - Assumes `ptr` is a valid C string pointer.
-</span><span class="kw">pub unsafe fn </span>raw_ptr_to_ustr(ptr: <span class="kw-2">*const </span>c_char) -&gt; <span class="prelude-ty">Result</span>&lt;Ustr&gt; {
+</span><span class="kw">pub unsafe fn </span>raw_ptr_to_ustr(ptr: <span class="kw-2">*const </span>c_char) -&gt; anyhow::Result&lt;Ustr&gt; {
     <span class="kw">let </span>c_str: <span class="kw-2">&amp;</span>CStr = <span class="kw">unsafe </span>{ CStr::from_ptr(ptr) };
-    <span class="kw">let </span>str_slice: <span class="kw-2">&amp;</span>str = c_str.to_str().map_err(|e| <span class="macro">anyhow!</span>(e))<span class="question-mark">?</span>;
+    <span class="kw">let </span>str_slice: <span class="kw-2">&amp;</span>str = c_str.to_str().map_err(|e| <span class="macro">anyhow::anyhow!</span>(e))<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(Ustr::from(str_slice))
 }
 
@@ -1205,6 +1225,8 @@
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span>msg.ts_recv,            <span class="comment">// More accurate and reliable timestamp
         </span>ts_init,
     )
@@ -1236,6 +1258,8 @@
         decode_price(msg.min_price_increment, currency.precision)<span class="question-mark">?</span>,
         Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
         </span>Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
@@ -1282,7 +1306,9 @@
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
-        </span>msg.ts_recv,            <span class="comment">// More accurate and reliable timestamp
+        </span><span class="prelude-val">None</span>,
+        <span class="prelude-val">None</span>,
+        msg.ts_recv, <span class="comment">// More accurate and reliable timestamp
         </span>ts_init,
     )
 }
@@ -1320,6 +1346,8 @@
         decode_price(msg.min_price_increment, currency.precision)<span class="question-mark">?</span>,
         Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
         </span>Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
@@ -1506,7 +1534,7 @@
             <span class="comment">// ohlcv-1d
             </span>BarType::new(instrument_id, BAR_SPEC_1D, AggregationSource::External)
         }
-        <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(
+        <span class="kw">_ </span>=&gt; <span class="macro">anyhow::bail!</span>(
             <span class="string">"`rtype` is not a supported bar aggregation, was {}"</span>,
             msg.hd.rtype
         ),
@@ -1533,7 +1561,7 @@
             <span class="comment">// ohlcv-1d
             </span>BAR_CLOSE_ADJUSTMENT_1D
         }
-        <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(
+        <span class="kw">_ </span>=&gt; <span class="macro">anyhow::bail!</span>(
             <span class="string">"`rtype` is not a supported bar aggregation, was {}"</span>,
             msg.hd.rtype
         ),
@@ -1583,7 +1611,7 @@
             (<span class="prelude-val">Some</span>(delta), <span class="prelude-val">None</span>) =&gt; (<span class="prelude-val">Some</span>(Data::Delta(delta)), <span class="prelude-val">None</span>),
             (<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(trade)) =&gt; (<span class="prelude-val">Some</span>(Data::Trade(trade)), <span class="prelude-val">None</span>),
             (<span class="prelude-val">None</span>, <span class="prelude-val">None</span>) =&gt; (<span class="prelude-val">None</span>, <span class="prelude-val">None</span>),
-            <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(<span class="string">"Invalid `MboMsg` parsing combination"</span>),
+            <span class="kw">_ </span>=&gt; <span class="macro">anyhow::bail!</span>(<span class="string">"Invalid `MboMsg` parsing combination"</span>),
         }
     } <span class="kw">else if let </span><span class="prelude-val">Some</span>(msg) = record.get::&lt;dbn::TradeMsg&gt;() {
         <span class="kw">let </span>ts_init = determine_timestamp(ts_init, msg.ts_recv);
@@ -1605,7 +1633,7 @@
         <span class="kw">let </span>bar = decode_ohlcv_msg(msg, instrument_id, price_precision, ts_init)<span class="question-mark">?</span>;
         (<span class="prelude-val">Some</span>(Data::Bar(bar)), <span class="prelude-val">None</span>)
     } <span class="kw">else </span>{
-        <span class="macro">bail!</span>(<span class="string">"DBN message type is not currently supported"</span>)
+        <span class="macro">anyhow::bail!</span>(<span class="string">"DBN message type is not currently supported"</span>)
     };
 
     <span class="prelude-val">Ok</span>(result)
@@ -1649,9 +1677,9 @@
             instrument_id,
             ts_init,
         )<span class="question-mark">?</span>)),
-        <span class="string">'B' </span>=&gt; <span class="macro">bail!</span>(<span class="string">"Unsupported `instrument_class` 'B' (BOND)"</span>),
-        <span class="string">'X' </span>=&gt; <span class="macro">bail!</span>(<span class="string">"Unsupported `instrument_class` 'X' (FX_SPOT)"</span>),
-        <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(
+        <span class="string">'B' </span>=&gt; <span class="macro">anyhow::bail!</span>(<span class="string">"Unsupported `instrument_class` 'B' (Bond)"</span>),
+        <span class="string">'X' </span>=&gt; <span class="macro">anyhow::bail!</span>(<span class="string">"Unsupported `instrument_class` 'X' (FX spot)"</span>),
+        <span class="kw">_ </span>=&gt; <span class="macro">anyhow::bail!</span>(
             <span class="string">"Unsupported `instrument_class` '{}'"</span>,
             msg.instrument_class <span class="kw">as </span>u8 <span class="kw">as </span>char
         ),
@@ -1689,9 +1717,9 @@
             instrument_id,
             ts_init,
         )<span class="question-mark">?</span>)),
-        <span class="string">'B' </span>=&gt; <span class="macro">bail!</span>(<span class="string">"Unsupported `instrument_class` 'B' (BOND)"</span>),
-        <span class="string">'X' </span>=&gt; <span class="macro">bail!</span>(<span class="string">"Unsupported `instrument_class` 'X' (FX_SPOT)"</span>),
-        <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(
+        <span class="string">'B' </span>=&gt; <span class="macro">anyhow::bail!</span>(<span class="string">"Unsupported `instrument_class` 'B' (Bond)"</span>),
+        <span class="string">'X' </span>=&gt; <span class="macro">anyhow::bail!</span>(<span class="string">"Unsupported `instrument_class` 'X' (FX spot)"</span>),
+        <span class="kw">_ </span>=&gt; <span class="macro">anyhow::bail!</span>(
             <span class="string">"Unsupported `instrument_class` '{}'"</span>,
             msg.instrument_class <span class="kw">as </span>u8 <span class="kw">as </span>char
         ),
@@ -1750,11 +1778,13 @@
         decode_price(msg.min_price_increment, currency.precision)<span class="question-mark">?</span>,
         Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
         </span>Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
-        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
-        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
-        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
-        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
-        </span>msg.ts_recv,            <span class="comment">// More accurate and reliable timestamp
+        </span><span class="prelude-val">None</span>,
+        <span class="prelude-val">None</span>,        <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,        <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,        <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,        <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,        <span class="comment">// TBD
+        </span>msg.ts_recv, <span class="comment">// More accurate and reliable timestamp
         </span>ts_init,
     )
 }
@@ -1785,6 +1815,8 @@
         decode_price(msg.min_price_increment, currency.precision)<span class="question-mark">?</span>,
         Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
         </span>Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
@@ -1831,6 +1863,8 @@
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span>msg.ts_recv,            <span class="comment">// More accurate and reliable timestamp
         </span>ts_init,
     )
@@ -1869,6 +1903,8 @@
         decode_price(msg.min_price_increment, currency.precision)<span class="question-mark">?</span>,
         Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
         </span>Quantity::new(<span class="number">1.0</span>, <span class="number">0</span>)<span class="question-mark">?</span>, <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
+        </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD
         </span><span class="prelude-val">None</span>,                   <span class="comment">// TBD

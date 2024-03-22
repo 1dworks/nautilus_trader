@@ -782,7 +782,7 @@
         </h1>
         <p>
          Interactive Brokers (IB) is a trading platform that allows trading across a wide range of financial instruments, including stocks, options, futures, currencies, bonds, funds, and cryptocurrencies. NautilusTrader offers an adapter to integrate with IB using their
-         <a class="reference external" href="https://interactivebrokers.github.io/tws-api/index.html">
+         <a class="reference external" href="https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/">
           Trader Workstation (TWS) API
          </a>
          through their Python library,
@@ -793,7 +793,7 @@
         </p>
         <p>
          The TWS API serves as an interface to IB’s standalone trading applications: TWS and IB Gateway. Both can be downloaded from the IB website. If you haven’t installed TWS or IB Gateway yet, refer to the
-         <a class="reference external" href="https://interactivebrokers.github.io/tws-api/initial_setup.html">
+         <a class="reference external" href="https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#tws-download">
           Initial Setup
          </a>
          guide. In NautilusTrader, you’ll establish a connection to one of these applications via the
@@ -809,7 +809,7 @@
          <a class="reference external" href="https://github.com/gnzsnz/ib-gateway-docker">
           dockerized version
          </a>
-         of the IB Gateway, particularly useful when deploying trading strategies on a hosted cloud platform. This requires having
+         of the IB Gateway, which is particularly useful when deploying trading strategies on a hosted cloud platform. This requires having
          <a class="reference external" href="https://www.docker.com/">
           Docker
          </a>
@@ -824,7 +824,7 @@
           Note
          </p>
          <p>
-          The standalone TWS and IB Gateway applications necessitate manual input of username, password, and trading mode (live or paper) at startup. The dockerized version of the IB Gateway handles these steps programmatically.
+          The standalone TWS and IB Gateway applications require manually inputting username, password, and trading mode (live or paper) at startup. The dockerized version of the IB Gateway handles these steps programmatically.
          </p>
         </div>
         <section id="installation">
@@ -1149,15 +1149,15 @@
            </span>
           </code>
           is equivalent to a
-          <a class="reference external" href="https://interactivebrokers.github.io/tws-api/contracts.html">
+          <a class="reference external" href="https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#contracts">
            Contract
           </a>
           . Contracts can be either a
-          <a class="reference external" href="https://interactivebrokers.github.io/tws-api/classIBApi_1_1Contract.html">
+          <a class="reference external" href="https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#contract-object">
            basic contract
           </a>
           or a more
-          <a class="reference external" href="https://interactivebrokers.github.io/tws-api/classIBApi_1_1ContractDetails.html">
+          <a class="reference external" href="https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#contract-details">
            detailed
           </a>
           version (ContractDetails). The adapter models these using
@@ -1397,7 +1397,7 @@
             </span>
            </code>
            interfaces with IB for streaming and retrieving market data. Upon connection, it configures the
-           <a class="reference external" href="https://interactivebrokers.github.io/tws-api/market_data_type.html">
+           <a class="reference external" href="https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#delayed-market-data">
             market data type
            </a>
            and loads instruments based on the settings in

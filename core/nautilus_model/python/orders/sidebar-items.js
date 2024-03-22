@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["market"]};
+window.SIDEBAR_ITEMS = {"mod":["limit","market"]};

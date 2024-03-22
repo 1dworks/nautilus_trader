@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["ComponentState","ComponentTrigger","LogColor","LogFormat","LogLevel"],"struct":["ComponentStateIter","ComponentTriggerIter","LogColorIter","LogLevelIter"]};

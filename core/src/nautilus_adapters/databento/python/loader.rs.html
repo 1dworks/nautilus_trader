@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `adapters/src/databento/python/loader.rs`."><title>loader.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="nautilus_adapters" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (f4b771bf1 2024-03-14)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `adapters/src/databento/python/loader.rs`."><title>loader.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="nautilus_adapters" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (0ad927c0c 2024-03-21)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../../nautilus_adapters/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -421,6 +421,26 @@
 <a href="#419" id="419">419</a>
 <a href="#420" id="420">420</a>
 <a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -438,6 +458,7 @@
 
 </span><span class="kw">use </span>std::{collections::HashMap, path::PathBuf};
 
+<span class="kw">use </span>databento::dbn;
 <span class="kw">use </span>nautilus_core::{ffi::cvec::CVec, python::to_pyvalue_err};
 <span class="kw">use </span>nautilus_model::{
     data::{
@@ -465,9 +486,9 @@
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_publishers"</span>)]
-    </span><span class="kw">fn </span>py_load_publishers(<span class="kw-2">&amp;mut </span><span class="self">self</span>, path: String) -&gt; anyhow::Result&lt;()&gt; {
+    </span><span class="kw">fn </span>py_load_publishers(<span class="kw-2">&amp;mut </span><span class="self">self</span>, path: String) -&gt; PyResult&lt;()&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="self">self</span>.load_publishers(path_buf)
+        <span class="self">self</span>.load_publishers(path_buf).map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[must_use]
@@ -494,14 +515,17 @@
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"schema_for_file"</span>)]
-    </span><span class="kw">fn </span>py_schema_for_file(<span class="kw-2">&amp;</span><span class="self">self</span>, path: String) -&gt; anyhow::Result&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt; {
+    </span><span class="kw">fn </span>py_schema_for_file(<span class="kw-2">&amp;</span><span class="self">self</span>, path: String) -&gt; PyResult&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt; {
         <span class="self">self</span>.schema_from_file(PathBuf::from(path))
+            .map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_instruments"</span>)]
-    </span><span class="kw">fn </span>py_load_instruments(<span class="kw-2">&amp;mut </span><span class="self">self</span>, py: Python, path: String) -&gt; anyhow::Result&lt;PyObject&gt; {
+    </span><span class="kw">fn </span>py_load_instruments(<span class="kw-2">&amp;mut </span><span class="self">self</span>, py: Python, path: String) -&gt; PyResult&lt;PyObject&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_definition_records(path_buf)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_definition_records(path_buf)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
@@ -525,9 +549,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;OrderBookDelta&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;OrderBookDelta&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::MboMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::MboMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
@@ -538,7 +564,7 @@
                     }
                 }
                 <span class="prelude-val">Ok</span>((<span class="prelude-val">None</span>, <span class="kw">_</span>)) =&gt; <span class="kw">continue</span>,
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
@@ -552,15 +578,13 @@
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
         include_trades: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    ) -&gt; anyhow::Result&lt;PyObject&gt; {
+    ) -&gt; PyResult&lt;PyObject&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::MboMsg&gt;(
-            path_buf,
-            instrument_id,
-            include_trades.unwrap_or(<span class="bool-val">false</span>),
-        )<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::MboMsg&gt;(path_buf, instrument_id, include_trades.unwrap_or(<span class="bool-val">false</span>))
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
-        exhaust_data_iter_to_pycapsule(py, iter)
+        exhaust_data_iter_to_pycapsule(py, iter).map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_order_book_depth10"</span>)]
@@ -568,9 +592,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;OrderBookDepth10&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;OrderBookDepth10&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::Mbp10Msg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::Mbp10Msg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
@@ -581,7 +607,7 @@
                     }
                 }
                 <span class="prelude-val">Ok</span>((<span class="prelude-val">None</span>, <span class="kw">_</span>)) =&gt; <span class="kw">continue</span>,
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
@@ -594,11 +620,13 @@
         py: Python,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;PyObject&gt; {
+    ) -&gt; PyResult&lt;PyObject&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::Mbp10Msg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::Mbp10Msg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
-        exhaust_data_iter_to_pycapsule(py, iter)
+        exhaust_data_iter_to_pycapsule(py, iter).map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_quotes"</span>)]
@@ -607,13 +635,11 @@
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
         include_trades: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;QuoteTick&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;QuoteTick&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::Mbp1Msg&gt;(
-            path_buf,
-            instrument_id,
-            include_trades.unwrap_or(<span class="bool-val">false</span>),
-        )<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::Mbp1Msg&gt;(path_buf, instrument_id, include_trades.unwrap_or(<span class="bool-val">false</span>))
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
@@ -624,7 +650,7 @@
                     }
                 }
                 <span class="prelude-val">Ok</span>((<span class="prelude-val">None</span>, <span class="kw">_</span>)) =&gt; <span class="kw">continue</span>,
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
@@ -638,15 +664,13 @@
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
         include_trades: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    ) -&gt; anyhow::Result&lt;PyObject&gt; {
+    ) -&gt; PyResult&lt;PyObject&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::Mbp1Msg&gt;(
-            path_buf,
-            instrument_id,
-            include_trades.unwrap_or(<span class="bool-val">false</span>),
-        )<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::Mbp1Msg&gt;(path_buf, instrument_id, include_trades.unwrap_or(<span class="bool-val">false</span>))
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
-        exhaust_data_iter_to_pycapsule(py, iter)
+        exhaust_data_iter_to_pycapsule(py, iter).map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_tbbo_trades"</span>)]
@@ -654,9 +678,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;TradeTick&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;TradeTick&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::TbboMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::TbboMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
@@ -666,7 +692,7 @@
                         data.push(trade);
                     }
                 }
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
@@ -679,11 +705,13 @@
         py: Python,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;PyObject&gt; {
+    ) -&gt; PyResult&lt;PyObject&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::TbboMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::TbboMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
-        exhaust_data_iter_to_pycapsule(py, iter)
+        exhaust_data_iter_to_pycapsule(py, iter).map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_trades"</span>)]
@@ -691,9 +719,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;TradeTick&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;TradeTick&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::TradeMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::TradeMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
@@ -704,7 +734,7 @@
                     }
                 }
                 <span class="prelude-val">Ok</span>((<span class="prelude-val">None</span>, <span class="kw">_</span>)) =&gt; <span class="kw">continue</span>,
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
@@ -717,11 +747,13 @@
         py: Python,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;PyObject&gt; {
+    ) -&gt; PyResult&lt;PyObject&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::TradeMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::TradeMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
-        exhaust_data_iter_to_pycapsule(py, iter)
+        exhaust_data_iter_to_pycapsule(py, iter).map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_bars"</span>)]
@@ -729,9 +761,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;Bar&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;Bar&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::OhlcvMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::OhlcvMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
@@ -742,7 +776,7 @@
                     }
                 }
                 <span class="prelude-val">Ok</span>((<span class="prelude-val">None</span>, <span class="kw">_</span>)) =&gt; <span class="kw">continue</span>,
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
@@ -755,11 +789,13 @@
         py: Python,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;PyObject&gt; {
+    ) -&gt; PyResult&lt;PyObject&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_records::&lt;dbn::OhlcvMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_records::&lt;dbn::OhlcvMsg&gt;(path_buf, instrument_id, <span class="bool-val">false</span>)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
-        exhaust_data_iter_to_pycapsule(py, iter)
+        exhaust_data_iter_to_pycapsule(py, iter).map_err(to_pyvalue_err)
     }
 
     <span class="attr">#[pyo3(name = <span class="string">"load_imbalance"</span>)]
@@ -767,15 +803,17 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;DatabentoImbalance&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;DatabentoImbalance&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_imbalance_records::&lt;dbn::ImbalanceMsg&gt;(path_buf, instrument_id)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_imbalance_records::&lt;dbn::ImbalanceMsg&gt;(path_buf, instrument_id)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
             <span class="kw">match </span>result {
                 <span class="prelude-val">Ok</span>(item) =&gt; data.push(item),
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
@@ -787,15 +825,17 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: String,
         instrument_id: <span class="prelude-ty">Option</span>&lt;InstrumentId&gt;,
-    ) -&gt; anyhow::Result&lt;Vec&lt;DatabentoStatistics&gt;&gt; {
+    ) -&gt; PyResult&lt;Vec&lt;DatabentoStatistics&gt;&gt; {
         <span class="kw">let </span>path_buf = PathBuf::from(path);
-        <span class="kw">let </span>iter = <span class="self">self</span>.read_statistics_records::&lt;dbn::StatMsg&gt;(path_buf, instrument_id)<span class="question-mark">?</span>;
+        <span class="kw">let </span>iter = <span class="self">self
+            </span>.read_statistics_records::&lt;dbn::StatMsg&gt;(path_buf, instrument_id)
+            .map_err(to_pyvalue_err)<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
         <span class="kw">for </span>result <span class="kw">in </span>iter {
             <span class="kw">match </span>result {
                 <span class="prelude-val">Ok</span>(item) =&gt; data.push(item),
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(to_pyvalue_err(e)),
             }
         }
 
