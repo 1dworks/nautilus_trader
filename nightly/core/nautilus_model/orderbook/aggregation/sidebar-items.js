@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["book_update_ask","book_update_bid","book_update_quote_tick","book_update_top","book_update_trade_tick"]};

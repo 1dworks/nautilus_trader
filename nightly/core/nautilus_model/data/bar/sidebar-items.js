@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["stubs"],"struct":["Bar","BarSpecification","BarType","BarTypeParseError"]};

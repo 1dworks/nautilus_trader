@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"nautilus_network":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/convert/trait.Into.html\" title=\"trait core::convert::Into\">Into</a>&lt;<a class=\"struct\" href=\"https://docs.rs/http/0.2.11/http/method/struct.Method.html\" title=\"struct http::method::Method\">Method</a>&gt; for <a class=\"enum\" href=\"nautilus_network/http/enum.HttpMethod.html\" title=\"enum nautilus_network::http::HttpMethod\">HttpMethod</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["stub_delta"],"struct":["stub_delta"]};
