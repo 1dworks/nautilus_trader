@@ -51,12 +51,8 @@ class ContractChainConfig(NautilusConfig, frozen=True):
         The configuration for the rolls
     start_month : ContractMonth
         The starting month to roll to when started
-    skip_months: list[ContractMonth], optional
-        The months to skip in the hold cycle
-        
     """
 
     instrument_id: InstrumentId
     roll_config: RollConfig
     start_month: ContractMonth
-    skip_months: list[ContractMonth] | None = None

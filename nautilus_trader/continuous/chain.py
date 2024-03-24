@@ -29,7 +29,6 @@ class ContractChain:
         self._carry_offset = config.roll_config.carry_offset
         self._priced_cycle = config.roll_config.priced_cycle
         self._hold_cycle = config.roll_config.hold_cycle
-        self._skip_months = config.skip_months or []
         self._approximate_expiry_offset = config.roll_config.approximate_expiry_offset
         self._log = Logger(name=type(self).__name__)
         self._instrument_id = config.instrument_id
@@ -52,9 +51,6 @@ class ContractChain:
         
         to_month = to_month or self._hold_cycle.next_month(self.current_month)
         
-        while to_month in self._skip_months:
-            to_month = self._hold_cycle.next_month(current=to_month)
-            
         self.current_month = to_month
         self.previous_month = self._hold_cycle.previous_month(self.current_month)
         self.forward_month = self._hold_cycle.next_month(self.current_month)
