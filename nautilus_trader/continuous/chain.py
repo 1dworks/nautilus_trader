@@ -124,28 +124,28 @@ class ContractChain(Actor):
         forward_bar = self.cache.bar(self.forward_bar_type)
         if forward_bar is not None:
             self.msgbus.publish(
-                topic=f"{self.bar_type}+1",
+                topic=f"data.bars.{self.bar_type}+1",
                 msg=forward_bar,
             )
         
         carry_bar = self.cache.bar(self.carry_bar_type)
         if carry_bar is not None:
             self.msgbus.publish(
-                topic=f"{self.bar_type}c",
+                topic=f"data.bars.{self.bar_type}c",
                 msg=carry_bar,
             )
         
         previous_bar = self.cache.bar(self.previous_bar_type)
         if previous_bar is not None:
             self.msgbus.publish(
-                topic=f"{self.bar_type}-1",
+                topic=f"data.bars.{self.bar_type}-1",
                 msg=previous_bar,
             )
             
         current_bar = self.cache.bar(self.current_bar_type)
         if current_bar is not None:
             self.msgbus.publish(
-                topic=f"{self.bar_type}",
+                topic=f"data.bars.{self.bar_type}",
                 msg=current_bar,
             )
         
