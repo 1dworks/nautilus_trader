@@ -1,5 +1,6 @@
 import pandas as pd
 from dataclasses import dataclass
+from collections import deque
 
 from nautilus_trader.common.actor import Actor
 from nautilus_trader.common.component import TimeEvent
@@ -10,15 +11,25 @@ from nautilus_trader.model.data import Bar
 from nautilus_trader.model.data import BarType
 from nautilus_trader.model.identifiers import InstrumentId
 from nautilus_trader.continuous.bar import ContinuousBar
+from nautilus_trader.core.message import Event
+from nautilus_trader.core.uuid import UUID4
 
-@dataclass
-class RollEvent:
-    from_instrument_id: InstrumentId
-    to_instrument_id: InstrumentId
-
+class RollEvent(Event):
+    def __init__(
+        self,
+        ts_init: int,
+        from_instrument_id: InstrumentId,
+        to_instrument_id: InstrumentId,
+    ):
+        
+        self.id = UUID4()
+        self.from_instrument_id = from_instrument_id
+        self.to_instrument_id = to_instrument_id
+        self._ts_event = ts_init  # Timestamp identical to ts_init
+        self._ts_init = ts_init
+        
 class ContractExpired(Exception):
     pass
-
 
 class ContractChain(Actor):
     def __init__(
@@ -87,7 +98,7 @@ class ContractChain(Actor):
         self._attempt_roll()
         self._raise_expiry()
         self._publish()
-    
+        
     def roll(
         self,
         to_month: ContractMonth | None = None,
