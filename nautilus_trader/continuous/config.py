@@ -59,5 +59,5 @@ class ContractChainConfig(NautilusConfig, frozen=True):
 
     bar_type: BarType
     roll_config: RollConfig
-    start_month: ContractMonth | None = None
+    start_month: ContractMonth
     skip_months: list[ContractMonth] | None = None
