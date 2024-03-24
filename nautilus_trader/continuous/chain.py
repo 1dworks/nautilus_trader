@@ -75,7 +75,7 @@ class ContractChain(Actor):
         
     def on_start(self) -> None:
 
-        self._roll(to_month=self._start_month)
+        self.roll(to_month=self._start_month)
 
         interval = self.bar_type.spec.timedelta
         now = unix_nanos_to_dt(self.clock.timestamp_ns())
@@ -92,7 +92,38 @@ class ContractChain(Actor):
         self._attempt_roll()
         self._raise_expiry()
         self._publish()
-
+    
+    def roll(
+        self,
+        to_month: ContractMonth | None = None,
+    ) -> None:
+        """
+        Roll to specified `ContractMonth` in the chain.
+        Rolls to the next month in the hold cycle if no `ContractMonth` is passed.
+        """
+        
+        to_month = to_month or self._hold_cycle.next_month(self.current_month)
+        
+        while to_month in self._skip_months:
+            to_month = self._hold_cycle.next_month(current=to_month)
+            
+        self._update_attributes(to_month=to_month)
+        self._update_subscriptions()
+        
+        self._log.debug(
+            f"Rolled {self.previous_bar_type.instrument_id} > {self.current_bar_type.instrument_id}",
+        )
+        
+        event = RollEvent(
+            from_instrument_id=self.previous_bar_type,
+            to_instrument_id=self.current_bar_type,
+        )
+        
+        self.msgbus.publish(
+            topic=f"events.roll.{self.bar_type}",
+            msg=event,
+        )
+        
     def _publish(self) -> None:
         self._publish_forward_bar()
         self._publish_carry_bar()
@@ -223,30 +254,7 @@ class ContractChain(Actor):
         self.roll()
         self.rolls.loc[len(self.rolls)] = (current_timestamp, self.current_month)
 
-    def roll(self) -> None:
-        """
-        Roll to the next month in the chain.
-        """
-        to_month = self._hold_cycle.next_month(self.current_month)
-        self._roll(to_month=to_month)
-        self.msgbus.publish(
-            topic=f"events.roll.{self.bar_type}",
-            msg=RollEvent(
-                from_instrument_id=self.previous_bar_type,
-                to_instrument_id=self.current_bar_type,
-            ),
-        )
-
-    def _roll(self, to_month: ContractMonth) -> None:
-        
-        while to_month in self._skip_months:
-            to_month = self._hold_cycle.next_month(current=to_month)
-            
-        self._update_attributes(to_month=to_month)
-        self._update_subscriptions()
-        self._log.debug(
-            f"Rolled {self.previous_bar_type.instrument_id} > {self.current_bar_type.instrument_id}",
-        )
+    
 
     def _update_subscriptions(self) -> None:
         """
