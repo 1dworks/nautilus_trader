@@ -4,17 +4,26 @@ from nautilus_trader.cache.cache import Cache
 from nautilus_trader.common.component import MessageBus
 from nautilus_trader.common.component import TestClock
 from nautilus_trader.common.component import TimeEvent
-from nautilus_trader.continuous.chain import ContractChain
+from nautilus_trader.continuous.data import ContinuousData
+from nautilus_trader.model.objects import Money
 from nautilus_trader.continuous.config import ContractChainConfig
+from nautilus_trader.backtest.engine import BacktestEngine
+from nautilus_trader.backtest.engine import BacktestEngineConfig
 from nautilus_trader.continuous.contract_month import ContractMonth
 from nautilus_trader.core.datetime import dt_to_unix_nanos
+from nautilus_trader.model.enums import AccountType
+from nautilus_trader.model.enums import OmsType
+from nautilus_trader.model.currencies import USD
 from nautilus_trader.core.uuid import UUID4
+from nautilus_trader.config import LoggingConfig
 from nautilus_trader.data.engine import DataEngine
+from nautilus_trader.tests.test_kit.providers import TestInstrumentProvider
 from nautilus_trader.model.data import Bar
 from nautilus_trader.portfolio.portfolio import Portfolio
 from nautilus_trader.test_kit.stubs.identifiers import TestIdStubs
 from nautilus_trader.continuous.bar import ContinuousBar
 from nautilus_trader.core.correctness import PyCondition
+from nautilus_trader.model.instruments import FuturesContract
 
 class ContinuousBarWrangler:
     """
@@ -32,94 +41,104 @@ class ContinuousBarWrangler:
         PyCondition.type(config, ContractChainConfig, "config")
         PyCondition.type(end_month, ContractMonth, "end_month")
 
-        self._clock = TestClock()
-
-        self._msgbus = MessageBus(
-            trader_id=TestIdStubs.trader_id(),
-            clock=self._clock,
-        )
-
-        self._cache = Cache()
-
-        portfolio = Portfolio(
-            self._msgbus,
-            self._cache,
-            self._clock,
-        )
         self._chain_config = config
-        self._chain = ContractChain(config=self._chain_config)
-
-        self._chain.register_base(
-            portfolio=portfolio,
-            msgbus=self._msgbus,
-            cache=self._cache,
-            clock=self._clock,
-        )
-
-        self._data_engine = DataEngine(
-            msgbus=self._msgbus,
-            cache=self._cache,
-            clock=self._clock,
-        )
-
-        self._data_engine.start()
-
         self._end_month = end_month
 
         self._start_month = self._chain_config.start_month
-        assert self._start_month is not None
         assert self._end_month > self._start_month
 
         self._roll_config = self._chain_config.roll_config
-        self._expiry_offset = self._roll_config.approximate_expiry_offset
+        self._approximate_expiry_offset = self._roll_config.approximate_expiry_offset
         self._roll_offset = self._roll_config.roll_offset
-
+        
+        self._priced_cycle = self._chain_config.roll_config.priced_cycle
+        self._carry_offset = self._chain_config.roll_config.carry_offset
+        
+        self._hold_cycle = self._chain_config.roll_config.hold_cycle
+        self._hold_months = self._hold_cycle.get_months(self._start_month, self._end_month)
+        
     def process(
         self,
         bars: list[Bar],
-    ) -> list[ContinuousBar]:
+    ) -> list[Bar]:
 
         bars = sorted(bars, key=lambda x: x.ts_init)
-
         self.validate(bars)
-
-        self._clock.set_time(bars[0].ts_init)
-
-        self._chain.start()
-
-        results: dict[str, list[Bar]] = {}
-
+        
+        config = BacktestEngineConfig(
+            logging=LoggingConfig(bypass_logging=True),
+            run_analysis=False,
+        )
+        engine = BacktestEngine(config=config)
+        
+        engine.add_data(bars, validate=False)
+        
+        venue = bars[0].bar_type.instrument_id.venue
+        engine.add_venue(
+            venue=venue,
+            oms_type=OmsType.HEDGING,
+            account_type=AccountType.MARGIN,
+            base_currency=USD,
+            starting_balances=[Money(1_000_000, USD)],
+        )
+        chain = ContinuousData(config=self._chain_config)
+        
         results = []
-        self._msgbus.subscribe(
-            topic=f"{self._chain.bar_type}",
+        engine.kernel.msgbus.subscribe(
+            topic=f"data.bars.{chain.bar_type}",
             handler=results.append,
         )
-
-        previous_timestamp = None
-
-        for bar in bars:
-
-            is_next = previous_timestamp is not None and bar.ts_init > previous_timestamp
-            if is_next:
-                self._chain.handle_time_event(
-                    TimeEvent(
-                        name=f"chain_{self._chain.bar_type}",
-                        event_id=UUID4(),
-                        ts_event=0,
-                        ts_init=0,
-                    ),
-                )
-                if self._chain.current_month == self._end_month:
-                    break
+        
+        engine.add_actor(chain)
+        
+        symbol = bars[0].bar_type.instrument_id.symbol.value
+        contracts = TestInstrumentProvider.future(
+            symbol=symbol,
+            venue=venue.value,
+        )
+        engine.add_instruments(contracts)
+        engine.run()
+        
+        engine.dispose()
+        
+    def contracts(self, base: FuturesContract) -> list[FuturesContract]:
+        
+        chain = ContinuousData(config=self._chain_config)
+        
+        months = self._hold_months
+        for month in self._hold_months:
+            if self._carry_offset == 1:
+                carry_month = self._priced_cycle.next_month(month)
+            elif self._carry_offset == -1:
+                carry_month = self._priced_cycle.previous_month(month)
+            months.add(carry_month)
             
-            self._cache.add_bar(bar)
+        contracts = set()
+        for month in months:
             
-            self._data_engine.process(bar)
+            approximate_expiry_date = month.approximate_expiry_date(self._approximate_expiry_offset)
+            instrument_id = chain.format_instrument_id(month)
+            
+            futures_contract = FuturesContract(
+                instrument_id=instrument_id,
+                raw_symbol=base.raw_symbol,
+                asset_class=base.asset_class,
+                currency=base.quote_currency,
+                price_precision=base.price_precision,
+                price_increment=base.price_increment,
+                multiplier=base.multiplier,
+                lot_size=base.lot_size,
+                underlying=base.underlying,
+                activation_ns=0,
+                expiration_ns=dt_to_unix_nanos(approximate_expiry_date),
+                ts_event=0,
+                ts_init=0,
+            )
 
-            previous_timestamp = bar.ts_init
-
-        return results
-
+            contracts.add(futures_contract)
+            
+        return contracts
+        
     def validate(self, bars: list[Bar]) -> None:
         """
         Validate the contract bars for a successful roll from the start to end month.
@@ -138,32 +157,29 @@ class ContinuousBarWrangler:
             raise ValueError(
                 f"Symbol {symbol} has incorrect format. The format should is <symbol>=<month>",
             )
-
+    
         timestamps_by_month = {}
         for bar in bars:
             month = bar.bar_type.instrument_id.symbol.value.split("=")[-1]
             if timestamps_by_month.get(month) is None:
                 timestamps_by_month[month] = set()
             timestamps_by_month[month].add(bar.ts_init)
-
-        hold_cycle = self._chain_config.roll_config.hold_cycle
-
-        months = list(hold_cycle.iterate(self._start_month, self._end_month))
-
+        
         missing = [
-            m.value for m in [*months, self._end_month] if timestamps_by_month.get(m.value) is None
+            m.value for m in [*self._hold_months, self._end_month] if timestamps_by_month.get(m.value) is None
         ]
         
         symbol = "=".join(
             self._chain_config.bar_type.instrument_id.symbol.value.split("=")[:-2],
         )
+        
         if len(missing) > 0:
             raise ValueError(f"Data validation failed: {symbol} has no timestamps in months {missing}")
         
-        for current_month in months:
+        for current_month in self._hold_months:
 
             start, end = current_month.roll_window(
-                approximate_expiry_offset=self._expiry_offset,
+                approximate_expiry_offset=self._approximate_expiry_offset,
                 roll_offset=self._roll_offset,
             )
 
@@ -180,7 +196,7 @@ class ContinuousBarWrangler:
                 )
 
             # check forward contract timestamps exist in roll window
-            forward_month = hold_cycle.next_month(current_month)
+            forward_month = self._hold_cycle.next_month(current_month)
             forward_timestamps = {
                 t for t in timestamps_by_month[forward_month.value] if t >= start_ns and t < end_ns
             }

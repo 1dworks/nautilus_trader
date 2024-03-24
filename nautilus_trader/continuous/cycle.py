@@ -104,12 +104,14 @@ class RollCycle:
     def __hash__(self) -> int:
         return hash(self.value)
 
-    def iterate(self, start: ContractMonth, end: ContractMonth) -> Generator[None, None, ContractMonth]:
+    def get_months(self, start: ContractMonth, end: ContractMonth) -> set[ContractMonth]:
+        months = set()
         if start.letter_month not in self.value:
             start = self._closest_next(start)
         while start < end:
-            yield start
+            months.add(start)
             start = self.next_month(start)
+        return months
 
     def __getstate__(self):
         return (self.value, )

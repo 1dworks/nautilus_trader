@@ -4,7 +4,7 @@ import pytest
 from nautilus_trader.backtest.engine import BacktestEngine
 from nautilus_trader.backtest.engine import BacktestEngineConfig
 from nautilus_trader.config import LoggingConfig
-from nautilus_trader.continuous.chain import ContractChain
+from nautilus_trader.continuous.data import ContinuousData
 from nautilus_trader.continuous.config import ContractChainConfig
 from nautilus_trader.continuous.config import RollConfig
 from nautilus_trader.continuous.contract_month import LETTER_MONTHS
@@ -26,7 +26,7 @@ from nautilus_trader.model.objects import Currency
 from nautilus_trader.model.objects import Money
 from nautilus_trader.model.objects import Price
 from nautilus_trader.model.objects import Quantity
-from nautilus_trader.continuous.chain import ContractExpired
+from nautilus_trader.continuous.data import ContractExpired
 
 class TestContractChain:
     def setup(self):
@@ -82,7 +82,7 @@ class TestContractChain:
     def test_initialize_sets_expected_attributes(self):
 
         # Arrange
-        chain = ContractChain(config=self.chain_config)
+        chain = ContinuousData(config=self.chain_config)
 
         self.engine.add_actor(chain)
 
@@ -124,7 +124,7 @@ class TestContractChain:
     def test_roll_sets_expected_attributes(self):
 
         # Arrange
-        chain = ContractChain(config=self.chain_config)
+        chain = ContinuousData(config=self.chain_config)
 
         self.engine.add_actor(chain)
 
@@ -171,7 +171,7 @@ class TestContractChain:
     def test_current_bar_publish(self):
 
         # Arrange
-        chain = ContractChain(config=self.chain_config)
+        chain = ContinuousData(config=self.chain_config)
 
         self.engine.add_actor(chain)
 
@@ -218,7 +218,7 @@ class TestContractChain:
     def test_contract_expired_raises(self):
 
         # Arrange
-        chain = ContractChain(config=self.chain_config)
+        chain = ContinuousData(config=self.chain_config)
 
         self.engine.add_actor(chain)
 

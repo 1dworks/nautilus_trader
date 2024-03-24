@@ -27,20 +27,6 @@ class ContractMonth:
         self.value = value
         self.timestamp_utc = pd.Timestamp(year=self.year, month=self.month, day=1, tz="UTC")
 
-    def expiry_date(self, approximate_expiry_offset: int) -> pd.Timestamp:
-        return self.timestamp_utc + pd.Timedelta(days=approximate_expiry_offset)
-
-    def roll_window(
-        self,
-        approximate_expiry_offset: int,
-        roll_offset: NonPositiveInt,
-    ) -> tuple[pd.Timestamp, pd.Timestamp]:
-        expiry_date = self.expiry_date(approximate_expiry_offset)
-        return (
-            expiry_date + pd.Timedelta(days=roll_offset),
-            expiry_date,
-        )
-
     @classmethod
     def from_month_year(cls, year: int, month: int) -> ContractMonth:
         assert isinstance(month, int)

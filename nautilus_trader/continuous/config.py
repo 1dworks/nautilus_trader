@@ -6,6 +6,7 @@ from nautilus_trader.common.config import NautilusConfig
 from nautilus_trader.continuous.contract_month import ContractMonth
 from nautilus_trader.continuous.cycle import RollCycle
 from nautilus_trader.model.data import BarType
+from nautilus_trader.model.identifiers import InstrumentId
 
 
 # An integer constrained to values <= 0
@@ -31,7 +32,7 @@ class RollConfig(NautilusConfig, frozen=True):
         The number of contracts forward or backwards in the priced roll cycle
         
     """
-
+    
     hold_cycle: RollCycle
     priced_cycle: RollCycle
     roll_offset: NonPositiveInt
@@ -55,7 +56,7 @@ class ContractChainConfig(NautilusConfig, frozen=True):
         
     """
 
-    bar_type: BarType
+    instrument_id: InstrumentId
     roll_config: RollConfig
     start_month: ContractMonth
     skip_months: list[ContractMonth] | None = None

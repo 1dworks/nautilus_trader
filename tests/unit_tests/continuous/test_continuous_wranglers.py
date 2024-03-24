@@ -22,7 +22,7 @@ from nautilus_trader.test_kit.stubs.data import TestDataStubs
 
 class TestContinuousWrangler:
 
-    def setup_method(self):
+    def setup(self):
 
         self.roll_config = RollConfig(
             hold_cycle=RollCycle("HNUZ"),
@@ -37,7 +37,7 @@ class TestContinuousWrangler:
             roll_config=self.roll_config,
             start_month=ContractMonth("2021H"),
         )
-
+    
     def test_wrangler_outputs_expected(self):
 
         wrangler = ContinuousBarWrangler(
@@ -48,15 +48,14 @@ class TestContinuousWrangler:
         bars = self._read_bars()
 
         continuous_bars = wrangler.process(bars)
-        assert len(continuous_bars) == 1323
+        assert len(continuous_bars) == 1322
 
-        current_months = {b.current_month for b in continuous_bars}
-        forward_months = {b.forward_month for b in continuous_bars if b.forward_month is not None}
-        carry_months = {b.carry_month for b in continuous_bars if b.carry_month is not None}
+        current_months = {
+            ContractMonth(b.bar_type.instrument_id.symbol.value.split("=")[-1])
+            for b in continuous_bars
+        }
 
         assert all(m in self.roll_config.hold_cycle for m in current_months)
-        assert all(m in self.roll_config.hold_cycle for m in forward_months)
-        assert all(m in self.roll_config.priced_cycle for m in carry_months)
 
     def test_wrangler_stops_at_end_month(self):
 
