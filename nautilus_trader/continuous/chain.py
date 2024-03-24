@@ -129,28 +129,7 @@ class ContractChain(Actor):
         self._publish_carry_bar()
         self._publish_previous_bar()
         self._publish_current_bar()
-        self._publish_continuous_bar()
         
-    def _publish_continuous_bar(self) -> None:
-        current_bar = self.cache.bar(self.current_bar_type)
-        if current_bar is None:
-            return
-        
-        bar = ContinuousBar(
-            bar_type=self.bar_type,
-            current_bar=current_bar,
-            forward_bar=self.cache.bar(self.forward_bar_type),
-            previous_bar=self.cache.bar(self.previous_bar_type),
-            carry_bar=self.cache.bar(self.carry_bar_type),
-            ts_init=self.clock.timestamp_ns(),
-            ts_event=self.clock.timestamp_ns(),
-        )
-        
-        self.msgbus.publish(
-            topic=str(self.bar_type),
-            msg=bar,
-        )
-    
     def _publish_current_bar(self) -> None:
         current_bar = self.cache.bar(self.current_bar_type)
         if current_bar is None:
