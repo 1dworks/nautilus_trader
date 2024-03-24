@@ -7,7 +7,7 @@ from nautilus_trader.config import LoggingConfig
 from nautilus_trader.continuous.chain import ContractChain
 from nautilus_trader.continuous.config import ContractChainConfig
 from nautilus_trader.continuous.config import RollConfig
-from nautilus_trader.continuous.contract_month import MONTH_LIST
+from nautilus_trader.continuous.contract_month import LETTER_MONTHS
 from nautilus_trader.continuous.contract_month import ContractMonth
 from nautilus_trader.continuous.cycle import RollCycle
 from nautilus_trader.core.datetime import dt_to_unix_nanos
@@ -58,7 +58,7 @@ class TestContractChain:
             start_month=ContractMonth("2021H"),
         )
 
-        for letter_month in MONTH_LIST:
+        for letter_month in LETTER_MONTHS:
             self.engine.add_instrument(
                 FuturesContract(
                     instrument_id=InstrumentId.from_str(f"MES=2021{letter_month}.SIM"),

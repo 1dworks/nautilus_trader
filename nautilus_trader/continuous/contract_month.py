@@ -5,7 +5,7 @@ from typing import Annotated
 import pandas as pd
 from msgspec import Meta
 
-MONTH_LIST = ["F", "G", "H", "J", "K", "M", "N", "Q", "U", "V", "X", "Z"]
+LETTER_MONTHS = ["F", "G", "H", "J", "K", "M", "N", "Q", "U", "V", "X", "Z"]
 
 # An integer constrained to values <= 0
 NonPositiveInt = Annotated[int, Meta(le=0)]
@@ -99,10 +99,10 @@ class ContractMonth:
 
 
 def letter_month_to_int(letter_month: str) -> int:
-    assert letter_month in MONTH_LIST
-    return MONTH_LIST.index(letter_month) + 1
+    assert letter_month in LETTER_MONTHS
+    return LETTER_MONTHS.index(letter_month) + 1
 
 
 def int_to_letter_month(value: int) -> str:
     assert value > 0 and value < 13
-    return MONTH_LIST[value - 1]
+    return LETTER_MONTHS[value - 1]
