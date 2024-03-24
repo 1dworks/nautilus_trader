@@ -56,11 +56,6 @@ class ContractChain(Actor):
 
         assert self._start_month in self._hold_cycle
         
-        self._last_current: Bar | None = None
-        self._last_forward: Bar | None = None
-        self._last_carry: Bar | None = None
-        self._last_previous: Bar | None = None
-        
     def current_bar(self) -> Bar:
         return self.cache.bar(self.current_bar_type, 0)
     
@@ -181,8 +176,6 @@ class ContractChain(Actor):
 
         self.roll()
         self.rolls.loc[len(self.rolls)] = (current_timestamp, self.current_month)
-
-    
 
     def _update_subscriptions(self) -> None:
         """
