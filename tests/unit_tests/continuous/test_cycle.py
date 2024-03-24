@@ -43,23 +43,6 @@ class TestRollCycle:
         assert len(cycle) == 4
         assert str(cycle) == "HMUX"
         assert repr(cycle) == "RollCycle(HMUX)"
-
-    def test_cycle_next_month_skips_specified_months(self):
-        # Arrange
-        cycle = RollCycle("HMUX", skip_months=[ContractMonth("2022M"), ContractMonth("2022U")])
-
-        # Act, Assert
-        assert cycle.next_month(ContractMonth("2022H")) == ContractMonth("2022X")
-        assert cycle.next_month(ContractMonth("2022X")) == ContractMonth("2023H")
-
-    def test_cycle_previous_month_skips_specified_months(self):
-        # Arrange
-        cycle = RollCycle("HMUX", skip_months=[ContractMonth("2022M"), ContractMonth("2022U")])
-
-        # Act, Assert
-        assert cycle.previous_month(ContractMonth("2022X")) == ContractMonth("2022H")
-        assert cycle.previous_month(ContractMonth("2022H")) == ContractMonth("2021X")
-
     
     def test_cycle_pickle(self):
         cycle = RollCycle("HMUZ")

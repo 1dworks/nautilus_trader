@@ -5,12 +5,10 @@ from nautilus_trader.continuous.contract_month import ContractMonth
 
 
 class RollCycle:
-    def __init__(self, value: str, skip_months: list[ContractMonth] | None = None):
+    def __init__(self, value: str):
         assert isinstance(value, str)
 
         self.value = "".join(sorted(value))
-
-        self._skip_months = skip_months or []
 
     def next_month(self, current: ContractMonth) -> ContractMonth:
         """
@@ -35,9 +33,6 @@ class RollCycle:
             letter_month = self.value[self.value.index(letter_month) + 1]
 
         month = ContractMonth(f"{year}{letter_month}")
-
-        while month in self._skip_months:
-            month = self.next_month(current=month)
 
         return month
 
@@ -64,9 +59,6 @@ class RollCycle:
             letter_month = self.value[self.value.index(letter_month) - 1]
 
         month = ContractMonth(f"{year}{letter_month}")
-
-        while month in self._skip_months:
-            month = self.previous_month(current=month)
 
         return month
 
@@ -120,8 +112,7 @@ class RollCycle:
             start = self.next_month(start)
 
     def __getstate__(self):
-        return (self.value, self._skip_months)
+        return (self.value, )
 
     def __setstate__(self, state):
         self.value = state[0]
-        self._skip_months = state[1]

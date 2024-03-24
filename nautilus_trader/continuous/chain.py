@@ -45,6 +45,7 @@ class ContractChain(Actor):
         self._carry_offset = config.roll_config.carry_offset
         self._priced_cycle = config.roll_config.priced_cycle
         self._hold_cycle = config.roll_config.hold_cycle
+        self._skip_months = config.roll_config.skip_months
         self._approximate_expiry_offset = config.roll_config.approximate_expiry_offset
 
         assert self._roll_offset <= 0
@@ -237,6 +238,10 @@ class ContractChain(Actor):
         )
 
     def _roll(self, to_month: ContractMonth) -> None:
+        
+        while to_month in self._skip_months:
+            to_month = self._hold_cycle.next_month(current=to_month)
+            
         self._update_attributes(to_month=to_month)
         self._update_subscriptions()
         self._log.debug(

@@ -29,9 +29,7 @@ class RollConfig(NautilusConfig, frozen=True):
         After this date, the contract is assumed expired and non-tradeable.
     carry_offset : Literal[1, -1]
         The number of contracts forward or backwards in the priced roll cycle
-    skip_months: list[ContractMonth], optional
-        The months to skip in the cycle
-
+        
     """
 
     hold_cycle: RollCycle
@@ -54,8 +52,12 @@ class ContractChainConfig(NautilusConfig, frozen=True):
         The configuration for the rolls
     start_month : ContractMonth, optional
         The starting month to roll to when started
+    skip_months: list[ContractMonth], optional
+        The months to skip in the hold cycle
+        
     """
 
     bar_type: BarType
     roll_config: RollConfig
     start_month: ContractMonth | None = None
+    skip_months: list[ContractMonth] | None = None
