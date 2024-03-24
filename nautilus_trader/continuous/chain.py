@@ -95,8 +95,14 @@ class ContractChain(Actor):
         )
 
     def handle_time_event(self, event: TimeEvent) -> None:
+        
+        is_expired = self.clock.timestamp() >= self.expiry_date
+        if is_expired:
+            raise ContractExpired(
+                f"The chain failed to roll from {self.current_month} to {self.forward_month} before expiry date {self.expiry_date}",
+            )
+            
         self._attempt_roll()
-        self._raise_expiry()
         self._publish()
         
     def roll(
@@ -160,14 +166,7 @@ class ContractChain(Actor):
                 topic=f"data.bars.{self.bar_type}",
                 msg=current_bar,
             )
-        
-    def _raise_expiry(self):
-        is_expired = self.clock.timestamp() >= self.expiry_date
-        if is_expired:
-            raise ContractExpired(
-                f"The chain failed to roll from {self.current_month} to {self.forward_month} before expiry date {self.expiry_date}",
-            )
-
+    
     def _attempt_roll(self) -> None:
 
         current_bar = self.cache.bar(self.current_bar_type)
