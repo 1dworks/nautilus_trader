@@ -155,23 +155,7 @@ class ContractChain(Actor):
             )
         
     def _raise_expiry(self):
-
-        current_bar = self.cache.bar(self.current_bar_type)
-        forward_bar = self.cache.bar(self.forward_bar_type)
-
-        if current_bar is None and forward_bar is None:
-            return
-
-        timestamps = []
-        if current_bar is not None:
-            timestamps.append(unix_nanos_to_dt(current_bar.ts_event))
-
-        if forward_bar is not None:
-            timestamps.append(unix_nanos_to_dt(forward_bar.ts_event))
-
-        timestamp = max(timestamps)
-
-        is_expired = timestamp >= self.expiry_date
+        is_expired = self.clock.timestamp() >= self.expiry_date
         if is_expired:
             raise ContractExpired(
                 f"The chain failed to roll from {self.current_month} to {self.forward_month} before expiry date {self.expiry_date}",
