@@ -52,7 +52,6 @@ class ContractChain(Actor):
 
         self._start_month = config.start_month
         self._raise_expired = config.raise_expired
-        self._ignore_expiry_date = config.ignore_expiry_date
         self._instrument_id = self.bar_type.instrument_id
 
         assert self._start_month in self._hold_cycle
@@ -218,13 +217,7 @@ class ContractChain(Actor):
         if current_timestamp != forward_timestamp:
             return
 
-        if self._ignore_expiry_date:
-            in_roll_window = current_timestamp >= self.roll_date
-        else:
-            in_roll_window = (
-                current_timestamp >= self.roll_date
-            ) and current_timestamp < self.expiry_date
-
+        in_roll_window = (current_timestamp >= self.roll_date) and (current_timestamp < self.expiry_date)
         if not in_roll_window:
             return
 

@@ -54,8 +54,6 @@ class ContractChainConfig(NautilusConfig, frozen=True):
         The configuration for the rolls
     raise_expired : bool, default True
         If an exception is raised when the contract fails to roll before the contract's expiry date
-    ignore_expiry_date : bool, default False
-        If the expiry_date of the current contract should be ignored when attempting to roll.
     start_month : ContractMonth, optional
         The starting month to roll to when started
 
@@ -64,5 +62,4 @@ class ContractChainConfig(NautilusConfig, frozen=True):
     bar_type: BarType
     roll_config: RollConfig
     raise_expired: bool = True
-    ignore_expiry_date: bool = False
     start_month: ContractMonth | None = None

@@ -37,7 +37,6 @@ class TestContinuousWrangler:
             roll_config=self.roll_config,
             start_month=ContractMonth("2021H"),
             raise_expired=True,
-            ignore_expiry_date=False,
         )
 
     def test_wrangler_outputs_expected(self):
