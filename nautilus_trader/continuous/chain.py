@@ -121,6 +121,7 @@ class ContractChain(Actor):
         )
         
         event = RollEvent(
+            ts_init=self.timestamp_ns(),
             from_instrument_id=self.previous_bar_type,
             to_instrument_id=self.current_bar_type,
         )
