@@ -1195,14 +1195,14 @@ compatibility across different environments where color rendering is not support
             </span>
            </code>
            ,
-then you can initialize a logging in the following way:
+then you can initialize logging in the following way:
           </p>
           <div class="highlight-python notranslate">
            <div class="highlight">
             <pre><span></span><span class="kn">from</span> <span class="nn">nautilus_trader.common.component</span> <span class="kn">import</span> <span class="n">init_logging</span>
 <span class="kn">from</span> <span class="nn">nautilus_trader.common.component</span> <span class="kn">import</span> <span class="n">Logger</span>
 
-<span class="n">init_logging</span><span class="p">()</span>
+<span class="n">log_guard</span> <span class="o">=</span> <span class="n">init_logging</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="s2">"MyLogger"</span><span class="p">)</span>
 </pre>
            </div>
@@ -1235,7 +1235,13 @@ then you can initialize a logging in the following way:
               init_logging
              </span>
             </code>
-            call.
+            call, and the
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              LogGuard
+             </span>
+            </code>
+            which is returned must be kept alive for the lifetime of the program.
            </p>
           </div>
          </section>

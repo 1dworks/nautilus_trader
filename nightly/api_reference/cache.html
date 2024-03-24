@@ -1149,6 +1149,15 @@
                </a>
               </li>
               <li class="md-nav__item">
+               <a class="md-nav__link" href="#nautilus_trader.cache.cache.Cache.dispose">
+                <code class="docutils literal notranslate">
+                 <span class="pre">
+                  Cache.dispose()
+                 </span>
+                </code>
+               </a>
+              </li>
+              <li class="md-nav__item">
                <a class="md-nav__link" href="#nautilus_trader.cache.cache.Cache.exec_algorithm_ids">
                 <code class="docutils literal notranslate">
                  <span class="pre">
@@ -2032,6 +2041,15 @@
                 <code class="docutils literal notranslate">
                  <span class="pre">
                   CacheDatabaseAdapter.add_synthetic()
+                 </span>
+                </code>
+               </a>
+              </li>
+              <li class="md-nav__item">
+               <a class="md-nav__link" href="#nautilus_trader.cache.database.CacheDatabaseAdapter.close">
+                <code class="docutils literal notranslate">
+                 <span class="pre">
+                  CacheDatabaseAdapter.close()
                  </span>
                 </code>
                </a>
@@ -7390,6 +7408,46 @@ error is found then a log error message will also be produced.
               </p>
              </dd>
             </dl>
+           </dd>
+          </dl>
+          <dl class="py method">
+           <dt class="sig sig-object py" id="nautilus_trader.cache.cache.Cache.dispose">
+            <span class="sig-name descname">
+             <span class="pre">
+              dispose
+             </span>
+            </span>
+            <span class="sig-paren">
+             (
+            </span>
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               self
+              </span>
+             </span>
+            </em>
+            <span class="sig-paren">
+             )
+            </span>
+            <span class="sig-return">
+             <span class="sig-return-icon">
+              →
+             </span>
+             <span class="sig-return-typehint">
+              <span class="pre">
+               void
+              </span>
+             </span>
+            </span>
+            <a class="headerlink" href="#nautilus_trader.cache.cache.Cache.dispose" title="Permalink to this definition">
+             ¶
+            </a>
+           </dt>
+           <dd>
+            <p>
+             Dispose of the cache which will close any underlying database adapter.
+            </p>
            </dd>
           </dl>
           <dl class="py method">
@@ -17907,6 +17965,46 @@ per the default implementations for both
               </p>
              </dd>
             </dl>
+           </dd>
+          </dl>
+          <dl class="py method">
+           <dt class="sig sig-object py" id="nautilus_trader.cache.database.CacheDatabaseAdapter.close">
+            <span class="sig-name descname">
+             <span class="pre">
+              close
+             </span>
+            </span>
+            <span class="sig-paren">
+             (
+            </span>
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               self
+              </span>
+             </span>
+            </em>
+            <span class="sig-paren">
+             )
+            </span>
+            <span class="sig-return">
+             <span class="sig-return-icon">
+              →
+             </span>
+             <span class="sig-return-typehint">
+              <span class="pre">
+               void
+              </span>
+             </span>
+            </span>
+            <a class="headerlink" href="#nautilus_trader.cache.database.CacheDatabaseAdapter.close" title="Permalink to this definition">
+             ¶
+            </a>
+           </dt>
+           <dd>
+            <p>
+             Close the backing database adapter.
+            </p>
            </dd>
           </dl>
           <dl class="py method">

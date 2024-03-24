@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `adapters/src/databento/decode.rs`."><title>decode.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_adapters" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (85e449a32 2024-03-22)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `adapters/src/databento/decode.rs`."><title>decode.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_adapters" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (2f090c30d 2024-03-23)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../nautilus_adapters/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -1046,6 +1046,215 @@
 <a href="#1044" id="1044">1044</a>
 <a href="#1045" id="1045">1045</a>
 <a href="#1046" id="1046">1046</a>
+<a href="#1047" id="1047">1047</a>
+<a href="#1048" id="1048">1048</a>
+<a href="#1049" id="1049">1049</a>
+<a href="#1050" id="1050">1050</a>
+<a href="#1051" id="1051">1051</a>
+<a href="#1052" id="1052">1052</a>
+<a href="#1053" id="1053">1053</a>
+<a href="#1054" id="1054">1054</a>
+<a href="#1055" id="1055">1055</a>
+<a href="#1056" id="1056">1056</a>
+<a href="#1057" id="1057">1057</a>
+<a href="#1058" id="1058">1058</a>
+<a href="#1059" id="1059">1059</a>
+<a href="#1060" id="1060">1060</a>
+<a href="#1061" id="1061">1061</a>
+<a href="#1062" id="1062">1062</a>
+<a href="#1063" id="1063">1063</a>
+<a href="#1064" id="1064">1064</a>
+<a href="#1065" id="1065">1065</a>
+<a href="#1066" id="1066">1066</a>
+<a href="#1067" id="1067">1067</a>
+<a href="#1068" id="1068">1068</a>
+<a href="#1069" id="1069">1069</a>
+<a href="#1070" id="1070">1070</a>
+<a href="#1071" id="1071">1071</a>
+<a href="#1072" id="1072">1072</a>
+<a href="#1073" id="1073">1073</a>
+<a href="#1074" id="1074">1074</a>
+<a href="#1075" id="1075">1075</a>
+<a href="#1076" id="1076">1076</a>
+<a href="#1077" id="1077">1077</a>
+<a href="#1078" id="1078">1078</a>
+<a href="#1079" id="1079">1079</a>
+<a href="#1080" id="1080">1080</a>
+<a href="#1081" id="1081">1081</a>
+<a href="#1082" id="1082">1082</a>
+<a href="#1083" id="1083">1083</a>
+<a href="#1084" id="1084">1084</a>
+<a href="#1085" id="1085">1085</a>
+<a href="#1086" id="1086">1086</a>
+<a href="#1087" id="1087">1087</a>
+<a href="#1088" id="1088">1088</a>
+<a href="#1089" id="1089">1089</a>
+<a href="#1090" id="1090">1090</a>
+<a href="#1091" id="1091">1091</a>
+<a href="#1092" id="1092">1092</a>
+<a href="#1093" id="1093">1093</a>
+<a href="#1094" id="1094">1094</a>
+<a href="#1095" id="1095">1095</a>
+<a href="#1096" id="1096">1096</a>
+<a href="#1097" id="1097">1097</a>
+<a href="#1098" id="1098">1098</a>
+<a href="#1099" id="1099">1099</a>
+<a href="#1100" id="1100">1100</a>
+<a href="#1101" id="1101">1101</a>
+<a href="#1102" id="1102">1102</a>
+<a href="#1103" id="1103">1103</a>
+<a href="#1104" id="1104">1104</a>
+<a href="#1105" id="1105">1105</a>
+<a href="#1106" id="1106">1106</a>
+<a href="#1107" id="1107">1107</a>
+<a href="#1108" id="1108">1108</a>
+<a href="#1109" id="1109">1109</a>
+<a href="#1110" id="1110">1110</a>
+<a href="#1111" id="1111">1111</a>
+<a href="#1112" id="1112">1112</a>
+<a href="#1113" id="1113">1113</a>
+<a href="#1114" id="1114">1114</a>
+<a href="#1115" id="1115">1115</a>
+<a href="#1116" id="1116">1116</a>
+<a href="#1117" id="1117">1117</a>
+<a href="#1118" id="1118">1118</a>
+<a href="#1119" id="1119">1119</a>
+<a href="#1120" id="1120">1120</a>
+<a href="#1121" id="1121">1121</a>
+<a href="#1122" id="1122">1122</a>
+<a href="#1123" id="1123">1123</a>
+<a href="#1124" id="1124">1124</a>
+<a href="#1125" id="1125">1125</a>
+<a href="#1126" id="1126">1126</a>
+<a href="#1127" id="1127">1127</a>
+<a href="#1128" id="1128">1128</a>
+<a href="#1129" id="1129">1129</a>
+<a href="#1130" id="1130">1130</a>
+<a href="#1131" id="1131">1131</a>
+<a href="#1132" id="1132">1132</a>
+<a href="#1133" id="1133">1133</a>
+<a href="#1134" id="1134">1134</a>
+<a href="#1135" id="1135">1135</a>
+<a href="#1136" id="1136">1136</a>
+<a href="#1137" id="1137">1137</a>
+<a href="#1138" id="1138">1138</a>
+<a href="#1139" id="1139">1139</a>
+<a href="#1140" id="1140">1140</a>
+<a href="#1141" id="1141">1141</a>
+<a href="#1142" id="1142">1142</a>
+<a href="#1143" id="1143">1143</a>
+<a href="#1144" id="1144">1144</a>
+<a href="#1145" id="1145">1145</a>
+<a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
+<a href="#1151" id="1151">1151</a>
+<a href="#1152" id="1152">1152</a>
+<a href="#1153" id="1153">1153</a>
+<a href="#1154" id="1154">1154</a>
+<a href="#1155" id="1155">1155</a>
+<a href="#1156" id="1156">1156</a>
+<a href="#1157" id="1157">1157</a>
+<a href="#1158" id="1158">1158</a>
+<a href="#1159" id="1159">1159</a>
+<a href="#1160" id="1160">1160</a>
+<a href="#1161" id="1161">1161</a>
+<a href="#1162" id="1162">1162</a>
+<a href="#1163" id="1163">1163</a>
+<a href="#1164" id="1164">1164</a>
+<a href="#1165" id="1165">1165</a>
+<a href="#1166" id="1166">1166</a>
+<a href="#1167" id="1167">1167</a>
+<a href="#1168" id="1168">1168</a>
+<a href="#1169" id="1169">1169</a>
+<a href="#1170" id="1170">1170</a>
+<a href="#1171" id="1171">1171</a>
+<a href="#1172" id="1172">1172</a>
+<a href="#1173" id="1173">1173</a>
+<a href="#1174" id="1174">1174</a>
+<a href="#1175" id="1175">1175</a>
+<a href="#1176" id="1176">1176</a>
+<a href="#1177" id="1177">1177</a>
+<a href="#1178" id="1178">1178</a>
+<a href="#1179" id="1179">1179</a>
+<a href="#1180" id="1180">1180</a>
+<a href="#1181" id="1181">1181</a>
+<a href="#1182" id="1182">1182</a>
+<a href="#1183" id="1183">1183</a>
+<a href="#1184" id="1184">1184</a>
+<a href="#1185" id="1185">1185</a>
+<a href="#1186" id="1186">1186</a>
+<a href="#1187" id="1187">1187</a>
+<a href="#1188" id="1188">1188</a>
+<a href="#1189" id="1189">1189</a>
+<a href="#1190" id="1190">1190</a>
+<a href="#1191" id="1191">1191</a>
+<a href="#1192" id="1192">1192</a>
+<a href="#1193" id="1193">1193</a>
+<a href="#1194" id="1194">1194</a>
+<a href="#1195" id="1195">1195</a>
+<a href="#1196" id="1196">1196</a>
+<a href="#1197" id="1197">1197</a>
+<a href="#1198" id="1198">1198</a>
+<a href="#1199" id="1199">1199</a>
+<a href="#1200" id="1200">1200</a>
+<a href="#1201" id="1201">1201</a>
+<a href="#1202" id="1202">1202</a>
+<a href="#1203" id="1203">1203</a>
+<a href="#1204" id="1204">1204</a>
+<a href="#1205" id="1205">1205</a>
+<a href="#1206" id="1206">1206</a>
+<a href="#1207" id="1207">1207</a>
+<a href="#1208" id="1208">1208</a>
+<a href="#1209" id="1209">1209</a>
+<a href="#1210" id="1210">1210</a>
+<a href="#1211" id="1211">1211</a>
+<a href="#1212" id="1212">1212</a>
+<a href="#1213" id="1213">1213</a>
+<a href="#1214" id="1214">1214</a>
+<a href="#1215" id="1215">1215</a>
+<a href="#1216" id="1216">1216</a>
+<a href="#1217" id="1217">1217</a>
+<a href="#1218" id="1218">1218</a>
+<a href="#1219" id="1219">1219</a>
+<a href="#1220" id="1220">1220</a>
+<a href="#1221" id="1221">1221</a>
+<a href="#1222" id="1222">1222</a>
+<a href="#1223" id="1223">1223</a>
+<a href="#1224" id="1224">1224</a>
+<a href="#1225" id="1225">1225</a>
+<a href="#1226" id="1226">1226</a>
+<a href="#1227" id="1227">1227</a>
+<a href="#1228" id="1228">1228</a>
+<a href="#1229" id="1229">1229</a>
+<a href="#1230" id="1230">1230</a>
+<a href="#1231" id="1231">1231</a>
+<a href="#1232" id="1232">1232</a>
+<a href="#1233" id="1233">1233</a>
+<a href="#1234" id="1234">1234</a>
+<a href="#1235" id="1235">1235</a>
+<a href="#1236" id="1236">1236</a>
+<a href="#1237" id="1237">1237</a>
+<a href="#1238" id="1238">1238</a>
+<a href="#1239" id="1239">1239</a>
+<a href="#1240" id="1240">1240</a>
+<a href="#1241" id="1241">1241</a>
+<a href="#1242" id="1242">1242</a>
+<a href="#1243" id="1243">1243</a>
+<a href="#1244" id="1244">1244</a>
+<a href="#1245" id="1245">1245</a>
+<a href="#1246" id="1246">1246</a>
+<a href="#1247" id="1247">1247</a>
+<a href="#1248" id="1248">1248</a>
+<a href="#1249" id="1249">1249</a>
+<a href="#1250" id="1250">1250</a>
+<a href="#1251" id="1251">1251</a>
+<a href="#1252" id="1252">1252</a>
+<a href="#1253" id="1253">1253</a>
+<a href="#1254" id="1254">1254</a>
+<a href="#1255" id="1255">1255</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -1491,6 +1700,36 @@
     <span class="prelude-val">Ok</span>(trade)
 }
 
+<span class="kw">pub fn </span>decode_tbbo_msg(
+    msg: <span class="kw-2">&amp;</span>dbn::TbboMsg,
+    instrument_id: InstrumentId,
+    price_precision: u8,
+    ts_init: UnixNanos,
+) -&gt; anyhow::Result&lt;(QuoteTick, TradeTick)&gt; {
+    <span class="kw">let </span>top_level = <span class="kw-2">&amp;</span>msg.levels[<span class="number">0</span>];
+    <span class="kw">let </span>quote = QuoteTick::new(
+        instrument_id,
+        Price::from_raw(top_level.bid_px, price_precision)<span class="question-mark">?</span>,
+        Price::from_raw(top_level.ask_px, price_precision)<span class="question-mark">?</span>,
+        Quantity::from_raw(u64::from(top_level.bid_sz) * FIXED_SCALAR <span class="kw">as </span>u64, <span class="number">0</span>)<span class="question-mark">?</span>,
+        Quantity::from_raw(u64::from(top_level.ask_sz) * FIXED_SCALAR <span class="kw">as </span>u64, <span class="number">0</span>)<span class="question-mark">?</span>,
+        msg.ts_recv,
+        ts_init,
+    )<span class="question-mark">?</span>;
+
+    <span class="kw">let </span>trade = TradeTick::new(
+        instrument_id,
+        Price::from_raw(msg.price, price_precision)<span class="question-mark">?</span>,
+        Quantity::from_raw(u64::from(msg.size) * FIXED_SCALAR <span class="kw">as </span>u64, <span class="number">0</span>)<span class="question-mark">?</span>,
+        parse_aggressor_side(msg.side),
+        TradeId::new(itoa::Buffer::new().format(msg.sequence))<span class="question-mark">?</span>,
+        msg.ts_recv,
+        ts_init,
+    );
+
+    <span class="prelude-val">Ok</span>((quote, trade))
+}
+
 <span class="kw">pub fn </span>decode_mbp1_msg(
     msg: <span class="kw-2">&amp;</span>dbn::Mbp1Msg,
     instrument_id: InstrumentId,
@@ -1669,7 +1908,10 @@
     ts_init: <span class="prelude-ty">Option</span>&lt;UnixNanos&gt;,
     include_trades: bool,
 ) -&gt; anyhow::Result&lt;(<span class="prelude-ty">Option</span>&lt;Data&gt;, <span class="prelude-ty">Option</span>&lt;Data&gt;)&gt; {
-    <span class="kw">let </span>result = <span class="kw">if let </span><span class="prelude-val">Some</span>(msg) = record.get::&lt;dbn::MboMsg&gt;() {
+    <span class="comment">// We don't handle `TbboMsg` here as Nautilus separates this schema
+    // into quotes and trades when loading, and the live client will
+    // never subscribe to `tbbo`.
+    </span><span class="kw">let </span>result = <span class="kw">if let </span><span class="prelude-val">Some</span>(msg) = record.get::&lt;dbn::MboMsg&gt;() {
         <span class="kw">let </span>ts_init = determine_timestamp(ts_init, msg.ts_recv);
         <span class="kw">let </span>result = decode_mbo_msg(msg, instrument_id, price_precision, ts_init, include_trades)<span class="question-mark">?</span>;
         <span class="kw">match </span>result {
@@ -2050,10 +2292,10 @@
         <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
             .unwrap()
             .decode_stream::&lt;dbn::MboMsg&gt;();
-        <span class="kw">let </span>mbo_msg = dbn_stream.next().unwrap();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
 
         <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
-        <span class="kw">let </span>(delta, <span class="kw">_</span>) = decode_mbo_msg(mbo_msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>, <span class="bool-val">false</span>).unwrap();
+        <span class="kw">let </span>(delta, <span class="kw">_</span>) = decode_mbo_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>, <span class="bool-val">false</span>).unwrap();
         <span class="kw">let </span>delta = delta.unwrap();
 
         <span class="macro">assert_eq!</span>(delta.instrument_id, instrument_id);
@@ -2064,7 +2306,7 @@
         <span class="macro">assert_eq!</span>(delta.order.order_id, <span class="number">647784973705</span>);
         <span class="macro">assert_eq!</span>(delta.flags, <span class="number">128</span>);
         <span class="macro">assert_eq!</span>(delta.sequence, <span class="number">1170352</span>);
-        <span class="macro">assert_eq!</span>(delta.ts_event, mbo_msg.ts_recv);
+        <span class="macro">assert_eq!</span>(delta.ts_event, msg.ts_recv);
         <span class="macro">assert_eq!</span>(delta.ts_event, <span class="number">1609160400000704060</span>);
         <span class="macro">assert_eq!</span>(delta.ts_init, <span class="number">0</span>);
     }
@@ -2075,21 +2317,197 @@
         <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
             .unwrap()
             .decode_stream::&lt;dbn::Mbp1Msg&gt;();
-        <span class="kw">let </span>mbp1_msg = dbn_stream.next().unwrap();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
 
         <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
-        <span class="kw">let </span>(quote, <span class="kw">_</span>) = decode_mbp1_msg(mbp1_msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>, <span class="bool-val">false</span>).unwrap();
+        <span class="kw">let </span>(quote, <span class="kw">_</span>) = decode_mbp1_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>, <span class="bool-val">false</span>).unwrap();
 
         <span class="macro">assert_eq!</span>(quote.instrument_id, instrument_id);
         <span class="macro">assert_eq!</span>(quote.bid_price, Price::from(<span class="string">"3720.25"</span>));
         <span class="macro">assert_eq!</span>(quote.ask_price, Price::from(<span class="string">"3720.50"</span>));
         <span class="macro">assert_eq!</span>(quote.bid_size, Quantity::from(<span class="string">"24"</span>));
         <span class="macro">assert_eq!</span>(quote.ask_size, Quantity::from(<span class="string">"11"</span>));
-        <span class="macro">assert_eq!</span>(quote.ts_event, mbp1_msg.ts_recv);
+        <span class="macro">assert_eq!</span>(quote.ts_event, msg.ts_recv);
         <span class="macro">assert_eq!</span>(quote.ts_event, <span class="number">1609160400006136329</span>);
         <span class="macro">assert_eq!</span>(quote.ts_init, <span class="number">0</span>);
     }
 
-    <span class="comment">// TODO: Complete for the other schemas using the files in the test_data dir
-</span>}
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_mbp10_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.mbp-10.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::Mbp10Msg&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>depth10 = decode_mbp10_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>).unwrap();
+
+        <span class="macro">assert_eq!</span>(depth10.instrument_id, instrument_id);
+        <span class="macro">assert_eq!</span>(depth10.bids.len(), <span class="number">10</span>);
+        <span class="macro">assert_eq!</span>(depth10.asks.len(), <span class="number">10</span>);
+        <span class="macro">assert_eq!</span>(depth10.bid_counts.len(), <span class="number">10</span>);
+        <span class="macro">assert_eq!</span>(depth10.ask_counts.len(), <span class="number">10</span>);
+        <span class="macro">assert_eq!</span>(depth10.flags, <span class="number">128</span>);
+        <span class="macro">assert_eq!</span>(depth10.sequence, <span class="number">1170352</span>);
+        <span class="macro">assert_eq!</span>(depth10.ts_event, msg.ts_recv);
+        <span class="macro">assert_eq!</span>(depth10.ts_event, <span class="number">1609160400000704060</span>);
+        <span class="macro">assert_eq!</span>(depth10.ts_init, <span class="number">0</span>);
+    }
+
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_trade_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.trades.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::TradeMsg&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>trade = decode_trade_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>).unwrap();
+
+        <span class="macro">assert_eq!</span>(trade.instrument_id, instrument_id);
+        <span class="macro">assert_eq!</span>(trade.price, Price::from(<span class="string">"3720.25"</span>));
+        <span class="macro">assert_eq!</span>(trade.size, Quantity::from(<span class="string">"5"</span>));
+        <span class="macro">assert_eq!</span>(trade.aggressor_side, AggressorSide::Seller);
+        <span class="macro">assert_eq!</span>(trade.trade_id.to_string(), <span class="string">"1170380"</span>);
+        <span class="macro">assert_eq!</span>(trade.ts_event, msg.ts_recv);
+        <span class="macro">assert_eq!</span>(trade.ts_event, <span class="number">1609160400099150057</span>);
+        <span class="macro">assert_eq!</span>(trade.ts_init, <span class="number">0</span>);
+    }
+
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_tbbo_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.tbbo.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::Mbp1Msg&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>(quote, trade) = decode_tbbo_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>).unwrap();
+
+        <span class="macro">assert_eq!</span>(quote.instrument_id, instrument_id);
+        <span class="macro">assert_eq!</span>(quote.bid_price, Price::from(<span class="string">"3720.25"</span>));
+        <span class="macro">assert_eq!</span>(quote.ask_price, Price::from(<span class="string">"3720.50"</span>));
+        <span class="macro">assert_eq!</span>(quote.bid_size, Quantity::from(<span class="string">"26"</span>));
+        <span class="macro">assert_eq!</span>(quote.ask_size, Quantity::from(<span class="string">"7"</span>));
+        <span class="macro">assert_eq!</span>(quote.ts_event, msg.ts_recv);
+        <span class="macro">assert_eq!</span>(quote.ts_event, <span class="number">1609160400099150057</span>);
+        <span class="macro">assert_eq!</span>(quote.ts_init, <span class="number">0</span>);
+
+        <span class="macro">assert_eq!</span>(trade.instrument_id, instrument_id);
+        <span class="macro">assert_eq!</span>(trade.price, Price::from(<span class="string">"3720.25"</span>));
+        <span class="macro">assert_eq!</span>(trade.size, Quantity::from(<span class="string">"5"</span>));
+        <span class="macro">assert_eq!</span>(trade.aggressor_side, AggressorSide::Seller);
+        <span class="macro">assert_eq!</span>(trade.trade_id.to_string(), <span class="string">"1170380"</span>);
+        <span class="macro">assert_eq!</span>(trade.ts_event, msg.ts_recv);
+        <span class="macro">assert_eq!</span>(trade.ts_event, <span class="number">1609160400099150057</span>);
+        <span class="macro">assert_eq!</span>(trade.ts_init, <span class="number">0</span>);
+    }
+
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_ohlcv_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.ohlcv-1s.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::OhlcvMsg&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>bar = decode_ohlcv_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>).unwrap();
+
+        <span class="macro">assert_eq!</span>(
+            bar.bar_type,
+            BarType::from(<span class="string">"ESM4.GLBX-1-SECOND-LAST-EXTERNAL"</span>)
+        );
+        <span class="macro">assert_eq!</span>(bar.open, Price::from(<span class="string">"3720.25"</span>));
+        <span class="macro">assert_eq!</span>(bar.high, Price::from(<span class="string">"3720.50"</span>));
+        <span class="macro">assert_eq!</span>(bar.low, Price::from(<span class="string">"3720.25"</span>));
+        <span class="macro">assert_eq!</span>(bar.close, Price::from(<span class="string">"3720.50"</span>));
+        <span class="macro">assert_eq!</span>(bar.ts_event, <span class="number">1609160400000000000</span>);
+        <span class="macro">assert_eq!</span>(bar.ts_init, <span class="number">1609160401000000000</span>); <span class="comment">// Adjusted to open + interval
+    </span>}
+
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_definition_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.definition.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::InstrumentDefMsg&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>result = decode_instrument_def_msg(msg, instrument_id, <span class="number">0</span>);
+
+        <span class="macro">assert!</span>(result.is_ok());
+    }
+
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_definition_v1_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.definition.v1.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::compat::InstrumentDefMsgV1&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>result = decode_instrument_def_msg_v1(msg, instrument_id, <span class="number">0</span>);
+
+        <span class="macro">assert!</span>(result.is_ok());
+    }
+
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_imbalance_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.imbalance.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::ImbalanceMsg&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>imbalance = decode_imbalance_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>).unwrap();
+
+        <span class="macro">assert_eq!</span>(imbalance.instrument_id, instrument_id);
+        <span class="macro">assert_eq!</span>(imbalance.ref_price, Price::from(<span class="string">"229.43"</span>));
+        <span class="macro">assert_eq!</span>(imbalance.cont_book_clr_price, Price::from(<span class="string">"0.00"</span>));
+        <span class="macro">assert_eq!</span>(imbalance.auct_interest_clr_price, Price::from(<span class="string">"0.00"</span>));
+        <span class="macro">assert_eq!</span>(imbalance.paired_qty, Quantity::from(<span class="string">"0"</span>));
+        <span class="macro">assert_eq!</span>(imbalance.total_imbalance_qty, Quantity::from(<span class="string">"2000"</span>));
+        <span class="macro">assert_eq!</span>(imbalance.side, OrderSide::Buy);
+        <span class="macro">assert_eq!</span>(imbalance.significant_imbalance, <span class="number">126</span>);
+        <span class="macro">assert_eq!</span>(imbalance.ts_event, msg.hd.ts_event);
+        <span class="macro">assert_eq!</span>(imbalance.ts_recv, msg.ts_recv);
+        <span class="macro">assert_eq!</span>(imbalance.ts_init, <span class="number">0</span>);
+    }
+
+    <span class="attr">#[rstest]
+    </span><span class="kw">fn </span>test_decode_statistics_msg() {
+        <span class="kw">let </span>path = PathBuf::from(<span class="macro">format!</span>(<span class="string">"{TEST_DATA_PATH}/test_data.statistics.dbn.zst"</span>));
+        <span class="kw">let </span><span class="kw-2">mut </span>dbn_stream = Decoder::from_zstd_file(path)
+            .unwrap()
+            .decode_stream::&lt;dbn::StatMsg&gt;();
+        <span class="kw">let </span>msg = dbn_stream.next().unwrap();
+
+        <span class="kw">let </span>instrument_id = InstrumentId::from(<span class="string">"ESM4.GLBX"</span>);
+        <span class="kw">let </span>statistics = decode_statistics_msg(msg, instrument_id, <span class="number">2</span>, <span class="number">0</span>).unwrap();
+
+        <span class="macro">assert_eq!</span>(statistics.instrument_id, instrument_id);
+        <span class="macro">assert_eq!</span>(statistics.stat_type, DatabentoStatisticType::LowestOffer);
+        <span class="macro">assert_eq!</span>(
+            statistics.update_action,
+            DatabentoStatisticUpdateAction::Added
+        );
+        <span class="macro">assert_eq!</span>(statistics.price, <span class="prelude-val">Some</span>(Price::from(<span class="string">"100.00"</span>)));
+        <span class="macro">assert_eq!</span>(statistics.quantity, <span class="prelude-val">None</span>);
+        <span class="macro">assert_eq!</span>(statistics.channel_id, <span class="number">13</span>);
+        <span class="macro">assert_eq!</span>(statistics.stat_flags, <span class="number">255</span>);
+        <span class="macro">assert_eq!</span>(statistics.sequence, <span class="number">2</span>);
+        <span class="macro">assert_eq!</span>(statistics.ts_ref, <span class="number">18446744073709551615</span>);
+        <span class="macro">assert_eq!</span>(statistics.ts_in_delta, <span class="number">26961</span>);
+        <span class="macro">assert_eq!</span>(statistics.ts_event, msg.hd.ts_event);
+        <span class="macro">assert_eq!</span>(statistics.ts_recv, msg.ts_recv);
+        <span class="macro">assert_eq!</span>(statistics.ts_init, <span class="number">0</span>);
+    }
+}
 </code></pre></div></section></main></body></html>
