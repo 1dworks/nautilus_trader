@@ -125,69 +125,34 @@ class ContractChain(Actor):
         )
         
     def _publish(self) -> None:
-        self._publish_forward_bar()
-        self._publish_carry_bar()
-        self._publish_previous_bar()
-        self._publish_current_bar()
         
-    def _publish_current_bar(self) -> None:
-        current_bar = self.cache.bar(self.current_bar_type)
-        if current_bar is None:
-            return
-
-        is_last = self._last_current is not None and current_bar == self._last_current
-        if is_last:
-            return
-
-        self.msgbus.publish(
-            topic=f"{self.bar_type}",
-            msg=current_bar,
-        )
-
-    def _publish_forward_bar(self) -> None:
-
         forward_bar = self.cache.bar(self.forward_bar_type)
-        if forward_bar is None:
-            return
-
-        is_last = self._last_forward is not None and forward_bar == self._last_forward
-        if is_last:
-            return
-
-        self.msgbus.publish(
-            topic=f"{self.bar_type}+1",
-            msg=forward_bar,
-        )
-
-    def _publish_carry_bar(self) -> None:
-
-        carry_bar = self.cache.bar(self.carry_bar_type)
-        if carry_bar is None:
-            return
-
-        is_last = self._last_carry is not None and carry_bar == self._last_carry
-        if is_last:
-            return
-
-        self.msgbus.publish(
-            topic=f"{self.bar_type}c",
-            msg=carry_bar,
-        )
+        if forward_bar is not None:
+            self.msgbus.publish(
+                topic=f"{self.bar_type}+1",
+                msg=forward_bar,
+            )
         
-    def _publish_previous_bar(self) -> None:
-
+        carry_bar = self.cache.bar(self.carry_bar_type)
+        if carry_bar is not None:
+            self.msgbus.publish(
+                topic=f"{self.bar_type}c",
+                msg=carry_bar,
+            )
+        
         previous_bar = self.cache.bar(self.previous_bar_type)
-        if previous_bar is None:
-            return
-
-        is_last = self._last_previous is not None and previous_bar == self._last_previous
-        if is_last:
-            return
-
-        self.msgbus.publish(
-            topic=f"{self.bar_type}-1",
-            msg=previous_bar,
-        )
+        if previous_bar is not None:
+            self.msgbus.publish(
+                topic=f"{self.bar_type}-1",
+                msg=previous_bar,
+            )
+            
+        current_bar = self.cache.bar(self.current_bar_type)
+        if current_bar is not None:
+            self.msgbus.publish(
+                topic=f"{self.bar_type}",
+                msg=current_bar,
+            )
         
     def _raise_expiry(self):
 
