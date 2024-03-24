@@ -51,7 +51,6 @@ class ContractChain(Actor):
         assert self._carry_offset == 1 or self._carry_offset == -1
 
         self._start_month = config.start_month
-        self._raise_expired = config.raise_expired
         self._instrument_id = self.bar_type.instrument_id
 
         assert self._start_month in self._hold_cycle
@@ -90,8 +89,7 @@ class ContractChain(Actor):
 
     def handle_time_event(self, event: TimeEvent) -> None:
         self._attempt_roll()
-        if self._raise_expired:
-            self._raise_expiry()
+        self._raise_expiry()
         self._publish()
 
     def _publish(self) -> None:

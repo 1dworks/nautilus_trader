@@ -36,7 +36,6 @@ class TestContinuousWrangler:
             bar_type=BarType.from_str("HG.SIM-1-DAY-MID-EXTERNAL"),
             roll_config=self.roll_config,
             start_month=ContractMonth("2021H"),
-            raise_expired=True,
         )
 
     def test_wrangler_outputs_expected(self):
