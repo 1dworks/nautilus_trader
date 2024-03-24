@@ -50,7 +50,7 @@ class ContractChainConfig(NautilusConfig, frozen=True):
         The bar type of the bars that execute the rolls of the chain
     roll_config : RollConfig
         The configuration for the rolls
-    start_month : ContractMonth, optional
+    start_month : ContractMonth
         The starting month to roll to when started
     skip_months: list[ContractMonth], optional
         The months to skip in the hold cycle
