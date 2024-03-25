@@ -6,7 +6,9 @@ from nautilus_trader.core.datetime import unix_nanos_to_dt
 from nautilus_trader.model.data import Bar
 from nautilus_trader.model.data import BarType
 from nautilus_trader.model.identifiers import InstrumentId
-    
+from nautilus_trader.continuous.chain import ContractChain
+from nautilus_trader.continuous.config import ContractChainConfig
+
 class ContractExpired(Exception):
     pass
 
@@ -14,10 +16,12 @@ class ContinuousData(Actor):
     def __init__(
         self,
         bar_type: BarType,
+        chain_config: ContractChainConfig,
     ):
 
         super().__init__()
         self.bar_type = bar_type
+        self._chain = ContractChain(config=chain_config, clock=self._clock)
     
     @property
     def current_bar_type(self) -> BarType:
@@ -29,11 +33,11 @@ class ContinuousData(Actor):
     
     @property
     def forward_bar_type(self) -> BarType:
-        return self._make_bar_type(self._chain.forward_bar_type)
+        return self._make_bar_type(self._chain.forward_contract_id)
     
     @property
     def carry_bar_type(self) -> BarType:
-        return self._make_bar_type(self._chain.carry_bar_type)
+        return self._make_bar_type(self._chain.current_contract_id)
     
     @property
     def current_bar(self) -> Bar:
@@ -52,7 +56,9 @@ class ContinuousData(Actor):
         return self.cache.bar(self.previous_bar_type, 0)
         
     def on_start(self) -> None:
-
+        
+        self._chain.start()
+        
         interval = self.bar_type.spec.timedelta
         now = unix_nanos_to_dt(self.clock.timestamp_ns())
         start_time = now.floor(interval) - interval + pd.Timedelta(seconds=5)
@@ -63,45 +69,19 @@ class ContinuousData(Actor):
             start_time=start_time,
             callback=self._handle_time_event,
         )
-
+        
     def _handle_time_event(self, event: TimeEvent) -> None:
         
         # manage subscriptions
         # TODO: self._update_subscriptions()
         
-        is_expired = self.clock.utc_now() >= self.expiry_date
+        is_expired = self.clock.utc_now() >= self._chain.expiry_date
         if is_expired:
             raise ContractExpired(
-                f"The chain failed to roll from {self.current_month} to {self.forward_month} before expiry date {self.expiry_date}",
+                f"The chain failed to roll from {self._chain.current_month} to {self._chain.forward_month} before expiry date {self._chain.expiry_date}",
             )
             
         self._attempt_roll()
-        self._publish()
-        
-    def _publish(self) -> None:
-        if self.forward_bar is not None:
-            self.msgbus.publish(
-                topic=f"data.bars.{self.bar_type}+1",
-                msg=self.forward_bar,
-            )
-        
-        if self.carry_bar is not None:
-            self.msgbus.publish(
-                topic=f"data.bars.{self.bar_type}c",
-                msg=self.carry_bar,
-            )
-        
-        if self.previous_bar is not None:
-            self.msgbus.publish(
-                topic=f"data.bars.{self.bar_type}-1",
-                msg=self.previous_bar,
-            )
-            
-        if self.current_bar is not None:
-            self.msgbus.publish(
-                topic=f"data.bars.{self.bar_type}",
-                msg=self.current_bar,
-            )
     
     def _attempt_roll(self) -> None:
 

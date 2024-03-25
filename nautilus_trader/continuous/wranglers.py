@@ -40,7 +40,7 @@ class ContinuousBarWrangler:
         
         PyCondition.type(config, ContractChainConfig, "config")
         PyCondition.type(end_month, ContractMonth, "end_month")
-
+        
         self._chain_config = config
         self._end_month = end_month
 
@@ -55,7 +55,8 @@ class ContinuousBarWrangler:
         self._carry_offset = self._chain_config.roll_config.carry_offset
         
         self._hold_cycle = self._chain_config.roll_config.hold_cycle
-        self._hold_months = self._hold_cycle.get_months(self._start_month, self._end_month)
+        
+        self._chain = ContinuousData(config=self._chain_config)
         
     def process(
         self,
@@ -81,15 +82,14 @@ class ContinuousBarWrangler:
             base_currency=USD,
             starting_balances=[Money(1_000_000, USD)],
         )
-        chain = ContinuousData(config=self._chain_config)
         
         results = []
         engine.kernel.msgbus.subscribe(
-            topic=f"data.bars.{chain.bar_type}",
+            topic=f"data.bars.{self._chain.bar_type}",
             handler=results.append,
         )
         
-        engine.add_actor(chain)
+        engine.add_actor(self._chain)
         
         symbol = bars[0].bar_type.instrument_id.symbol.value
         contracts = TestInstrumentProvider.future(
@@ -100,44 +100,6 @@ class ContinuousBarWrangler:
         engine.run()
         
         engine.dispose()
-        
-    def contracts(self, base: FuturesContract) -> list[FuturesContract]:
-        
-        chain = ContinuousData(config=self._chain_config)
-        
-        months = self._hold_months
-        for month in self._hold_months:
-            if self._carry_offset == 1:
-                carry_month = self._priced_cycle.next_month(month)
-            elif self._carry_offset == -1:
-                carry_month = self._priced_cycle.previous_month(month)
-            months.add(carry_month)
-            
-        contracts = set()
-        for month in months:
-            
-            approximate_expiry_date = month.approximate_expiry_date(self._approximate_expiry_offset)
-            instrument_id = chain.format_instrument_id(month)
-            
-            futures_contract = FuturesContract(
-                instrument_id=instrument_id,
-                raw_symbol=base.raw_symbol,
-                asset_class=base.asset_class,
-                currency=base.quote_currency,
-                price_precision=base.price_precision,
-                price_increment=base.price_increment,
-                multiplier=base.multiplier,
-                lot_size=base.lot_size,
-                underlying=base.underlying,
-                activation_ns=0,
-                expiration_ns=dt_to_unix_nanos(approximate_expiry_date),
-                ts_event=0,
-                ts_init=0,
-            )
-
-            contracts.add(futures_contract)
-            
-        return contracts
         
     def validate(self, bars: list[Bar]) -> None:
         """
@@ -165,8 +127,10 @@ class ContinuousBarWrangler:
                 timestamps_by_month[month] = set()
             timestamps_by_month[month].add(bar.ts_init)
         
+        hold_months = self._hold_cycle.get_months(self._start_month, self._end_month)
+        
         missing = [
-            m.value for m in [*self._hold_months, self._end_month] if timestamps_by_month.get(m.value) is None
+            m.value for m in [*hold_months, self._end_month] if timestamps_by_month.get(m.value) is None
         ]
         
         symbol = "=".join(
@@ -176,13 +140,9 @@ class ContinuousBarWrangler:
         if len(missing) > 0:
             raise ValueError(f"Data validation failed: {symbol} has no timestamps in months {missing}")
         
-        for current_month in self._hold_months:
+        for current_month in hold_months:
 
-            start, end = current_month.roll_window(
-                approximate_expiry_offset=self._approximate_expiry_offset,
-                roll_offset=self._roll_offset,
-            )
-
+            start, end = self._chain.roll_window(month=current_month)
             start_ns = dt_to_unix_nanos(start)
             end_ns = dt_to_unix_nanos(end)
 

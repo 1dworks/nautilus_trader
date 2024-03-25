@@ -36,9 +36,12 @@ class ContractChain:
         
         assert self._roll_offset <= 0
         assert self._carry_offset == 1 or self._carry_offset == -1
-        assert config.start_month in self._hold_cycle
         
-        self.roll(to_month=config.start_month)
+        self._start_month = config.start_month
+        assert self._start_month in self._hold_cycle
+    
+    def start(self) -> None:
+        self.roll(to_month=self._start_month)
 
     def roll(
         self,
@@ -70,12 +73,13 @@ class ContractChain:
             f"Rolled {self.previous_contract_id} > {self.current_contract_id}",
         )
         
-        self.rolls.loc[len(self.rolls)] = (self._clock.utc_now(), self.current_month)
+        # self.rolls.loc[len(self.rolls)] = (self._clock.utc_now(), self.current_month)
     
     def roll_window(
         self,
         month: ContractMonth,
     ) -> tuple[pd.Timestamp, pd.Timestamp]:
+        # TODO: for live environment the expiry date from the contract should be used
         expiry_date = month.timestamp_utc + pd.Timedelta(days=self._approximate_expiry_offset)
         roll_date = expiry_date + pd.Timedelta(days=self._roll_offset)
         return (roll_date, expiry_date)
@@ -84,8 +88,8 @@ class ContractChain:
         """
         Format the InstrumentId for contract given the ContractMonth.
         """
-        symbol = self.instrument_id.symbol.value
-        venue = self.instrument_id.venue.value
+        symbol = self._instrument_id.symbol.value
+        venue = self._instrument_id.venue.value
         return InstrumentId.from_str(
             f"{symbol}={month.year}{month.letter_month}.{venue}",
         )

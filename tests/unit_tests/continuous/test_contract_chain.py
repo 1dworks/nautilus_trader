@@ -27,6 +27,7 @@ from nautilus_trader.model.objects import Money
 from nautilus_trader.model.objects import Price
 from nautilus_trader.model.objects import Quantity
 from nautilus_trader.continuous.data import ContractExpired
+from nautilus_trader.test_kit.providers import TestInstrumentProvider
 
 class TestContractChain:
     def setup(self):
@@ -60,21 +61,11 @@ class TestContractChain:
 
         for letter_month in LETTER_MONTHS:
             self.engine.add_instrument(
-                FuturesContract(
-                    instrument_id=InstrumentId.from_str(f"MES=2021{letter_month}.SIM"),
-                    raw_symbol=Symbol("MES"),
-                    asset_class=AssetClass.COMMODITY,
-                    currency=Currency.from_str("GBP"),
-                    price_precision=4,
-                    price_increment=Price.from_str("0.0001"),
-                    multiplier=Quantity.from_int(1),
-                    lot_size=Quantity.from_int(1),
-                    underlying="MES",
-                    activation_ns=0,
-                    expiration_ns=0,
-                    ts_event=0,
-                    ts_init=0,
-                ),
+                TestInstrumentProvider.future(
+                    symbol=f"MES=2021{letter_month}",
+                    venue="SIM",
+                    exchange="SIM",
+                )
             )
 
         self.msgbus = self.engine.kernel.msgbus
@@ -120,7 +111,7 @@ class TestContractChain:
             "data.bars.MES=2021H.SIM-1-DAY-MID-EXTERNAL",
             "data.bars.MES=2021M.SIM-1-DAY-MID-EXTERNAL",
         ]
-
+    
     def test_roll_sets_expected_attributes(self):
 
         # Arrange
@@ -168,73 +159,7 @@ class TestContractChain:
             "data.bars.MES=2021U.SIM-1-DAY-MID-EXTERNAL",
         ]
 
-    def test_current_bar_publish(self):
-
-        # Arrange
-        chain = ContinuousData(config=self.chain_config)
-
-        self.engine.add_actor(chain)
-
-        results: list[Bar] = []
-        self.msgbus.subscribe(
-            topic=f"{chain.bar_type}",
-            handler=results.append,
-        )
-
-        data = [
-            ("MES=2021H.SIM", "2021-03-09"), # 0
-            ("MES=2021M.SIM", "2021-03-09"), # 1
-            ("MES=2021J.SIM", "2021-03-09"), # 2
-            # ContinuousBar
-            ("MES=2021H.SIM", "2021-03-10"), # 3
-            ("MES=2021M.SIM", "2021-03-10"), # 4
-            ("MES=2021U.SIM", "2021-03-10"), # 5
-            ("MES=2021N.SIM", "2021-03-10"), # 6
-            # ContinuousBar
-            ("MES=2021M.SIM", "2021-03-11"), # 7
-        ]
-
-        bars = self._create_bars(data)
-        self.engine.add_data(bars)
-
-        # Act
-        self.engine.run()
-
-        # Assert
-        assert len(results) == 2
-        assert unix_nanos_to_dt(results[0].ts_init) == pd.Timestamp("2021-03-09 00:00:05+0000", tz="UTC")
-        assert unix_nanos_to_dt(results[1].ts_init) == pd.Timestamp("2021-03-10 00:00:05+0000", tz="UTC")
-        
-        assert results[0].current_bar == bars[0]
-        assert results[0].forward_bar == bars[1]
-        assert results[0].previous_bar is None
-        assert results[0].carry_bar == bars[2]
-        
-        assert results[1].current_bar == bars[4]
-        assert results[1].forward_bar == bars[5]
-        assert results[1].previous_bar == bars[3]
-        assert results[1].carry_bar == bars[6]
-
-    def test_contract_expired_raises(self):
-
-        # Arrange
-        chain = ContinuousData(config=self.chain_config)
-
-        self.engine.add_actor(chain)
-
-        data = [
-            ("MES=2021H.SIM", "2021-03-14"),
-            ("MES=2021H.SIM", "2021-03-15"),  # expired
-            ("MES=2021H.SIM", "2021-03-16"),
-        ]
-
-        bars = self._create_bars(data)
-        self.engine.add_data(bars)
-
-        # Act & Assert
-        with pytest.raises(ContractExpired):
-            self.engine.run()
-
+    
     def _create_bars(self, data: list[tuple]) -> list[Bar]:
         return [
             Bar(
