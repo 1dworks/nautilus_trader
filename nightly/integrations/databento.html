@@ -1591,7 +1591,27 @@ instruments
            </span>
           </code>
           field, as this timestamp is much more reliable and consistent, and is guaranteed to be monotonically increasing per instrument.
+The exception to this are the
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            DatabentoImbalance
+           </span>
+          </code>
+          and
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            DatabentoStatistics
+           </span>
+          </code>
+          data types, which have fields for all timestamps
          </p>
+         <ul class="simple">
+          <li>
+           <p>
+            as the types are defined specifically for the adapter.
+           </p>
+          </li>
+         </ul>
          <div class="admonition note">
           <p class="admonition-title">
            Note

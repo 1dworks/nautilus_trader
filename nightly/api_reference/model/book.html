@@ -3814,6 +3814,15 @@ of the order book.
             <p>
              Update the order book with the given quote tick.
             </p>
+            <p>
+             This operation is only valid for
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               L1_MBP
+              </span>
+             </code>
+             books maintaining a top level.
+            </p>
             <dl class="field-list simple">
              <dt class="field-odd">
               Parameters
@@ -3833,6 +3842,30 @@ of the order book.
                 </em>
                </a>
                ) – The quote tick to update with.
+              </p>
+             </dd>
+             <dt class="field-even">
+              Raises
+              <span class="colon">
+               :
+              </span>
+             </dt>
+             <dd class="field-even">
+              <p>
+               <strong>
+                RuntimeError
+               </strong>
+               – If
+               <cite>
+                book_type
+               </cite>
+               is not
+               <code class="docutils literal notranslate">
+                <span class="pre">
+                 L1_MBP
+                </span>
+               </code>
+               .
               </p>
              </dd>
             </dl>
@@ -3887,6 +3920,15 @@ of the order book.
             <p>
              Update the order book with the given trade tick.
             </p>
+            <p>
+             This operation is only valid for
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               L1_MBP
+              </span>
+             </code>
+             books maintaining a top level.
+            </p>
             <dl class="field-list simple">
              <dt class="field-odd">
               Parameters
@@ -3906,6 +3948,30 @@ of the order book.
                 </em>
                </a>
                ) – The trade tick to update with.
+              </p>
+             </dd>
+             <dt class="field-even">
+              Raises
+              <span class="colon">
+               :
+              </span>
+             </dt>
+             <dd class="field-even">
+              <p>
+               <strong>
+                RuntimeError
+               </strong>
+               – If
+               <cite>
+                book_type
+               </cite>
+               is not
+               <code class="docutils literal notranslate">
+                <span class="pre">
+                 L1_MBP
+                </span>
+               </code>
+               .
               </p>
              </dd>
             </dl>

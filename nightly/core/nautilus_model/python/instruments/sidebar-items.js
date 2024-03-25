@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["crypto_future","crypto_perpetual","currency_pair","equity","futures_contract","futures_spread","options_contract","options_spread"]};
+window.SIDEBAR_ITEMS = {"fn":["convert_instrument_to_pyobject","convert_pyobject_to_instrument_type"],"mod":["crypto_future","crypto_perpetual","currency_pair","equity","futures_contract","futures_spread","options_contract","options_spread"]};

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/python/position.rs`."><title>position.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (2f090c30d 2024-03-23)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/python/position.rs`."><title>position.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (0824b300e 2024-03-24)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../nautilus_model/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -423,26 +423,6 @@
 <a href="#421" id="421">421</a>
 <a href="#422" id="422">422</a>
 <a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
-<a href="#434" id="434">434</a>
-<a href="#435" id="435">435</a>
-<a href="#436" id="436">436</a>
-<a href="#437" id="437">437</a>
-<a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -458,10 +438,7 @@
 //  limitations under the License.
 // -------------------------------------------------------------------------------------------------
 
-</span><span class="kw">use </span>nautilus_core::{
-    python::{serialization::from_dict_pyo3, to_pyvalue_err},
-    time::UnixNanos,
-};
+</span><span class="kw">use </span>nautilus_core::{python::serialization::from_dict_pyo3, time::UnixNanos};
 <span class="kw">use </span>pyo3::{
     basic::CompareOp,
     prelude::<span class="kw-2">*</span>,
@@ -477,12 +454,9 @@
         strategy_id::StrategyId, symbol::Symbol, trade_id::TradeId, trader_id::TraderId,
         venue::Venue, venue_order_id::VenueOrderId,
     },
-    instruments::{
-        crypto_future::CryptoFuture, crypto_perpetual::CryptoPerpetual,
-        currency_pair::CurrencyPair, equity::Equity, futures_contract::FuturesContract,
-        options_contract::OptionsContract,
-    },
+    instruments::InstrumentType,
     position::Position,
+    python::instruments::convert_pyobject_to_instrument_type,
     types::{currency::Currency, money::Money, price::Price, quantity::Quantity},
 };
 
@@ -490,30 +464,16 @@
 </span><span class="kw">impl </span>Position {
     <span class="attr">#[new]
     </span><span class="kw">fn </span>py_new(py: Python, instrument: PyObject, fill: OrderFilled) -&gt; PyResult&lt;<span class="self">Self</span>&gt; {
-        <span class="comment">// Extract instrument from PyObject
-        </span><span class="kw">let </span>instrument_type = instrument
-            .getattr(py, <span class="string">"instrument_type"</span>)<span class="question-mark">?
-            </span>.extract::&lt;String&gt;(py)<span class="question-mark">?</span>;
-        <span class="kw">if </span>instrument_type == <span class="string">"CryptoFuture" </span>{
-            <span class="kw">let </span>instrument_rust = instrument.extract::&lt;CryptoFuture&gt;(py)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(instrument_rust, fill).unwrap())
-        } <span class="kw">else if </span>instrument_type == <span class="string">"CryptoPerpetual" </span>{
-            <span class="kw">let </span>instrument_rust = instrument.extract::&lt;CryptoPerpetual&gt;(py)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(instrument_rust, fill).unwrap())
-        } <span class="kw">else if </span>instrument_type == <span class="string">"CurrencyPair" </span>{
-            <span class="kw">let </span>instrument_rust = instrument.extract::&lt;CurrencyPair&gt;(py)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(instrument_rust, fill).unwrap())
-        } <span class="kw">else if </span>instrument_type == <span class="string">"Equity" </span>{
-            <span class="kw">let </span>instrument_rust = instrument.extract::&lt;Equity&gt;(py)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(instrument_rust, fill).unwrap())
-        } <span class="kw">else if </span>instrument_type == <span class="string">"FuturesContract" </span>{
-            <span class="kw">let </span>instrument_rust = instrument.extract::&lt;FuturesContract&gt;(py)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(instrument_rust, fill).unwrap())
-        } <span class="kw">else if </span>instrument_type == <span class="string">"OptionsContract" </span>{
-            <span class="kw">let </span>instrument_rust = instrument.extract::&lt;OptionsContract&gt;(py)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(instrument_rust, fill).unwrap())
-        } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(to_pyvalue_err(<span class="string">"Unsupported instrument type"</span>))
+        <span class="kw">let </span>instrument_type = convert_pyobject_to_instrument_type(py, instrument)<span class="question-mark">?</span>;
+        <span class="kw">match </span>instrument_type {
+            InstrumentType::CryptoFuture(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
+            InstrumentType::CryptoPerpetual(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
+            InstrumentType::CurrencyPair(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
+            InstrumentType::Equity(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
+            InstrumentType::FuturesContract(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
+            InstrumentType::FuturesSpread(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
+            InstrumentType::OptionsContract(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
+            InstrumentType::OptionsSpread(inst) =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::new(inst, fill).unwrap()),
         }
     }
 

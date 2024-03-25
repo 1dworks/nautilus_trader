@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["book_update_ask","book_update_bid","book_update_quote_tick","book_update_top","book_update_trade_tick"]};
+window.SIDEBAR_ITEMS = {"fn":["update_book_ask","update_book_bid","update_book_with_quote_tick","update_book_with_trade_tick"]};

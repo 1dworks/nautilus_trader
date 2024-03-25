@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/orderbook/aggregation.rs`."><title>aggregation.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (2f090c30d 2024-03-23)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `model/src/orderbook/aggregation.rs`."><title>aggregation.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nautilus_model" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (0824b300e 2024-03-24)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../nautilus_model/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -111,16 +111,6 @@
 <a href="#109" id="109">109</a>
 <a href="#110" id="110">110</a>
 <a href="#111" id="111">111</a>
-<a href="#112" id="112">112</a>
-<a href="#113" id="113">113</a>
-<a href="#114" id="114">114</a>
-<a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a>
-<a href="#117" id="117">117</a>
-<a href="#118" id="118">118</a>
-<a href="#119" id="119">119</a>
-<a href="#120" id="120">120</a>
-<a href="#121" id="121">121</a>
 </pre></div><pre class="rust"><code><span class="comment">// -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2024 Nautech Systems Pty Ltd. All rights reserved.
 //  https://nautechsystems.io
@@ -136,44 +126,68 @@
 //  limitations under the License.
 // -------------------------------------------------------------------------------------------------
 
-</span><span class="kw">use </span><span class="kw">super</span>::book::OrderBook;
+</span><span class="kw">use super</span>::{book::OrderBook, error::InvalidBookOperation};
 <span class="kw">use crate</span>::{
     data::{order::BookOrder, quote::QuoteTick, trade::TradeTick},
     enums::{BookType, OrderSide},
-    orderbook::error::BookIntegrityError,
 };
 
-<span class="kw">pub fn </span>book_update_quote_tick(book: <span class="kw-2">&amp;mut </span>OrderBook, quote: <span class="kw-2">&amp;</span>QuoteTick) {
-    book_update_bid(
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>pre_process_order(book_type: BookType, <span class="kw-2">mut </span>order: BookOrder) -&gt; BookOrder {
+    <span class="kw">match </span>book_type {
+        BookType::L1_MBP =&gt; order.order_id = order.side <span class="kw">as </span>u64,
+        BookType::L2_MBP =&gt; order.order_id = order.price.raw <span class="kw">as </span>u64,
+        BookType::L3_MBO =&gt; {} <span class="comment">// No pre-processing
+    </span>};
+    order
+}
+
+<span class="kw">pub fn </span>update_book_with_quote_tick(
+    book: <span class="kw-2">&amp;mut </span>OrderBook,
+    quote: <span class="kw-2">&amp;</span>QuoteTick,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), InvalidBookOperation&gt; {
+    <span class="kw">if </span>book.book_type != BookType::L1_MBP {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(InvalidBookOperation::Update(book.book_type));
+    };
+
+    update_book_bid(
         book,
         BookOrder::from_quote_tick(quote, OrderSide::Buy),
         quote.ts_event,
         <span class="number">0</span>,
     );
-    book_update_ask(
+    update_book_ask(
         book,
         BookOrder::from_quote_tick(quote, OrderSide::Sell),
         quote.ts_event,
         <span class="number">0</span>,
     );
+    <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">pub fn </span>book_update_trade_tick(book: <span class="kw-2">&amp;mut </span>OrderBook, trade: <span class="kw-2">&amp;</span>TradeTick) {
-    book_update_bid(
+<span class="kw">pub fn </span>update_book_with_trade_tick(
+    book: <span class="kw-2">&amp;mut </span>OrderBook,
+    trade: <span class="kw-2">&amp;</span>TradeTick,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), InvalidBookOperation&gt; {
+    <span class="kw">if </span>book.book_type != BookType::L1_MBP {
+        <span class="kw">return </span><span class="prelude-val">Err</span>(InvalidBookOperation::Update(book.book_type));
+    };
+
+    update_book_bid(
         book,
         BookOrder::from_trade_tick(trade, OrderSide::Buy),
         trade.ts_event,
         <span class="number">0</span>,
     );
-    book_update_ask(
+    update_book_ask(
         book,
         BookOrder::from_trade_tick(trade, OrderSide::Sell),
         trade.ts_event,
         <span class="number">0</span>,
     );
+    <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">pub fn </span>book_update_ask(book: <span class="kw-2">&amp;mut </span>OrderBook, order: BookOrder, ts_event: u64, sequence: u64) {
+<span class="kw">pub fn </span>update_book_ask(book: <span class="kw-2">&amp;mut </span>OrderBook, order: BookOrder, ts_event: u64, sequence: u64) {
     <span class="kw">match </span>book.asks.top() {
         <span class="prelude-val">Some</span>(top_asks) =&gt; <span class="kw">match </span>top_asks.first() {
             <span class="prelude-val">Some</span>(top_ask) =&gt; {
@@ -191,7 +205,7 @@
     }
 }
 
-<span class="kw">pub fn </span>book_update_bid(book: <span class="kw-2">&amp;mut </span>OrderBook, order: BookOrder, ts_event: u64, sequence: u64) {
+<span class="kw">pub fn </span>update_book_bid(book: <span class="kw-2">&amp;mut </span>OrderBook, order: BookOrder, ts_event: u64, sequence: u64) {
     <span class="kw">match </span>book.bids.top() {
         <span class="prelude-val">Some</span>(top_bids) =&gt; <span class="kw">match </span>top_bids.first() {
             <span class="prelude-val">Some</span>(top_bid) =&gt; {
@@ -207,39 +221,5 @@
             book.bids.add(order);
         }
     }
-}
-
-<span class="kw">pub fn </span>book_update_top(book: <span class="kw-2">&amp;mut </span>OrderBook, order: BookOrder, ts_event: u64, sequence: u64) {
-    <span class="comment">// Because of the way we typically get updates from a L1_MBP order book (bid
-    // and ask updates at the same time), its quite probable that the last
-    // bid is now the ask price we are trying to insert (or vice versa). We
-    // just need to add some extra protection against this if we aren't calling
-    // `check_integrity()` on each individual update.
-    </span><span class="kw">match </span>order.side {
-        OrderSide::Buy =&gt; {
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(best_ask_price) = book.best_ask_price() {
-                <span class="kw">if </span>order.price &gt; best_ask_price {
-                    book.clear_bids(ts_event, sequence);
-                }
-            }
-        }
-        OrderSide::Sell =&gt; {
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(best_bid_price) = book.best_bid_price() {
-                <span class="kw">if </span>order.price &lt; best_bid_price {
-                    book.clear_asks(ts_event, sequence);
-                }
-            }
-        }
-        <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, BookIntegrityError::NoOrderSide),
-    }
-}
-
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>pre_process_order(book_type: BookType, <span class="kw-2">mut </span>order: BookOrder) -&gt; BookOrder {
-    <span class="kw">match </span>book_type {
-        BookType::L1_MBP =&gt; order.order_id = order.side <span class="kw">as </span>u64,
-        BookType::L2_MBP =&gt; order.order_id = order.price.raw <span class="kw">as </span>u64,
-        BookType::L3_MBO =&gt; {} <span class="comment">// No pre-processing
-    </span>};
-    order
 }
 </code></pre></div></section></main></body></html>

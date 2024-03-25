@@ -786,6 +786,11 @@
              </a>
             </li>
             <li class="md-nav__item">
+             <a class="md-nav__link" href="#binance-data-differences">
+              Binance data differences
+             </a>
+            </li>
+            <li class="md-nav__item">
              <a class="md-nav__link" href="#binance-specific-data">
               Binance specific data
              </a>
@@ -1852,17 +1857,17 @@ As stream subscriptions may vary, the latest order book data (deltas or snapshot
 subscription will be used by the Binance data client.
          </p>
          <p>
-          Order book snapshot rebuilds will be triggered:
+          Order book snapshot rebuilds will be triggered on:
          </p>
          <ul class="simple">
           <li>
            <p>
-            On initial subscription of the order book data
+            Initial subscription of the order book data
            </p>
           </li>
           <li>
            <p>
-            On data websocket reconnects
+            Data websocket reconnects
            </p>
           </li>
          </ul>
@@ -1921,6 +1926,48 @@ subscription will be used by the Binance data client.
            </p>
           </li>
          </ul>
+        </section>
+        <section id="binance-data-differences">
+         <h2 id="binance-data-differences">
+          Binance data differences
+          <a class="headerlink" href="#binance-data-differences" title="Permalink to this heading">
+           ¶
+          </a>
+         </h2>
+         <p>
+          The
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            ts_event
+           </span>
+          </code>
+          field value for
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            QuoteTick
+           </span>
+          </code>
+          objects will differ between Spot and Futures exchanges,
+where the former does not provide an event timestamp, so the
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            ts_init
+           </span>
+          </code>
+          is used (which means
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            ts_event
+           </span>
+          </code>
+          and
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            ts_init
+           </span>
+          </code>
+          are identical).
+         </p>
         </section>
         <section id="binance-specific-data">
          <h2 id="binance-specific-data">
