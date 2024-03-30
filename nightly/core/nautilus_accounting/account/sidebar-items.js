@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["base","cash","margin"],"trait":["Account"]};
+window.SIDEBAR_ITEMS = {"mod":["base","cash","margin"]};

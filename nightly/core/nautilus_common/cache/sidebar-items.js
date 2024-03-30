@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["DatabaseOperation"],"struct":["Cache","CacheConfig","CacheIndex","DatabaseCommand"],"trait":["CacheDatabase"]};
+window.SIDEBAR_ITEMS = {"mod":["database"],"struct":["Cache","CacheConfig","CacheIndex"]};

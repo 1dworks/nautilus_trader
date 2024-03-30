@@ -1184,6 +1184,15 @@
                  </a>
                 </li>
                 <li class="md-nav__item">
+                 <a class="md-nav__link" href="#nautilus_trader.adapters.binance.common.types.BinanceBar.from_raw">
+                  <code class="docutils literal notranslate">
+                   <span class="pre">
+                    BinanceBar.from_raw()
+                   </span>
+                  </code>
+                 </a>
+                </li>
+                <li class="md-nav__item">
                  <a class="md-nav__link" href="#nautilus_trader.adapters.binance.common.types.BinanceBar.fully_qualified_name">
                   <code class="docutils literal notranslate">
                    <span class="pre">
@@ -11711,6 +11720,154 @@ cached client will be returned.
             </dd>
            </dl>
            <dl class="py method">
+            <dt class="sig sig-object py" id="nautilus_trader.adapters.binance.common.types.BinanceBar.from_raw">
+             <em class="property">
+              <span class="pre">
+               static
+              </span>
+              <span class="w">
+              </span>
+             </em>
+             <span class="sig-name descname">
+              <span class="pre">
+               from_raw
+              </span>
+             </span>
+             <span class="sig-paren">
+              (
+             </span>
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                BarType
+               </span>
+               <span class="pre">
+                bar_type
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                int64_t
+               </span>
+               <span class="pre">
+                open
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                int64_t
+               </span>
+               <span class="pre">
+                high
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                int64_t
+               </span>
+               <span class="pre">
+                low
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                int64_t
+               </span>
+               <span class="pre">
+                close
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                uint8_t
+               </span>
+               <span class="pre">
+                price_prec
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                uint64_t
+               </span>
+               <span class="pre">
+                volume
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                uint8_t
+               </span>
+               <span class="pre">
+                size_prec
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                uint64_t
+               </span>
+               <span class="pre">
+                ts_event
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                uint64_t
+               </span>
+               <span class="pre">
+                ts_init
+               </span>
+              </span>
+             </em>
+             <span class="sig-paren">
+              )
+             </span>
+             <span class="sig-return">
+              <span class="sig-return-icon">
+               →
+              </span>
+              <span class="sig-return-typehint">
+               <a class="reference internal" href="../model/data.html#nautilus_trader.model.data.Bar" title="nautilus_trader.model.data.Bar">
+                <span class="pre">
+                 Bar
+                </span>
+               </a>
+              </span>
+             </span>
+             <a class="headerlink" href="#nautilus_trader.adapters.binance.common.types.BinanceBar.from_raw" title="Permalink to this definition">
+              ¶
+             </a>
+            </dt>
+            <dd>
+            </dd>
+           </dl>
+           <dl class="py method">
             <dt class="sig sig-object py" id="nautilus_trader.adapters.binance.common.types.BinanceBar.fully_qualified_name">
              <em class="property">
               <span class="pre">
@@ -14194,7 +14351,7 @@ cached client will be returned.
               <em class="sig-param">
                <span class="n">
                 <span class="pre">
-                 success
+                 success_msg
                 </span>
                </span>
                <span class="p">
@@ -14233,6 +14390,40 @@ cached client will be returned.
                <span class="default_value">
                 <span class="pre">
                  None
+                </span>
+               </span>
+              </em>
+              ,
+              <em class="sig-param">
+               <span class="n">
+                <span class="pre">
+                 success_color
+                </span>
+               </span>
+               <span class="p">
+                <span class="pre">
+                 :
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="n">
+                <span class="pre">
+                 LogColor
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="o">
+                <span class="pre">
+                 =
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="default_value">
+                <span class="pre">
+                 LogColor.NORMAL
                 </span>
                </span>
               </em>
@@ -14318,7 +14509,7 @@ done.
                  <li>
                   <p>
                    <strong>
-                    success
+                    success_msg
                    </strong>
                    (
                    <em>
@@ -14330,7 +14521,29 @@ done.
                    <em>
                     optional
                    </em>
-                   ) – The log message to write on actions success.
+                   ) – The log message to write on
+                   <cite>
+                    actions
+                   </cite>
+                   success.
+                  </p>
+                 </li>
+                 <li>
+                  <p>
+                   <strong>
+                    success_color
+                   </strong>
+                   (LogColor, default
+                   <code class="docutils literal notranslate">
+                    <span class="pre">
+                     NORMAL
+                    </span>
+                   </code>
+                   ) – The log message color for
+                   <cite>
+                    actions
+                   </cite>
+                   success.
                   </p>
                  </li>
                 </ul>
@@ -20998,7 +21211,7 @@ then the component state will not change, and an error will be logged.
               <em class="sig-param">
                <span class="n">
                 <span class="pre">
-                 success
+                 success_msg
                 </span>
                </span>
                <span class="p">
@@ -21037,6 +21250,40 @@ then the component state will not change, and an error will be logged.
                <span class="default_value">
                 <span class="pre">
                  None
+                </span>
+               </span>
+              </em>
+              ,
+              <em class="sig-param">
+               <span class="n">
+                <span class="pre">
+                 success_color
+                </span>
+               </span>
+               <span class="p">
+                <span class="pre">
+                 :
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="n">
+                <span class="pre">
+                 LogColor
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="o">
+                <span class="pre">
+                 =
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="default_value">
+                <span class="pre">
+                 LogColor.NORMAL
                 </span>
                </span>
               </em>
@@ -21122,7 +21369,7 @@ done.
                  <li>
                   <p>
                    <strong>
-                    success
+                    success_msg
                    </strong>
                    (
                    <em>
@@ -21134,7 +21381,29 @@ done.
                    <em>
                     optional
                    </em>
-                   ) – The log message to write on actions success.
+                   ) – The log message to write on
+                   <cite>
+                    actions
+                   </cite>
+                   success.
+                  </p>
+                 </li>
+                 <li>
+                  <p>
+                   <strong>
+                    success_color
+                   </strong>
+                   (str, default
+                   <code class="docutils literal notranslate">
+                    <span class="pre">
+                     NORMAL
+                    </span>
+                   </code>
+                   ) – The log message color for
+                   <cite>
+                    actions
+                   </cite>
+                   success.
                   </p>
                  </li>
                 </ul>
@@ -29882,7 +30151,7 @@ the given filters.
               <em class="sig-param">
                <span class="n">
                 <span class="pre">
-                 success
+                 success_msg
                 </span>
                </span>
                <span class="p">
@@ -29921,6 +30190,40 @@ the given filters.
                <span class="default_value">
                 <span class="pre">
                  None
+                </span>
+               </span>
+              </em>
+              ,
+              <em class="sig-param">
+               <span class="n">
+                <span class="pre">
+                 success_color
+                </span>
+               </span>
+               <span class="p">
+                <span class="pre">
+                 :
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="n">
+                <span class="pre">
+                 LogColor
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="o">
+                <span class="pre">
+                 =
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="default_value">
+                <span class="pre">
+                 LogColor.NORMAL
                 </span>
                </span>
               </em>
@@ -30006,7 +30309,7 @@ done.
                  <li>
                   <p>
                    <strong>
-                    success
+                    success_msg
                    </strong>
                    (
                    <em>
@@ -30018,7 +30321,29 @@ done.
                    <em>
                     optional
                    </em>
-                   ) – The log message to write on actions success.
+                   ) – The log message to write on
+                   <cite>
+                    actions
+                   </cite>
+                   success.
+                  </p>
+                 </li>
+                 <li>
+                  <p>
+                   <strong>
+                    success_color
+                   </strong>
+                   (LogColor, default
+                   <code class="docutils literal notranslate">
+                    <span class="pre">
+                     NORMAL
+                    </span>
+                   </code>
+                   ) – The log message color for
+                   <cite>
+                    actions
+                   </cite>
+                   success.
                   </p>
                  </li>
                 </ul>
@@ -36026,7 +36351,7 @@ then the component state will not change, and an error will be logged.
               <em class="sig-param">
                <span class="n">
                 <span class="pre">
-                 success
+                 success_msg
                 </span>
                </span>
                <span class="p">
@@ -36065,6 +36390,40 @@ then the component state will not change, and an error will be logged.
                <span class="default_value">
                 <span class="pre">
                  None
+                </span>
+               </span>
+              </em>
+              ,
+              <em class="sig-param">
+               <span class="n">
+                <span class="pre">
+                 success_color
+                </span>
+               </span>
+               <span class="p">
+                <span class="pre">
+                 :
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="n">
+                <span class="pre">
+                 LogColor
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="o">
+                <span class="pre">
+                 =
+                </span>
+               </span>
+               <span class="w">
+               </span>
+               <span class="default_value">
+                <span class="pre">
+                 LogColor.NORMAL
                 </span>
                </span>
               </em>
@@ -36150,7 +36509,7 @@ done.
                  <li>
                   <p>
                    <strong>
-                    success
+                    success_msg
                    </strong>
                    (
                    <em>
@@ -36162,7 +36521,29 @@ done.
                    <em>
                     optional
                    </em>
-                   ) – The log message to write on actions success.
+                   ) – The log message to write on
+                   <cite>
+                    actions
+                   </cite>
+                   success.
+                  </p>
+                 </li>
+                 <li>
+                  <p>
+                   <strong>
+                    success_color
+                   </strong>
+                   (str, default
+                   <code class="docutils literal notranslate">
+                    <span class="pre">
+                     NORMAL
+                    </span>
+                   </code>
+                   ) – The log message color for
+                   <cite>
+                    actions
+                   </cite>
+                   success.
                   </p>
                  </li>
                 </ul>
