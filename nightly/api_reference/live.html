@@ -3690,7 +3690,7 @@ design of a single efficient event loop, by default
           LiveDataClient
          </cite>
          class is responsible for interfacing with a particular API which
-may be presented directly by an exchange, or broker intermediary.
+may be presented directly by a venue, or through a broker intermediary.
         </p>
         <p>
          It could also be possible to write clients for specialized data providers.
@@ -4286,7 +4286,7 @@ may be presented directly by an exchange, or broker intermediary.
             <em class="sig-param">
              <span class="n">
               <span class="pre">
-               success
+               success_msg
               </span>
              </span>
              <span class="p">
@@ -4325,6 +4325,40 @@ may be presented directly by an exchange, or broker intermediary.
              <span class="default_value">
               <span class="pre">
                None
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               success_color
+              </span>
+             </span>
+             <span class="p">
+              <span class="pre">
+               :
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="n">
+              <span class="pre">
+               LogColor
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="o">
+              <span class="pre">
+               =
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="default_value">
+              <span class="pre">
+               LogColor.NORMAL
               </span>
              </span>
             </em>
@@ -4410,7 +4444,7 @@ done.
                <li>
                 <p>
                  <strong>
-                  success
+                  success_msg
                  </strong>
                  (
                  <em>
@@ -4422,7 +4456,29 @@ done.
                  <em>
                   optional
                  </em>
-                 ) – The log message to write on actions success.
+                 ) – The log message to write on
+                 <cite>
+                  actions
+                 </cite>
+                 success.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  success_color
+                 </strong>
+                 (LogColor, default
+                 <code class="docutils literal notranslate">
+                  <span class="pre">
+                   NORMAL
+                  </span>
+                 </code>
+                 ) – The log message color for
+                 <cite>
+                  actions
+                 </cite>
+                 success.
                 </p>
                </li>
               </ul>
@@ -14790,7 +14846,7 @@ then the component state will not change, and an error will be logged.
           LiveExecutionClient
          </cite>
          class is responsible for interfacing with a particular API
-which may be presented directly by an exchange, or broker intermediary.
+which may be presented directly by a venue, or through a broker intermediary.
         </p>
         <dl class="py class">
          <dt class="sig sig-object py" id="nautilus_trader.live.execution_client.LiveExecutionClient">
