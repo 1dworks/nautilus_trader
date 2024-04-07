@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["stub_depth10"],"struct":["stub_depth10"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["LimitOrderType","OrderAny","OrderError","OrderSideSpecified","PassiveOrderType","StopOrderType"],"fn":["str_hashmap_to_ustr","ustr_hashmap_to_str"],"struct":["OrderCore"],"trait":["GetClientOrderId","GetLimitPrice","GetOrderSide","GetOrderSideSpecified","GetStopPrice","GetVenueOrderId","Order"]};
