@@ -12085,7 +12085,7 @@ types as values.
               at
              </span>
              <span class="pre">
-              0x7fae09d87890&gt;
+              0x7fc02619f790&gt;
              </span>
              <span class="pre">
               =
@@ -13866,6 +13866,52 @@ types as values.
              </a>
             </span>
            </em>
+           ,
+           <em class="sig-param">
+            <span class="n">
+             <span class="pre">
+              name
+             </span>
+            </span>
+            <span class="p">
+             <span class="pre">
+              :
+             </span>
+            </span>
+            <span class="w">
+            </span>
+            <span class="n">
+             <span class="pre">
+              str
+             </span>
+             <span class="w">
+             </span>
+             <span class="p">
+              <span class="pre">
+               |
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="pre">
+              None
+             </span>
+            </span>
+            <span class="w">
+            </span>
+            <span class="o">
+             <span class="pre">
+              =
+             </span>
+            </span>
+            <span class="w">
+            </span>
+            <span class="default_value">
+             <span class="pre">
+              None
+             </span>
+            </span>
+           </em>
            <span class="sig-paren">
             )
            </span>
@@ -13892,6 +13938,142 @@ types as values.
             to
 stream market data.
            </p>
+           <dl class="field-list simple">
+            <dt class="field-odd">
+             Parameters
+             <span class="colon">
+              :
+             </span>
+            </dt>
+            <dd class="field-odd">
+             <ul class="simple">
+              <li>
+               <p>
+                <strong>
+                 loop
+                </strong>
+                (
+                <em>
+                 asyncio.AbstractEventLoop
+                </em>
+                ) – The event loop for the client.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 client
+                </strong>
+                (
+                <em>
+                 InteractiveBrokersClient
+                </em>
+                ) – The nautilus InteractiveBrokersClient using ibapi.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 msgbus
+                </strong>
+                (
+                <a class="reference internal" href="../common.html#nautilus_trader.common.component.MessageBus" title="nautilus_trader.common.component.MessageBus">
+                 <em>
+                  MessageBus
+                 </em>
+                </a>
+                ) – The message bus for the client.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 cache
+                </strong>
+                (
+                <a class="reference internal" href="../cache.html#nautilus_trader.cache.cache.Cache" title="nautilus_trader.cache.cache.Cache">
+                 <em>
+                  Cache
+                 </em>
+                </a>
+                ) – The cache for the client.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 clock
+                </strong>
+                (
+                <a class="reference internal" href="../common.html#nautilus_trader.common.component.LiveClock" title="nautilus_trader.common.component.LiveClock">
+                 <em>
+                  LiveClock
+                 </em>
+                </a>
+                ) – The clock for the client.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 instrument_provider
+                </strong>
+                (
+                <a class="reference internal" href="#nautilus_trader.adapters.interactive_brokers.providers.InteractiveBrokersInstrumentProvider" title="nautilus_trader.adapters.interactive_brokers.providers.InteractiveBrokersInstrumentProvider">
+                 <em>
+                  InteractiveBrokersInstrumentProvider
+                 </em>
+                </a>
+                ) – The instrument provider.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 ibg_client_id
+                </strong>
+                (
+                <em>
+                 int
+                </em>
+                ) – Client ID used to connect TWS/Gateway.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 config
+                </strong>
+                (
+                <a class="reference internal" href="#nautilus_trader.adapters.interactive_brokers.config.InteractiveBrokersDataClientConfig" title="nautilus_trader.adapters.interactive_brokers.config.InteractiveBrokersDataClientConfig">
+                 <em>
+                  InteractiveBrokersDataClientConfig
+                 </em>
+                </a>
+                ) – Configuration for the client.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 name
+                </strong>
+                (
+                <em>
+                 str
+                </em>
+                <em>
+                 ,
+                </em>
+                <em>
+                 optional
+                </em>
+                ) – The custom client ID.
+               </p>
+              </li>
+             </ul>
+            </dd>
+           </dl>
            <dl class="py method">
             <dt class="sig sig-object py" id="nautilus_trader.adapters.interactive_brokers.data.InteractiveBrokersDataClient.connect">
              <span class="sig-name descname">
@@ -19042,6 +19224,52 @@ then the component state will not change, and an error will be logged.
              </a>
             </span>
            </em>
+           ,
+           <em class="sig-param">
+            <span class="n">
+             <span class="pre">
+              name
+             </span>
+            </span>
+            <span class="p">
+             <span class="pre">
+              :
+             </span>
+            </span>
+            <span class="w">
+            </span>
+            <span class="n">
+             <span class="pre">
+              str
+             </span>
+             <span class="w">
+             </span>
+             <span class="p">
+              <span class="pre">
+               |
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="pre">
+              None
+             </span>
+            </span>
+            <span class="w">
+            </span>
+            <span class="o">
+             <span class="pre">
+              =
+             </span>
+            </span>
+            <span class="w">
+            </span>
+            <span class="default_value">
+             <span class="pre">
+              None
+             </span>
+            </span>
+           </em>
            <span class="sig-paren">
             )
            </span>
@@ -19197,6 +19425,24 @@ retrieval of account information and execution of orders.
                  optional
                 </em>
                 ) – The configuration for the instance.
+               </p>
+              </li>
+              <li>
+               <p>
+                <strong>
+                 name
+                </strong>
+                (
+                <em>
+                 str
+                </em>
+                <em>
+                 ,
+                </em>
+                <em>
+                 optional
+                </em>
+                ) – The custom client ID.
                </p>
               </li>
              </ul>
@@ -26139,7 +26385,7 @@ cached client will be returned.
                   <em>
                    str
                   </em>
-                  ) – The client name.
+                  ) – The custom client ID.
                  </p>
                 </li>
                 <li>
@@ -26447,7 +26693,7 @@ cached client will be returned.
                   <em>
                    str
                   </em>
-                  ) – The client name.
+                  ) – The custom client ID.
                  </p>
                 </li>
                 <li>

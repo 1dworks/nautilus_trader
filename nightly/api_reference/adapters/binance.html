@@ -7860,7 +7860,7 @@ cached client will be returned.
                   <em>
                    str
                   </em>
-                  ) – The client name.
+                  ) – The custom client ID.
                  </p>
                 </li>
                 <li>
@@ -8206,7 +8206,7 @@ cached client will be returned.
                   <em>
                    str
                   </em>
-                  ) – The client name.
+                  ) – The custom client ID.
                  </p>
                 </li>
                 <li>
@@ -14009,6 +14009,52 @@ cached client will be returned.
               </span>
              </span>
             </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               name
+              </span>
+             </span>
+             <span class="p">
+              <span class="pre">
+               :
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="n">
+              <span class="pre">
+               str
+              </span>
+              <span class="w">
+              </span>
+              <span class="p">
+               <span class="pre">
+                |
+               </span>
+              </span>
+              <span class="w">
+              </span>
+              <span class="pre">
+               None
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="o">
+              <span class="pre">
+               =
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="default_value">
+              <span class="pre">
+               None
+              </span>
+             </span>
+            </em>
             <span class="sig-paren">
              )
             </span>
@@ -14136,20 +14182,6 @@ cached client will be returned.
                <li>
                 <p>
                  <strong>
-                  account_type
-                 </strong>
-                 (
-                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
-                  <em>
-                   BinanceAccountType
-                  </em>
-                 </a>
-                 ) – The account type for the client.
-                </p>
-               </li>
-               <li>
-                <p>
-                 <strong>
                   config
                  </strong>
                  (
@@ -14159,6 +14191,44 @@ cached client will be returned.
                   </em>
                  </a>
                  ) – The configuration for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  account_type
+                 </strong>
+                 (
+                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
+                  <em>
+                   BinanceAccountType
+                  </em>
+                 </a>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 'USDT_FUTURE'
+                 </em>
+                 ) – The account type for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  name
+                 </strong>
+                 (
+                 <em>
+                  str
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  optional
+                 </em>
+                 ) – The custom client ID.
                 </p>
                </li>
               </ul>
@@ -20542,6 +20612,52 @@ then the component state will not change, and an error will be logged.
               </span>
              </span>
             </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               name
+              </span>
+             </span>
+             <span class="p">
+              <span class="pre">
+               :
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="n">
+              <span class="pre">
+               str
+              </span>
+              <span class="w">
+              </span>
+              <span class="p">
+               <span class="pre">
+                |
+               </span>
+              </span>
+              <span class="w">
+              </span>
+              <span class="pre">
+               None
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="o">
+              <span class="pre">
+               =
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="default_value">
+              <span class="pre">
+               None
+              </span>
+             </span>
+            </em>
             <span class="sig-paren">
              )
             </span>
@@ -20669,20 +20785,6 @@ then the component state will not change, and an error will be logged.
                <li>
                 <p>
                  <strong>
-                  account_type
-                 </strong>
-                 (
-                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
-                  <em>
-                   BinanceAccountType
-                  </em>
-                 </a>
-                 ) – The account type for the client.
-                </p>
-               </li>
-               <li>
-                <p>
-                 <strong>
                   config
                  </strong>
                  (
@@ -20692,6 +20794,44 @@ then the component state will not change, and an error will be logged.
                   </em>
                  </a>
                  ) – The configuration for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  account_type
+                 </strong>
+                 (
+                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
+                  <em>
+                   BinanceAccountType
+                  </em>
+                 </a>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 'USDT_FUTURE'
+                 </em>
+                 ) – The account type for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  name
+                 </strong>
+                 (
+                 <em>
+                  str
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  optional
+                 </em>
+                 ) – The custom client ID.
                 </p>
                </li>
               </ul>
@@ -29809,6 +29949,52 @@ the given filters.
               </span>
              </span>
             </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               name
+              </span>
+             </span>
+             <span class="p">
+              <span class="pre">
+               :
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="n">
+              <span class="pre">
+               str
+              </span>
+              <span class="w">
+              </span>
+              <span class="p">
+               <span class="pre">
+                |
+               </span>
+              </span>
+              <span class="w">
+              </span>
+              <span class="pre">
+               None
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="o">
+              <span class="pre">
+               =
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="default_value">
+              <span class="pre">
+               None
+              </span>
+             </span>
+            </em>
             <span class="sig-paren">
              )
             </span>
@@ -29936,20 +30122,6 @@ the given filters.
                <li>
                 <p>
                  <strong>
-                  account_type
-                 </strong>
-                 (
-                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
-                  <em>
-                   BinanceAccountType
-                  </em>
-                 </a>
-                 ) – The account type for the client.
-                </p>
-               </li>
-               <li>
-                <p>
-                 <strong>
                   config
                  </strong>
                  (
@@ -29959,6 +30131,44 @@ the given filters.
                   </em>
                  </a>
                  ) – The configuration for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  account_type
+                 </strong>
+                 (
+                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
+                  <em>
+                   BinanceAccountType
+                  </em>
+                 </a>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 'SPOT'
+                 </em>
+                 ) – The account type for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  name
+                 </strong>
+                 (
+                 <em>
+                  str
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  optional
+                 </em>
+                 ) – The custom client ID.
                 </p>
                </li>
               </ul>
@@ -35682,6 +35892,52 @@ then the component state will not change, and an error will be logged.
               </span>
              </span>
             </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               name
+              </span>
+             </span>
+             <span class="p">
+              <span class="pre">
+               :
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="n">
+              <span class="pre">
+               str
+              </span>
+              <span class="w">
+              </span>
+              <span class="p">
+               <span class="pre">
+                |
+               </span>
+              </span>
+              <span class="w">
+              </span>
+              <span class="pre">
+               None
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="o">
+              <span class="pre">
+               =
+              </span>
+             </span>
+             <span class="w">
+             </span>
+             <span class="default_value">
+              <span class="pre">
+               None
+              </span>
+             </span>
+            </em>
             <span class="sig-paren">
              )
             </span>
@@ -35809,20 +36065,6 @@ then the component state will not change, and an error will be logged.
                <li>
                 <p>
                  <strong>
-                  account_type
-                 </strong>
-                 (
-                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
-                  <em>
-                   BinanceAccountType
-                  </em>
-                 </a>
-                 ) – The account type for the client.
-                </p>
-               </li>
-               <li>
-                <p>
-                 <strong>
                   config
                  </strong>
                  (
@@ -35832,6 +36074,44 @@ then the component state will not change, and an error will be logged.
                   </em>
                  </a>
                  ) – The configuration for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  account_type
+                 </strong>
+                 (
+                 <a class="reference internal" href="#nautilus_trader.adapters.binance.common.enums.BinanceAccountType" title="nautilus_trader.adapters.binance.common.enums.BinanceAccountType">
+                  <em>
+                   BinanceAccountType
+                  </em>
+                 </a>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 'SPOT'
+                 </em>
+                 ) – The account type for the client.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  name
+                 </strong>
+                 (
+                 <em>
+                  str
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  optional
+                 </em>
+                 ) – The custom client ID.
                 </p>
                </li>
               </ul>
