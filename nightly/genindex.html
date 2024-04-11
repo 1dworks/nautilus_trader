@@ -7542,6 +7542,16 @@
             </a>
            </li>
            <li>
+            <a href="api_reference/backtest.html#nautilus_trader.backtest.exchange.SimulatedExchange.fee_model">
+             fee_model (SimulatedExchange attribute)
+            </a>
+           </li>
+           <li>
+            <a href="api_reference/backtest.html#nautilus_trader.backtest.models.FeeModel">
+             FeeModel (class in nautilus_trader.backtest.models)
+            </a>
+           </li>
+           <li>
             <a href="api_reference/backtest.html#nautilus_trader.backtest.exchange.SimulatedExchange.fill_model">
              fill_model (SimulatedExchange attribute)
             </a>
@@ -7653,6 +7663,11 @@
            <li>
             <a href="api_reference/model/orders.html#nautilus_trader.model.orders.list.OrderList.first">
              first (OrderList attribute)
+            </a>
+           </li>
+           <li>
+            <a href="api_reference/backtest.html#nautilus_trader.backtest.models.FixedCommissionModel">
+             FixedCommissionModel (class in nautilus_trader.backtest.models)
             </a>
            </li>
            <li>
@@ -8030,6 +8045,10 @@
              from_env() (ParquetDataCatalog class method)
             </a>
            </li>
+          </ul>
+         </td>
+         <td style="width: 33%; vertical-align: top;">
+          <ul>
            <li>
             <a href="api_reference/model/objects.html#nautilus_trader.model.objects.Price.from_int">
              from_int() (Price static method)
@@ -8042,10 +8061,6 @@
              </li>
             </ul>
            </li>
-          </ul>
-         </td>
-         <td style="width: 33%; vertical-align: top;">
-          <ul>
            <li>
             <a href="api_reference/model/objects.html#nautilus_trader.model.objects.Currency.from_internal_map">
              from_internal_map() (Currency static method)
@@ -9581,6 +9596,23 @@
              <li>
               <a href="api_reference/live.html#nautilus_trader.live.risk_engine.LiveRiskEngine.get_cmd_queue_task">
                (LiveRiskEngine method)
+              </a>
+             </li>
+            </ul>
+           </li>
+           <li>
+            <a href="api_reference/backtest.html#nautilus_trader.backtest.models.FeeModel.get_commission">
+             get_commission() (FeeModel method)
+            </a>
+            <ul>
+             <li>
+              <a href="api_reference/backtest.html#nautilus_trader.backtest.models.FixedCommissionModel.get_commission">
+               (FixedCommissionModel method)
+              </a>
+             </li>
+             <li>
+              <a href="api_reference/backtest.html#nautilus_trader.backtest.models.MakerTakerFeeModel.get_commission">
+               (MakerTakerFeeModel method)
               </a>
              </li>
             </ul>
@@ -17208,6 +17240,11 @@
             </ul>
            </li>
            <li>
+            <a href="api_reference/backtest.html#nautilus_trader.backtest.models.MakerTakerFeeModel">
+             MakerTakerFeeModel (class in nautilus_trader.backtest.models)
+            </a>
+           </li>
+           <li>
             <a href="api_reference/trading.html#nautilus_trader.trading.strategy.Strategy.manage_contingent_orders">
              manage_contingent_orders (Strategy attribute)
             </a>
@@ -23900,10 +23937,6 @@
              PositionOpened (class in nautilus_trader.model.events.position)
             </a>
            </li>
-          </ul>
-         </td>
-         <td style="width: 33%; vertical-align: top;">
-          <ul>
            <li>
             <a href="api_reference/cache.html#nautilus_trader.cache.cache.Cache.positions">
              positions() (Cache method)
@@ -23916,6 +23949,10 @@
              </li>
             </ul>
            </li>
+          </ul>
+         </td>
+         <td style="width: 33%; vertical-align: top;">
+          <ul>
            <li>
             <a href="api_reference/cache.html#nautilus_trader.cache.cache.Cache.positions_closed">
              positions_closed() (Cache method)
@@ -24075,6 +24112,11 @@
               </a>
              </li>
             </ul>
+           </li>
+           <li>
+            <a href="api_reference/persistence.html#nautilus_trader.persistence.wranglers.prepare_tick_data_from_bars">
+             prepare_tick_data_from_bars() (in module nautilus_trader.persistence.wranglers)
+            </a>
            </li>
            <li>
             <a href="api_reference/indicators.html#nautilus_trader.indicators.pressure.Pressure">
@@ -24422,6 +24464,13 @@
             <a href="api_reference/persistence.html#nautilus_trader.persistence.wranglers.QuoteTickDataWrangler.process_bar_data">
              process_bar_data() (QuoteTickDataWrangler method)
             </a>
+            <ul>
+             <li>
+              <a href="api_reference/persistence.html#nautilus_trader.persistence.wranglers.TradeTickDataWrangler.process_bar_data">
+               (TradeTickDataWrangler method)
+              </a>
+             </li>
+            </ul>
            </li>
            <li>
             <a href="api_reference/backtest.html#nautilus_trader.backtest.exchange.SimulatedExchange.process_instrument_status">
@@ -25529,8 +25578,8 @@
             </ul>
            </li>
            <li>
-            <a href="api_reference/serialization.html#nautilus_trader.serialization.base.register_serializable_object">
-             register_serializable_object() (in module nautilus_trader.serialization.base)
+            <a href="api_reference/serialization.html#nautilus_trader.serialization.base.register_serializable_type">
+             register_serializable_type() (in module nautilus_trader.serialization.base)
             </a>
            </li>
            <li>

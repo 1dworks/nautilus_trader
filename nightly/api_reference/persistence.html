@@ -913,7 +913,25 @@
                 </code>
                </a>
               </li>
+              <li class="md-nav__item">
+               <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.TradeTickDataWrangler.process_bar_data">
+                <code class="docutils literal notranslate">
+                 <span class="pre">
+                  TradeTickDataWrangler.process_bar_data()
+                 </span>
+                </code>
+               </a>
+              </li>
              </ul>
+            </li>
+            <li class="md-nav__item">
+             <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.prepare_tick_data_from_bars">
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                prepare_tick_data_from_bars()
+               </span>
+              </code>
+             </a>
             </li>
             <li class="md-nav__item">
              <a class="md-nav__link" href="#nautilus_trader.persistence.writer.StreamingFeatherWriter">
@@ -3402,6 +3420,433 @@ the data source and the Nautilus system.
             </dl>
            </dd>
           </dl>
+          <dl class="py method">
+           <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.TradeTickDataWrangler.process_bar_data">
+            <span class="sig-name descname">
+             <span class="pre">
+              process_bar_data
+             </span>
+            </span>
+            <span class="sig-paren">
+             (
+            </span>
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               self
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               data:
+              </span>
+              <span class="pre">
+               pd.DataFrame
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               int
+              </span>
+              <span class="pre">
+               ts_init_delta:
+              </span>
+              <span class="pre">
+               int
+              </span>
+              <span class="pre">
+               =
+              </span>
+              <span class="pre">
+               0
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               int
+              </span>
+              <span class="pre">
+               offset_interval_ms:
+              </span>
+              <span class="pre">
+               int
+              </span>
+              <span class="pre">
+               =
+              </span>
+              <span class="pre">
+               100
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               timestamp_is_close:
+              </span>
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               =
+              </span>
+              <span class="pre">
+               True
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               random_seed:
+              </span>
+              <span class="pre">
+               int
+              </span>
+              <span class="pre">
+               |
+              </span>
+              <span class="pre">
+               None
+              </span>
+              <span class="pre">
+               =
+              </span>
+              <span class="pre">
+               None
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               is_raw:
+              </span>
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               =
+              </span>
+              <span class="pre">
+               False
+              </span>
+             </span>
+            </em>
+            <span class="sig-paren">
+             )
+            </span>
+            <a class="headerlink" href="#nautilus_trader.persistence.wranglers.TradeTickDataWrangler.process_bar_data" title="Permalink to this definition">
+             ¶
+            </a>
+           </dt>
+           <dd>
+            <p>
+             Process the given bar datasets into Nautilus
+             <cite>
+              QuoteTick
+             </cite>
+             objects.
+            </p>
+            <p>
+             Expects columns [‘open’, ‘high’, ‘low’, ‘close’, ‘volume’] with ‘timestamp’ index.
+Note: The ‘volume’ column is optional, will then use the
+             <cite>
+              default_volume
+             </cite>
+             .
+            </p>
+            <dl class="field-list simple">
+             <dt class="field-odd">
+              Parameters
+              <span class="colon">
+               :
+              </span>
+             </dt>
+             <dd class="field-odd">
+              <ul class="simple">
+               <li>
+                <p>
+                 <strong>
+                  data
+                 </strong>
+                 (
+                 <em>
+                  pd.DataFrame
+                 </em>
+                 ) – The trade bar data.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  ts_init_delta
+                 </strong>
+                 (
+                 <em>
+                  int
+                 </em>
+                 ) – The difference in nanoseconds between the data timestamps and the
+                 <cite>
+                  ts_init
+                 </cite>
+                 value. Can be used to represent/simulate latency between
+the data source and the Nautilus system.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  offset_interval_ms
+                 </strong>
+                 (
+                 <em>
+                  int
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 100
+                 </em>
+                 ) – The number of milliseconds to offset each tick for the bar timestamps.
+If
+                 <cite>
+                  timestamp_is_close
+                 </cite>
+                 then will use negative offsets,
+otherwise will use positive offsets (see also
+                 <cite>
+                  timestamp_is_close
+                 </cite>
+                 ).
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  random_seed
+                 </strong>
+                 (
+                 <em>
+                  int
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  optional
+                 </em>
+                 ) – The random seed for shuffling order of high and low ticks from bar
+data. If random_seed is
+                 <code class="docutils literal notranslate">
+                  <span class="pre">
+                   None
+                  </span>
+                 </code>
+                 then won’t shuffle.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  is_raw
+                 </strong>
+                 (
+                 <em>
+                  bool
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default False
+                 </em>
+                 ) – If the data is scaled to the Nautilus fixed precision.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  timestamp_is_close
+                 </strong>
+                 (
+                 <em>
+                  bool
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default True
+                 </em>
+                 ) – If bar timestamps are at the close.
+If True then open, high, low timestamps are offset before the close timestamp.
+If False then high, low, close timestamps are offset after the open timestamp.
+                </p>
+               </li>
+              </ul>
+             </dd>
+            </dl>
+           </dd>
+          </dl>
+         </dd>
+        </dl>
+        <dl class="py function">
+         <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.prepare_tick_data_from_bars">
+          <span class="sig-name descname">
+           <span class="pre">
+            prepare_tick_data_from_bars
+           </span>
+          </span>
+          <span class="sig-paren">
+           (
+          </span>
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             *
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             dict
+            </span>
+            <span class="pre">
+             data_open:
+            </span>
+            <span class="pre">
+             dict
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             dict
+            </span>
+            <span class="pre">
+             data_high:
+            </span>
+            <span class="pre">
+             dict
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             dict
+            </span>
+            <span class="pre">
+             data_low:
+            </span>
+            <span class="pre">
+             dict
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             dict
+            </span>
+            <span class="pre">
+             data_close:
+            </span>
+            <span class="pre">
+             dict
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             int
+            </span>
+            <span class="pre">
+             offset_interval_ms:
+            </span>
+            <span class="pre">
+             int
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             random_seed:
+            </span>
+            <span class="pre">
+             int
+            </span>
+            <span class="pre">
+             |
+            </span>
+            <span class="pre">
+             None
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             int
+            </span>
+            <span class="pre">
+             ts_init_delta:
+            </span>
+            <span class="pre">
+             int
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             timestamp_is_close:
+            </span>
+            <span class="pre">
+             bool
+            </span>
+           </span>
+          </em>
+          <span class="sig-paren">
+           )
+          </span>
+          <a class="headerlink" href="#nautilus_trader.persistence.wranglers.prepare_tick_data_from_bars" title="Permalink to this definition">
+           ¶
+          </a>
+         </dt>
+         <dd>
          </dd>
         </dl>
         <span class="target" id="module-nautilus_trader.persistence.writer">

@@ -793,10 +793,10 @@
              </ul>
             </li>
             <li class="md-nav__item">
-             <a class="md-nav__link" href="#nautilus_trader.serialization.base.register_serializable_object">
+             <a class="md-nav__link" href="#nautilus_trader.serialization.base.register_serializable_type">
               <code class="docutils literal notranslate">
                <span class="pre">
-                register_serializable_object()
+                register_serializable_type()
                </span>
               </code>
              </a>
@@ -1383,10 +1383,10 @@ and back to
          </dd>
         </dl>
         <dl class="py function">
-         <dt class="sig sig-object py" id="nautilus_trader.serialization.base.register_serializable_object">
+         <dt class="sig sig-object py" id="nautilus_trader.serialization.base.register_serializable_type">
           <span class="sig-name descname">
            <span class="pre">
-            register_serializable_object
+            register_serializable_type
            </span>
           </span>
           <span class="sig-paren">
@@ -1397,7 +1397,7 @@ and back to
             type
            </span>
            <span class="pre">
-            obj:
+            cls:
            </span>
            <span class="pre">
             type,
@@ -1440,13 +1440,13 @@ and back to
             </span>
            </span>
           </span>
-          <a class="headerlink" href="#nautilus_trader.serialization.base.register_serializable_object" title="Permalink to this definition">
+          <a class="headerlink" href="#nautilus_trader.serialization.base.register_serializable_type" title="Permalink to this definition">
            ¶
           </a>
          </dt>
          <dd>
           <p>
-           Register the given object with the global serialization object maps.
+           Register the given type with the global serialization type maps.
           </p>
           <p>
            The
@@ -1473,13 +1473,13 @@ the
              <li>
               <p>
                <strong>
-                obj
+                cls
                </strong>
                (
                <em>
                 type
                </em>
-               ) – The object type to register.
+               ) – The type to register.
               </p>
              </li>
              <li>
@@ -1527,7 +1527,7 @@ the
                <em>
                 ]
                </em>
-               ) – The delegate to instantiate a dict of primitive types from the object.
+               ) – The delegate to instantiate a dict of primitive types from an object.
               </p>
              </li>
              <li>
@@ -1575,7 +1575,7 @@ the
                <em>
                 ]
                </em>
-               ) – The delegate to instantiate the object from a dict of primitive types.
+               ) – The delegate to instantiate an object from a dict of primitive types.
               </p>
              </li>
             </ul>
@@ -1613,7 +1613,11 @@ the
                <strong>
                 KeyError
                </strong>
-               – If obj already registered with the global object maps.
+               – If
+               <cite>
+                type
+               </cite>
+               already registered with the global type maps.
               </p>
              </li>
             </ul>

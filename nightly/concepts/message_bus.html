@@ -1026,8 +1026,8 @@ Additional custom types can be registered by calling the following registration 
           </p>
           <div class="highlight-python notranslate">
            <div class="highlight">
-            <pre><span></span><span class="k">def</span> <span class="nf">register_serializable_object</span><span class="p">(</span>
-    <span class="n">obj</span><span class="p">,</span>
+            <pre><span></span><span class="k">def</span> <span class="nf">register_serializable_type</span><span class="p">(</span>
+    <span class="bp">cls</span><span class="p">,</span>
     <span class="n">to_dict</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
     <span class="n">from_dict</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">):</span>
@@ -1040,10 +1040,10 @@ Additional custom types can be registered by calling the following registration 
             <p>
              <code class="docutils literal notranslate">
               <span class="pre">
-               obj
+               cls
               </span>
              </code>
-             The object to register
+             The type to register
             </p>
            </li>
            <li>
