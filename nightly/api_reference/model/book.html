@@ -1520,6 +1520,17 @@
             <em class="sig-param">
              <span class="n">
               <span class="pre">
+               uint8_t
+              </span>
+              <span class="pre">
+               flags=0
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
                uint64_t
               </span>
               <span class="pre">
@@ -1574,11 +1585,41 @@
                <li>
                 <p>
                  <strong>
+                  ts_event
+                 </strong>
+                 (
+                 <em>
+                  uint64_t
+                 </em>
+                 ) – The UNIX timestamp (nanoseconds) when the book event occurred.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  flags
+                 </strong>
+                 (
+                 <em>
+                  uint8_t
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 0
+                 </em>
+                 ) – The record flags bit field, indicating packet end and data information.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
                   sequence
                  </strong>
                  (
                  <em>
-                  uint64
+                  uint64_t
                  </em>
                  <em>
                   ,
@@ -1594,6 +1635,20 @@
                 </p>
                </li>
               </ul>
+             </dd>
+             <dt class="field-even">
+              Raises
+              <span class="colon">
+               :
+              </span>
+             </dt>
+             <dd class="field-even">
+              <p>
+               <strong>
+                RuntimeError
+               </strong>
+               – If the book type is L1_MBP.
+              </p>
              </dd>
             </dl>
            </dd>
@@ -2620,6 +2675,17 @@
             <em class="sig-param">
              <span class="n">
               <span class="pre">
+               uint8_t
+              </span>
+              <span class="pre">
+               flags=0
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
                uint64_t
               </span>
               <span class="pre">
@@ -2674,11 +2740,41 @@
                <li>
                 <p>
                  <strong>
+                  ts_event
+                 </strong>
+                 (
+                 <em>
+                  uint64_t
+                 </em>
+                 ) – The UNIX timestamp (nanoseconds) when the book event occurred.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  flags
+                 </strong>
+                 (
+                 <em>
+                  uint8_t
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 0
+                 </em>
+                 ) – The record flags bit field, indicating packet end and data information.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
                   sequence
                  </strong>
                  (
                  <em>
-                  uint64
+                  uint64_t
                  </em>
                  <em>
                   ,
@@ -3678,6 +3774,17 @@ of the order book.
             <em class="sig-param">
              <span class="n">
               <span class="pre">
+               uint8_t
+              </span>
+              <span class="pre">
+               flags=0
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
                uint64_t
               </span>
               <span class="pre">
@@ -3732,11 +3839,41 @@ of the order book.
                <li>
                 <p>
                  <strong>
+                  ts_event
+                 </strong>
+                 (
+                 <em>
+                  uint64_t
+                 </em>
+                 ) – The UNIX timestamp (nanoseconds) when the book event occurred.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  flags
+                 </strong>
+                 (
+                 <em>
+                  uint8_t
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default 0
+                 </em>
+                 ) – The record flags bit field, indicating packet end and data information.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
                   sequence
                  </strong>
                  (
                  <em>
-                  uint64
+                  uint64_t
                  </em>
                  <em>
                   ,
