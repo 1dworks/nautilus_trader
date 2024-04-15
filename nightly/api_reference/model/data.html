@@ -2158,6 +2158,15 @@
                </a>
               </li>
               <li class="md-nav__item">
+               <a class="md-nav__link" href="#nautilus_trader.model.data.QuoteTick.from_raw_arrays_to_list">
+                <code class="docutils literal notranslate">
+                 <span class="pre">
+                  QuoteTick.from_raw_arrays_to_list()
+                 </span>
+                </code>
+               </a>
+              </li>
+              <li class="md-nav__item">
                <a class="md-nav__link" href="#nautilus_trader.model.data.QuoteTick.fully_qualified_name">
                 <code class="docutils literal notranslate">
                  <span class="pre">
@@ -2285,6 +2294,15 @@
                 <code class="docutils literal notranslate">
                  <span class="pre">
                   TradeTick.from_raw()
+                 </span>
+                </code>
+               </a>
+              </li>
+              <li class="md-nav__item">
+               <a class="md-nav__link" href="#nautilus_trader.model.data.TradeTick.from_raw_arrays_to_list">
+                <code class="docutils literal notranslate">
+                 <span class="pre">
+                  TradeTick.from_raw_arrays_to_list()
                  </span>
                 </code>
                </a>
@@ -14052,6 +14070,165 @@ the key and value contents of metadata must themselves be hashable.
            </dd>
           </dl>
           <dl class="py method">
+           <dt class="sig sig-object py" id="nautilus_trader.model.data.QuoteTick.from_raw_arrays_to_list">
+            <em class="property">
+             <span class="pre">
+              static
+             </span>
+             <span class="w">
+             </span>
+            </em>
+            <span class="sig-name descname">
+             <span class="pre">
+              from_raw_arrays_to_list
+             </span>
+            </span>
+            <span class="sig-paren">
+             (
+            </span>
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               InstrumentId
+              </span>
+              <span class="pre">
+               instrument_id:
+              </span>
+              <span class="pre">
+               InstrumentId
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               int
+              </span>
+              <span class="pre">
+               price_prec:
+              </span>
+              <span class="pre">
+               int
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               int
+              </span>
+              <span class="pre">
+               size_prec:
+              </span>
+              <span class="pre">
+               int
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               bid_prices_raw:
+              </span>
+              <span class="pre">
+               np.ndarray
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               ask_prices_raw:
+              </span>
+              <span class="pre">
+               np.ndarray
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               bid_sizes_raw:
+              </span>
+              <span class="pre">
+               np.ndarray
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               ask_sizes_raw:
+              </span>
+              <span class="pre">
+               np.ndarray
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               ts_events:
+              </span>
+              <span class="pre">
+               np.ndarray
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               ts_inits:
+              </span>
+              <span class="pre">
+               np.ndarray
+              </span>
+             </span>
+            </em>
+            <span class="sig-paren">
+             )
+            </span>
+            <span class="sig-return">
+             <span class="sig-return-icon">
+              →
+             </span>
+             <span class="sig-return-typehint">
+              <span class="pre">
+               list
+              </span>
+              <span class="p">
+               <span class="pre">
+                [
+               </span>
+              </span>
+              <a class="reference internal" href="#nautilus_trader.model.data.QuoteTick" title="nautilus_trader.model.data.QuoteTick">
+               <span class="pre">
+                QuoteTick
+               </span>
+              </a>
+              <span class="p">
+               <span class="pre">
+                ]
+               </span>
+              </span>
+             </span>
+            </span>
+            <a class="headerlink" href="#nautilus_trader.model.data.QuoteTick.from_raw_arrays_to_list" title="Permalink to this definition">
+             ¶
+            </a>
+           </dt>
+           <dd>
+           </dd>
+          </dl>
+          <dl class="py method">
            <dt class="sig sig-object py" id="nautilus_trader.model.data.QuoteTick.fully_qualified_name">
             <em class="property">
              <span class="pre">
@@ -15368,6 +15545,156 @@ seller counterparties.
               </p>
              </dd>
             </dl>
+           </dd>
+          </dl>
+          <dl class="py method">
+           <dt class="sig sig-object py" id="nautilus_trader.model.data.TradeTick.from_raw_arrays_to_list">
+            <em class="property">
+             <span class="pre">
+              static
+             </span>
+             <span class="w">
+             </span>
+            </em>
+            <span class="sig-name descname">
+             <span class="pre">
+              from_raw_arrays_to_list
+             </span>
+            </span>
+            <span class="sig-paren">
+             (
+            </span>
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               InstrumentId
+              </span>
+              <span class="pre">
+               instrument_id
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               uint8_t
+              </span>
+              <span class="pre">
+               price_prec
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               uint8_t
+              </span>
+              <span class="pre">
+               size_prec
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               int64_t[:]
+              </span>
+              <span class="pre">
+               prices_raw
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               uint64_t[:]
+              </span>
+              <span class="pre">
+               sizes_raw
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               uint8_t[:]
+              </span>
+              <span class="pre">
+               aggressor_sides
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               list
+              </span>
+              <span class="pre">
+               trade_ids
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               uint64_t[:]
+              </span>
+              <span class="pre">
+               ts_events
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               uint64_t[:]
+              </span>
+              <span class="pre">
+               ts_inits
+              </span>
+             </span>
+            </em>
+            <span class="sig-paren">
+             )
+            </span>
+            <span class="sig-return">
+             <span class="sig-return-icon">
+              →
+             </span>
+             <span class="sig-return-typehint">
+              <span class="pre">
+               list
+              </span>
+              <span class="p">
+               <span class="pre">
+                [
+               </span>
+              </span>
+              <a class="reference internal" href="#nautilus_trader.model.data.TradeTick" title="nautilus_trader.model.data.TradeTick">
+               <span class="pre">
+                TradeTick
+               </span>
+              </a>
+              <span class="p">
+               <span class="pre">
+                ]
+               </span>
+              </span>
+             </span>
+            </span>
+            <a class="headerlink" href="#nautilus_trader.model.data.TradeTick.from_raw_arrays_to_list" title="Permalink to this definition">
+             ¶
+            </a>
+           </dt>
+           <dd>
            </dd>
           </dl>
           <dl class="py method">

@@ -925,10 +925,46 @@
              </ul>
             </li>
             <li class="md-nav__item">
-             <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.prepare_tick_data_from_bars">
+             <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.align_bid_ask_bar_data">
               <code class="docutils literal notranslate">
                <span class="pre">
-                prepare_tick_data_from_bars()
+                align_bid_ask_bar_data()
+               </span>
+              </code>
+             </a>
+            </li>
+            <li class="md-nav__item">
+             <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.calculate_bar_price_offsets">
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                calculate_bar_price_offsets()
+               </span>
+              </code>
+             </a>
+            </li>
+            <li class="md-nav__item">
+             <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.calculate_volume_quarter">
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                calculate_volume_quarter()
+               </span>
+              </code>
+             </a>
+            </li>
+            <li class="md-nav__item">
+             <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.prepare_event_and_init_timestamps">
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                prepare_event_and_init_timestamps()
+               </span>
+              </code>
+             </a>
+            </li>
+            <li class="md-nav__item">
+             <a class="md-nav__link" href="#nautilus_trader.persistence.wranglers.preprocess_bar_data">
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                preprocess_bar_data()
                </span>
               </code>
              </a>
@@ -3012,6 +3048,26 @@ the data source and the Nautilus system. Cannot be negative.
               </span>
              </span>
             </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               sort_data:
+              </span>
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               =
+              </span>
+              <span class="pre">
+               True
+              </span>
+             </span>
+            </em>
             <span class="sig-paren">
              )
             </span>
@@ -3186,6 +3242,24 @@ data. If random_seed is
                  ) – If bar timestamps are at the close.
 If True then open, high, low timestamps are offset before the close timestamp.
 If False then high, low, close timestamps are offset after the open timestamp.
+                </p>
+               </li>
+               <li>
+                <p>
+                 <strong>
+                  sort_data
+                 </strong>
+                 (
+                 <em>
+                  bool
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default True
+                 </em>
+                 ) – If the data should be sorted by timestamp.
                 </p>
                </li>
               </ul>
@@ -3551,6 +3625,26 @@ the data source and the Nautilus system.
               </span>
              </span>
             </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               sort_data:
+              </span>
+              <span class="pre">
+               bool
+              </span>
+              <span class="pre">
+               =
+              </span>
+              <span class="pre">
+               True
+              </span>
+             </span>
+            </em>
             <span class="sig-paren">
              )
             </span>
@@ -3703,6 +3797,24 @@ If True then open, high, low timestamps are offset before the close timestamp.
 If False then high, low, close timestamps are offset after the open timestamp.
                 </p>
                </li>
+               <li>
+                <p>
+                 <strong>
+                  sort_data
+                 </strong>
+                 (
+                 <em>
+                  bool
+                 </em>
+                 <em>
+                  ,
+                 </em>
+                 <em>
+                  default True
+                 </em>
+                 ) – If the data should be sorted by timestamp.
+                </p>
+               </li>
               </ul>
              </dd>
             </dl>
@@ -3711,10 +3823,10 @@ If False then high, low, close timestamps are offset after the open timestamp.
          </dd>
         </dl>
         <dl class="py function">
-         <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.prepare_tick_data_from_bars">
+         <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.align_bid_ask_bar_data">
           <span class="sig-name descname">
            <span class="pre">
-            prepare_tick_data_from_bars
+            align_bid_ask_bar_data
            </span>
           </span>
           <span class="sig-paren">
@@ -3723,7 +3835,19 @@ If False then high, low, close timestamps are offset after the open timestamp.
           <em class="sig-param">
            <span class="n">
             <span class="pre">
-             *
+             bid_data
+            </span>
+           </span>
+           <span class="p">
+            <span class="pre">
+             :
+            </span>
+           </span>
+           <span class="w">
+           </span>
+           <span class="n">
+            <span class="pre">
+             pd.DataFrame
             </span>
            </span>
           </em>
@@ -3731,13 +3855,100 @@ If False then high, low, close timestamps are offset after the open timestamp.
           <em class="sig-param">
            <span class="n">
             <span class="pre">
-             dict
+             ask_data
             </span>
+           </span>
+           <span class="p">
             <span class="pre">
-             data_open:
+             :
             </span>
+           </span>
+           <span class="w">
+           </span>
+           <span class="n">
             <span class="pre">
-             dict
+             pd.DataFrame
+            </span>
+           </span>
+          </em>
+          <span class="sig-paren">
+           )
+          </span>
+          <a class="headerlink" href="#nautilus_trader.persistence.wranglers.align_bid_ask_bar_data" title="Permalink to this definition">
+           ¶
+          </a>
+         </dt>
+         <dd>
+          <p>
+           Merge bid and ask data into a single DataFrame with prefixed column names.
+          </p>
+          <dl class="simple">
+           <dt>
+            Args:
+           </dt>
+           <dd>
+            <dl class="simple">
+             <dt>
+              bid_data
+              <span class="classifier">
+               pd.DataFrame
+              </span>
+             </dt>
+             <dd>
+              <p>
+               The DataFrame containing bid data.
+              </p>
+             </dd>
+             <dt>
+              ask_data
+              <span class="classifier">
+               pd.DataFrame
+              </span>
+             </dt>
+             <dd>
+              <p>
+               The DataFrame containing ask data.
+              </p>
+             </dd>
+            </dl>
+           </dd>
+           <dt>
+            Returns:
+           </dt>
+           <dd>
+            <p>
+             pd.DataFrame: A merged DataFrame with columns prefixed by ‘
+             <a href="#id1">
+              <span class="problematic" id="id2">
+               bid_
+              </span>
+             </a>
+             ’ for bid data and ‘
+             <a href="#id3">
+              <span class="problematic" id="id4">
+               ask_
+              </span>
+             </a>
+             ’ for ask data, joined on their indexes.
+            </p>
+           </dd>
+          </dl>
+         </dd>
+        </dl>
+        <dl class="py function">
+         <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.calculate_bar_price_offsets">
+          <span class="sig-name descname">
+           <span class="pre">
+            calculate_bar_price_offsets
+           </span>
+          </span>
+          <span class="sig-paren">
+           (
+          </span>
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             num_records
             </span>
            </span>
           </em>
@@ -3745,41 +3956,10 @@ If False then high, low, close timestamps are offset after the open timestamp.
           <em class="sig-param">
            <span class="n">
             <span class="pre">
-             dict
+             timestamp_is_close:
             </span>
             <span class="pre">
-             data_high:
-            </span>
-            <span class="pre">
-             dict
-            </span>
-           </span>
-          </em>
-          ,
-          <em class="sig-param">
-           <span class="n">
-            <span class="pre">
-             dict
-            </span>
-            <span class="pre">
-             data_low:
-            </span>
-            <span class="pre">
-             dict
-            </span>
-           </span>
-          </em>
-          ,
-          <em class="sig-param">
-           <span class="n">
-            <span class="pre">
-             dict
-            </span>
-            <span class="pre">
-             data_close:
-            </span>
-            <span class="pre">
-             dict
+             bool
             </span>
            </span>
           </em>
@@ -3801,16 +3981,213 @@ If False then high, low, close timestamps are offset after the open timestamp.
           <em class="sig-param">
            <span class="n">
             <span class="pre">
-             random_seed:
+             random_seed=None
             </span>
+           </span>
+          </em>
+          <span class="sig-paren">
+           )
+          </span>
+          <a class="headerlink" href="#nautilus_trader.persistence.wranglers.calculate_bar_price_offsets" title="Permalink to this definition">
+           ¶
+          </a>
+         </dt>
+         <dd>
+          <p>
+           Calculate and potentially randomize the time offsets for bar prices based on the closeness of the timestamp.
+          </p>
+          <dl class="field-list simple">
+           <dt class="field-odd">
+            Parameters
+            <span class="colon">
+             :
+            </span>
+           </dt>
+           <dd class="field-odd">
+            <ul class="simple">
+             <li>
+              <p>
+               <strong>
+                num_records
+               </strong>
+               (
+               <em>
+                int
+               </em>
+               ) – The number of records for which offsets are to be generated.
+              </p>
+             </li>
+             <li>
+              <p>
+               <strong>
+                timestamp_is_close
+               </strong>
+               (
+               <em>
+                bool
+               </em>
+               ) – A flag indicating whether the timestamp is close to the trading time.
+              </p>
+             </li>
+             <li>
+              <p>
+               <strong>
+                offset_interval_ms
+               </strong>
+               (
+               <em>
+                int
+               </em>
+               ) – The offset interval in milliseconds to be applied.
+              </p>
+             </li>
+             <li>
+              <p>
+               <strong>
+                random_seed
+               </strong>
+               (
+               <em>
+                Optional
+               </em>
+               <em>
+                [
+               </em>
+               <em>
+                int
+               </em>
+               <em>
+                ]
+               </em>
+               ) – The seed for random number generation to ensure reproducibility.
+              </p>
+             </li>
+            </ul>
+           </dd>
+           <dt class="field-even">
+            Returns
+            <span class="colon">
+             :
+            </span>
+           </dt>
+           <dd class="field-even">
+            <p>
+             <strong>
+              dict
+             </strong>
+             (
+             <em>
+              A dictionary with arrays of offsets for open, high, low, and close prices. If random_seed is provided,
+             </em>
+             ) – high and low offsets are randomized.
+            </p>
+           </dd>
+          </dl>
+         </dd>
+        </dl>
+        <dl class="py function">
+         <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.calculate_volume_quarter">
+          <span class="sig-name descname">
+           <span class="pre">
+            calculate_volume_quarter
+           </span>
+          </span>
+          <span class="sig-paren">
+           (
+          </span>
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             volume:
+            </span>
+            <span class="pre">
+             np.ndarray
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
             <span class="pre">
              int
             </span>
             <span class="pre">
-             |
+             precision:
             </span>
             <span class="pre">
-             None
+             int
+            </span>
+           </span>
+          </em>
+          <span class="sig-paren">
+           )
+          </span>
+          <a class="headerlink" href="#nautilus_trader.persistence.wranglers.calculate_volume_quarter" title="Permalink to this definition">
+           ¶
+          </a>
+         </dt>
+         <dd>
+          <p>
+           Convert raw volume data to quarter precision.
+          </p>
+          <dl class="simple">
+           <dt>
+            Args:
+           </dt>
+           <dd>
+            <dl class="simple">
+             <dt>
+              volume
+              <span class="classifier">
+               np.ndarray
+              </span>
+             </dt>
+             <dd>
+              <p>
+               An array of volume data to be processed.
+              </p>
+             </dd>
+             <dt>
+              precision
+              <span class="classifier">
+               int
+              </span>
+             </dt>
+             <dd>
+              <p>
+               The decimal precision to which the volume data is rounded, adjusted by subtracting 9.
+              </p>
+             </dd>
+            </dl>
+           </dd>
+           <dt>
+            Returns:
+           </dt>
+           <dd>
+            <p>
+             np.ndarray: The volume data adjusted to quarter precision.
+            </p>
+           </dd>
+          </dl>
+         </dd>
+        </dl>
+        <dl class="py function">
+         <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.prepare_event_and_init_timestamps">
+          <span class="sig-name descname">
+           <span class="pre">
+            prepare_event_and_init_timestamps
+           </span>
+          </span>
+          <span class="sig-paren">
+           (
+          </span>
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             index:
+            </span>
+            <span class="pre">
+             pd.DatetimeIndex
             </span>
            </span>
           </em>
@@ -3828,12 +4205,60 @@ If False then high, low, close timestamps are offset after the open timestamp.
             </span>
            </span>
           </em>
+          <span class="sig-paren">
+           )
+          </span>
+          <a class="headerlink" href="#nautilus_trader.persistence.wranglers.prepare_event_and_init_timestamps" title="Permalink to this definition">
+           ¶
+          </a>
+         </dt>
+         <dd>
+         </dd>
+        </dl>
+        <dl class="py function">
+         <dt class="sig sig-object py" id="nautilus_trader.persistence.wranglers.preprocess_bar_data">
+          <span class="sig-name descname">
+           <span class="pre">
+            preprocess_bar_data
+           </span>
+          </span>
+          <span class="sig-paren">
+           (
+          </span>
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             data
+            </span>
+           </span>
+           <span class="p">
+            <span class="pre">
+             :
+            </span>
+           </span>
+           <span class="w">
+           </span>
+           <span class="n">
+            <span class="pre">
+             pd.DataFrame
+            </span>
+           </span>
+          </em>
           ,
           <em class="sig-param">
            <span class="n">
             <span class="pre">
-             timestamp_is_close:
+             is_raw
             </span>
+           </span>
+           <span class="p">
+            <span class="pre">
+             :
+            </span>
+           </span>
+           <span class="w">
+           </span>
+           <span class="n">
             <span class="pre">
              bool
             </span>
@@ -3842,11 +4267,72 @@ If False then high, low, close timestamps are offset after the open timestamp.
           <span class="sig-paren">
            )
           </span>
-          <a class="headerlink" href="#nautilus_trader.persistence.wranglers.prepare_tick_data_from_bars" title="Permalink to this definition">
+          <a class="headerlink" href="#nautilus_trader.persistence.wranglers.preprocess_bar_data" title="Permalink to this definition">
            ¶
           </a>
          </dt>
          <dd>
+          <p>
+           Preprocess financial bar data to a standardized format.
+          </p>
+          <p>
+           Ensures the DataFrame index is labeled as “timestamp”, converts the index to UTC, removes time zone awareness,
+drops rows with NaN values in critical columns, and optionally scales the data.
+          </p>
+          <dl class="field-list simple">
+           <dt class="field-odd">
+            Parameters
+            <span class="colon">
+             :
+            </span>
+           </dt>
+           <dd class="field-odd">
+            <ul class="simple">
+             <li>
+              <p>
+               <strong>
+                data
+               </strong>
+               (
+               <em>
+                pd.DataFrame
+               </em>
+               ) – The input DataFrame containing financial bar data.
+              </p>
+             </li>
+             <li>
+              <p>
+               <strong>
+                is_raw
+               </strong>
+               (
+               <em>
+                bool
+               </em>
+               ) – A flag to determine whether the data should be scaled. If False, scales the data by 1e9.
+              </p>
+             </li>
+            </ul>
+           </dd>
+           <dt class="field-even">
+            Returns
+            <span class="colon">
+             :
+            </span>
+           </dt>
+           <dd class="field-even">
+            <p>
+             <strong>
+              pd.DataFrame
+             </strong>
+             (
+             <em>
+              The preprocessed DataFrame with a cleaned and standardized structure.
+             </em>
+             )
+            </p>
+           </dd>
+          </dl>
          </dd>
         </dl>
         <span class="target" id="module-nautilus_trader.persistence.writer">
