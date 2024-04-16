@@ -10968,6 +10968,17 @@ then the component state will not change, and an error will be logged.
                 uint64_t
                </span>
                <span class="pre">
+                sequence
+               </span>
+              </span>
+             </em>
+             ,
+             <em class="sig-param">
+              <span class="n">
+               <span class="pre">
+                uint64_t
+               </span>
+               <span class="pre">
                 ts_event
                </span>
               </span>
@@ -10980,17 +10991,6 @@ then the component state will not change, and an error will be logged.
                </span>
                <span class="pre">
                 ts_init
-               </span>
-              </span>
-             </em>
-             ,
-             <em class="sig-param">
-              <span class="n">
-               <span class="pre">
-                uint64_t
-               </span>
-               <span class="pre">
-                sequence=0
                </span>
               </span>
              </em>
@@ -11679,6 +11679,7 @@ then the component state will not change, and an error will be logged.
                    uint8_t
                   </em>
                   ) – The record flags bit field, indicating packet end and data information.
+A value of zero indicates no flags.
                  </p>
                 </li>
                 <li>
@@ -11691,6 +11692,7 @@ then the component state will not change, and an error will be logged.
                    uint64_t
                   </em>
                   ) – The unique sequence number for the update.
+If no sequence number provided in the source data then use a value of zero.
                  </p>
                 </li>
                 <li>

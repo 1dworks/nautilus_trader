@@ -8879,6 +8879,28 @@ the key and value contents of metadata must themselves be hashable.
           <em class="sig-param">
            <span class="n">
             <span class="pre">
+             uint8_t
+            </span>
+            <span class="pre">
+             flags
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             uint64_t
+            </span>
+            <span class="pre">
+             sequence
+            </span>
+           </span>
+          </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
              uint64_t
             </span>
             <span class="pre">
@@ -8894,28 +8916,6 @@ the key and value contents of metadata must themselves be hashable.
             </span>
             <span class="pre">
              ts_init
-            </span>
-           </span>
-          </em>
-          ,
-          <em class="sig-param">
-           <span class="n">
-            <span class="pre">
-             uint8_t
-            </span>
-            <span class="pre">
-             flags=0
-            </span>
-           </span>
-          </em>
-          ,
-          <em class="sig-param">
-           <span class="n">
-            <span class="pre">
-             uint64_t
-            </span>
-            <span class="pre">
-             sequence=0
             </span>
            </span>
           </em>
@@ -9014,6 +9014,32 @@ the key and value contents of metadata must themselves be hashable.
              <li>
               <p>
                <strong>
+                flags
+               </strong>
+               (
+               <em>
+                uint8_t
+               </em>
+               ) – The record flags bit field, indicating packet end and data information.
+A value of zero indicates no flags.
+              </p>
+             </li>
+             <li>
+              <p>
+               <strong>
+                sequence
+               </strong>
+               (
+               <em>
+                uint64_t
+               </em>
+               ) – The unique sequence number for the update.
+If no sequence number provided in the source data then use a value of zero.
+              </p>
+             </li>
+             <li>
+              <p>
+               <strong>
                 ts_event
                </strong>
                (
@@ -9033,51 +9059,6 @@ the key and value contents of metadata must themselves be hashable.
                 uint64_t
                </em>
                ) – The UNIX timestamp (nanoseconds) when the data object was initialized.
-              </p>
-             </li>
-             <li>
-              <p>
-               <strong>
-                flags
-               </strong>
-               (
-               <em>
-                uint8_t
-               </em>
-               <em>
-                ,
-               </em>
-               <em>
-                default 0
-               </em>
-               <em>
-                (
-               </em>
-               <em>
-                no flags
-               </em>
-               <em>
-                )
-               </em>
-               ) – The record flags bit field, indicating packet end and data information.
-              </p>
-             </li>
-             <li>
-              <p>
-               <strong>
-                sequence
-               </strong>
-               (
-               <em>
-                uint64_t
-               </em>
-               <em>
-                ,
-               </em>
-               <em>
-                default 0
-               </em>
-               ) – The unique sequence number for the update.
               </p>
              </li>
             </ul>
@@ -9224,6 +9205,17 @@ the key and value contents of metadata must themselves be hashable.
                uint64_t
               </span>
               <span class="pre">
+               sequence
+              </span>
+             </span>
+            </em>
+            ,
+            <em class="sig-param">
+             <span class="n">
+              <span class="pre">
+               uint64_t
+              </span>
+              <span class="pre">
                ts_event
               </span>
              </span>
@@ -9236,17 +9228,6 @@ the key and value contents of metadata must themselves be hashable.
               </span>
               <span class="pre">
                ts_init
-              </span>
-             </span>
-            </em>
-            ,
-            <em class="sig-param">
-             <span class="n">
-              <span class="pre">
-               uint64_t
-              </span>
-              <span class="pre">
-               sequence=0
               </span>
              </span>
             </em>
@@ -9935,6 +9916,7 @@ the key and value contents of metadata must themselves be hashable.
                   uint8_t
                  </em>
                  ) – The record flags bit field, indicating packet end and data information.
+A value of zero indicates no flags.
                 </p>
                </li>
                <li>
@@ -9947,6 +9929,7 @@ the key and value contents of metadata must themselves be hashable.
                   uint64_t
                  </em>
                  ) – The unique sequence number for the update.
+If no sequence number provided in the source data then use a value of zero.
                 </p>
                </li>
                <li>
@@ -11720,6 +11703,7 @@ the key and value contents of metadata must themselves be hashable.
                 uint8_t
                </em>
                ) – The record flags bit field, indicating packet end and data information.
+A value of zero indicates no flags.
               </p>
              </li>
              <li>
@@ -11732,6 +11716,7 @@ the key and value contents of metadata must themselves be hashable.
                 uint64_t
                </em>
                ) – The unique sequence number for the update.
+If no sequence number provided in the source data then use a value of zero.
               </p>
              </li>
              <li>
