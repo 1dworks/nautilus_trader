@@ -22353,6 +22353,26 @@ of fills and slippage by order type.
             </span>
            </span>
           </em>
+          ,
+          <em class="sig-param">
+           <span class="n">
+            <span class="pre">
+             bool
+            </span>
+            <span class="pre">
+             charge_commission_once:
+            </span>
+            <span class="pre">
+             bool
+            </span>
+            <span class="pre">
+             =
+            </span>
+            <span class="pre">
+             True
+            </span>
+           </span>
+          </em>
           <span class="sig-paren">
            )
           </span>
@@ -22382,18 +22402,40 @@ of fills and slippage by order type.
             </span>
            </dt>
            <dd class="field-odd">
-            <p>
-             <strong>
-              commission
-             </strong>
-             (
-             <a class="reference internal" href="model/objects.html#nautilus_trader.model.objects.Money" title="nautilus_trader.model.objects.Money">
-              <em>
-               Money
-              </em>
-             </a>
-             ) – The fixed commission amount for trades.
-            </p>
+            <ul class="simple">
+             <li>
+              <p>
+               <strong>
+                commission
+               </strong>
+               (
+               <a class="reference internal" href="model/objects.html#nautilus_trader.model.objects.Money" title="nautilus_trader.model.objects.Money">
+                <em>
+                 Money
+                </em>
+               </a>
+               ) – The fixed commission amount for trades.
+              </p>
+             </li>
+             <li>
+              <p>
+               <strong>
+                charge_commission_once
+               </strong>
+               (
+               <em>
+                bool
+               </em>
+               <em>
+                ,
+               </em>
+               <em>
+                default True
+               </em>
+               ) – Whether to charge the commission once per order or per fill.
+              </p>
+             </li>
+            </ul>
            </dd>
            <dt class="field-even">
             Raises
