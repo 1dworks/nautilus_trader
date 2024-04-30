@@ -179,7 +179,7 @@ class InteractiveBrokersClient(
             # TWS/Gateway will send a managedAccounts message upon successful connection,
             # which will set the `_is_ib_connected` event. This typically takes a few
             # seconds, so we wait for it here.
-            await asyncio.wait_for(self._is_ib_connected.wait(), 15)
+            await asyncio.wait_for(self._is_ib_connected.wait(), 120)
             self._start_connection_watchdog()
             self._is_client_ready.set()
         except asyncio.TimeoutError:
