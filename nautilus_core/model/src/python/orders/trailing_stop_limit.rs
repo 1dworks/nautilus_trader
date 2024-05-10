@@ -20,13 +20,18 @@ use pyo3::prelude::*;
 use ustr::Ustr;
 
 use crate::{
-    enums::{ContingencyType, OrderSide, TimeInForce, TrailingOffsetType, TriggerType},
+    enums::{ContingencyType, OrderSide, OrderType, TimeInForce, TrailingOffsetType, TriggerType},
+    events::order::initialized::OrderInitialized,
     identifiers::{
         client_order_id::ClientOrderId, exec_algorithm_id::ExecAlgorithmId,
         instrument_id::InstrumentId, order_list_id::OrderListId, strategy_id::StrategyId,
         trader_id::TraderId,
     },
-    orders::{base::str_hashmap_to_ustr, trailing_stop_limit::TrailingStopLimitOrder},
+    orders::{
+        base::{str_hashmap_to_ustr, Order},
+        trailing_stop_limit::TrailingStopLimitOrder,
+    },
+    python::events::order::convert_order_event_to_pyobject,
     types::{price::Price, quantity::Quantity},
 };
 
@@ -64,7 +69,7 @@ impl TrailingStopLimitOrder {
         exec_algorithm_id: Option<ExecAlgorithmId>,
         exec_algorithm_params: Option<HashMap<String, String>>,
         exec_spawn_id: Option<ClientOrderId>,
-        tags: Option<String>,
+        tags: Option<Vec<String>>,
     ) -> PyResult<Self> {
         let exec_algorithm_params = exec_algorithm_params.map(str_hashmap_to_ustr);
         Ok(Self::new(
@@ -95,10 +100,31 @@ impl TrailingStopLimitOrder {
             exec_algorithm_id,
             exec_algorithm_params,
             exec_spawn_id,
-            tags.map(|s| Ustr::from(&s)),
+            tags.map(|vec| vec.into_iter().map(|s| Ustr::from(s.as_str())).collect()),
             init_id,
             ts_init.into(),
         )
         .unwrap())
+    }
+
+    #[getter]
+    #[pyo3(name = "order_type")]
+    fn py_order_type(&self) -> OrderType {
+        self.order_type
+    }
+
+    #[getter]
+    #[pyo3(name = "events")]
+    fn py_events(&self, py: Python<'_>) -> PyResult<Vec<PyObject>> {
+        self.events()
+            .into_iter()
+            .map(|order_event| convert_order_event_to_pyobject(py, order_event.clone()))
+            .collect()
+    }
+
+    #[staticmethod]
+    #[pyo3(name = "create")]
+    fn py_create(init: OrderInitialized) -> PyResult<Self> {
+        Ok(TrailingStopLimitOrder::from(init))
     }
 }

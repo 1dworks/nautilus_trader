@@ -21,7 +21,7 @@ use std::{
 use nautilus_core::correctness::check_valid_string;
 use ustr::Ustr;
 
-/// Represents a valid ticker symbol ID for a tradable financial market instrument.
+/// Represents a valid ticker symbol ID for a tradable instrument.
 #[repr(C)]
 #[derive(Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(
@@ -62,13 +62,6 @@ impl Symbol {
     #[must_use]
     pub fn as_str(&self) -> &str {
         self.0.as_str()
-    }
-}
-
-impl Default for Symbol {
-    fn default() -> Self {
-        // SAFETY: Default value is safe
-        Self::new("AUD/USD").unwrap()
     }
 }
 

@@ -13,13 +13,15 @@
 //  limitations under the License.
 // -------------------------------------------------------------------------------------------------
 
+//! Defines instrument definitions the trading domain model.
+
 use nautilus_core::python::to_pyvalue_err;
 use pyo3::{IntoPy, PyObject, PyResult, Python};
 
 use crate::instruments::{
-    crypto_future::CryptoFuture, crypto_perpetual::CryptoPerpetual, currency_pair::CurrencyPair,
-    equity::Equity, futures_contract::FuturesContract, futures_spread::FuturesSpread,
-    options_contract::OptionsContract, InstrumentAny,
+    any::InstrumentAny, crypto_future::CryptoFuture, crypto_perpetual::CryptoPerpetual,
+    currency_pair::CurrencyPair, equity::Equity, futures_contract::FuturesContract,
+    futures_spread::FuturesSpread, options_contract::OptionsContract,
 };
 
 pub fn convert_instrument_any_to_pyobject(
@@ -27,6 +29,8 @@ pub fn convert_instrument_any_to_pyobject(
     instrument: InstrumentAny,
 ) -> PyResult<PyObject> {
     match instrument {
+        InstrumentAny::CryptoFuture(inst) => Ok(inst.into_py(py)),
+        InstrumentAny::CryptoPerpetual(inst) => Ok(inst.into_py(py)),
         InstrumentAny::CurrencyPair(inst) => Ok(inst.into_py(py)),
         InstrumentAny::Equity(inst) => Ok(inst.into_py(py)),
         InstrumentAny::FuturesContract(inst) => Ok(inst.into_py(py)),

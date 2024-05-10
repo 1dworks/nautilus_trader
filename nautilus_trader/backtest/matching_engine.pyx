@@ -31,6 +31,8 @@ from nautilus_trader.common.component cimport TestClock
 from nautilus_trader.common.component cimport is_logging_initialized
 from nautilus_trader.core.correctness cimport Condition
 from nautilus_trader.core.data cimport Data
+from nautilus_trader.core.datetime cimport format_iso8601
+from nautilus_trader.core.datetime cimport unix_nanos_to_dt
 from nautilus_trader.core.rust.model cimport AccountType
 from nautilus_trader.core.rust.model cimport AggressorSide
 from nautilus_trader.core.rust.model cimport BookType
@@ -81,6 +83,7 @@ from nautilus_trader.model.identifiers cimport StrategyId
 from nautilus_trader.model.identifiers cimport TradeId
 from nautilus_trader.model.identifiers cimport TraderId
 from nautilus_trader.model.identifiers cimport VenueOrderId
+from nautilus_trader.model.instruments.base cimport EXPIRING_INSTRUMENT_TYPES
 from nautilus_trader.model.instruments.base cimport Instrument
 from nautilus_trader.model.instruments.equity cimport Equity
 from nautilus_trader.model.objects cimport Money
@@ -182,6 +185,7 @@ cdef class OrderMatchingEngine:
         self.account_type = account_type
         self.market_status = MarketStatus.OPEN
 
+        self._instrument_has_expiration = instrument.instrument_class in EXPIRING_INSTRUMENT_TYPES
         self._bar_execution = bar_execution
         self._reject_stop_orders = reject_stop_orders
         self._support_gtd_orders = support_gtd_orders
@@ -674,6 +678,24 @@ cdef class OrderMatchingEngine:
 
         # Index identifiers
         self._account_ids[order.trader_id] = account_id
+
+        cdef uint64_t
+        if self._instrument_has_expiration:
+            now_ns = self._clock.timestamp_ns()
+            if now_ns < self.instrument.activation_ns:
+                self._generate_order_rejected(
+                    order,
+                    f"Contract {self.instrument.id} not yet active, "
+                    f"activation {format_iso8601(unix_nanos_to_dt(self.instrument.activation_ns))}"
+                )
+                return
+            elif now_ns > self.instrument.expiration_ns:
+                self._generate_order_rejected(
+                    order,
+                    f"Contract {self.instrument.id} has expired, "
+                    f"expiration {format_iso8601(unix_nanos_to_dt(self.instrument.expiration_ns))}"
+                )
+                return
 
         cdef:
             Order parent
@@ -1290,6 +1312,31 @@ cdef class OrderMatchingEngine:
         self._target_ask = 0
         self._target_last = 0
         self._has_targets = False
+
+        # Instrument expiration
+        if self._instrument_has_expiration and timestamp_ns >= self.instrument.expiration_ns:
+            self._log.info(f"{self.instrument.id} reached expiration")
+
+            # Cancel all open orders
+            for order in self.get_open_orders():
+                self.cancel_order(order)
+
+            # Close all open positions
+            for position in self.cache.positions_open(None, self.instrument.id):
+                order = MarketOrder(
+                    trader_id=position.trader_id,
+                    strategy_id=position.strategy_id,
+                    instrument_id=position.instrument_id,
+                    client_order_id=ClientOrderId(str(uuid.uuid4())),
+                    order_side=Order.closing_side_c(position.side),
+                    quantity=position.quantity,
+                    init_id=UUID4(),
+                    ts_init=self._clock.timestamp_ns(),
+                    reduce_only=True,
+                    tags=[f"EXPIRATION_{self.venue}_CLOSE"],
+                )
+                self.cache.add_order(order, position_id=position.id)
+                self.fill_market_order(order)
 
     cpdef list determine_limit_price_and_volume(self, Order order):
         """

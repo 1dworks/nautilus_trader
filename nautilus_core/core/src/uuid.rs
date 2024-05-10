@@ -13,6 +13,9 @@
 //  limitations under the License.
 // -------------------------------------------------------------------------------------------------
 
+//! A core `UUID4` universally unique identifier (UUID) version 4 based on a 128-bit
+//! label (RFC 4122).
+
 use std::{
     ffi::{CStr, CString},
     fmt::{Debug, Display, Formatter},
@@ -24,12 +27,12 @@ use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use uuid::Uuid;
 
 /// The maximum length of ASCII characters for a `UUID4` string value (includes null terminator).
-const UUID4_LEN: usize = 37;
+pub(crate) const UUID4_LEN: usize = 37;
 
 /// Represents a pseudo-random UUID (universally unique identifier)
 /// version 4 based on a 128-bit label as specified in RFC 4122.
 #[repr(C)]
-#[derive(Copy, Clone, Hash, PartialEq, Eq, Debug)]
+#[derive(Copy, Clone, Hash, PartialEq, Eq)]
 #[cfg_attr(
     feature = "python",
     pyo3::pyclass(module = "nautilus_trader.core.nautilus_pyo3.core")
@@ -84,6 +87,12 @@ impl Default for UUID4 {
     }
 }
 
+impl Debug for UUID4 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}('{}')", stringify!(UUID4), self)
+    }
+}
+
 impl Display for UUID4 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_cstr().to_string_lossy())
@@ -121,7 +130,7 @@ mod tests {
     use super::*;
 
     #[rstest]
-    fn test_uuid4_new() {
+    fn test_new() {
         let uuid = UUID4::new();
         let uuid_string = uuid.to_string();
         let uuid_parsed = Uuid::parse_str(&uuid_string).expect("Uuid::parse_str failed");
@@ -130,7 +139,7 @@ mod tests {
     }
 
     #[rstest]
-    fn test_uuid4_default() {
+    fn test_default() {
         let uuid: UUID4 = UUID4::default();
         let uuid_string = uuid.to_string();
         let uuid_parsed = Uuid::parse_str(&uuid_string).expect("Uuid::parse_str failed");
@@ -138,7 +147,7 @@ mod tests {
     }
 
     #[rstest]
-    fn test_uuid4_from_str() {
+    fn test_from_str() {
         let uuid_string = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
         let uuid = UUID4::from(uuid_string);
         let result_string = uuid.to_string();
@@ -156,10 +165,16 @@ mod tests {
     }
 
     #[rstest]
-    fn test_uuid4_display() {
+    fn test_debug() {
         let uuid_string = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
         let uuid = UUID4::from(uuid_string);
-        let result_string = format!("{uuid}");
-        assert_eq!(result_string, uuid_string);
+        assert_eq!(format!("{uuid:?}"), format!("UUID4('{uuid_string}')"));
+    }
+
+    #[rstest]
+    fn test_display() {
+        let uuid_string = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
+        let uuid = UUID4::from(uuid_string);
+        assert_eq!(format!("{uuid}"), uuid_string);
     }
 }

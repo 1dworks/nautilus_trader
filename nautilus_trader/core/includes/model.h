@@ -208,7 +208,7 @@ typedef enum HaltReason {
 } HaltReason;
 
 /**
- * The asset type for a financial market product.
+ * The instrument class.
  */
 typedef enum InstrumentClass {
     /**
@@ -272,7 +272,7 @@ typedef enum InstrumentCloseType {
 } InstrumentCloseType;
 
 /**
- * The liqudity side for a trade in a financial market.
+ * The liqudity side for a trade.
  */
 typedef enum LiquiditySide {
     /**
@@ -521,7 +521,7 @@ typedef enum PositionSide {
 } PositionSide;
 
 /**
- * The type of price for an instrument in a financial market.
+ * The type of price for an instrument in a market.
  */
 typedef enum PriceType {
     /**
@@ -543,7 +543,7 @@ typedef enum PriceType {
 } PriceType;
 
 /**
- * A record flag bit field, indicating packet end and data information.
+ * A record flag bit field, indicating event end and data information.
  */
 typedef enum RecordFlag {
     /**
@@ -573,7 +573,7 @@ typedef enum RecordFlag {
 } RecordFlag;
 
 /**
- * The 'Time in Force' instruction for an order in the financial market.
+ * The 'Time in Force' instruction for an order.
  */
 typedef enum TimeInForce {
     /**
@@ -728,7 +728,7 @@ typedef struct OrderBookDeltas_t OrderBookDeltas_t;
 typedef struct SyntheticInstrument SyntheticInstrument;
 
 /**
- * Represents a valid ticker symbol ID for a tradable financial market instrument.
+ * Represents a valid ticker symbol ID for a tradable instrument.
  */
 typedef struct Symbol_t {
     char* _0;
@@ -806,7 +806,7 @@ typedef struct OrderBookDelta_t {
      */
     struct BookOrder_t order;
     /**
-     * The record flags bit field, indicating packet end and data information.
+     * The record flags bit field, indicating event end and data information.
      */
     uint8_t flags;
     /**
@@ -838,9 +838,9 @@ typedef struct OrderBookDeltas_API {
 } OrderBookDeltas_API;
 
 /**
- * Represents a self-contained order book update with a fixed depth of 10 levels per side.
+ * Represents a aggregated order book update with a fixed depth of 10 levels per side.
  *
- * This struct is specifically designed for scenarios where a snapshot of the top 10 bid and
+ * This structure is specifically designed for scenarios where a snapshot of the top 10 bid and
  * ask levels in an order book is needed. It differs from `OrderBookDelta` or `OrderBookDeltas`
  * in its fixed-depth nature and is optimized for cases where a full depth representation is not
  * required or practical.
@@ -870,7 +870,7 @@ typedef struct OrderBookDepth10_t {
      */
     uint32_t ask_counts[DEPTH10_LEN];
     /**
-     * The record flags bit field, indicating packet end and data information.
+     * The record flags bit field, indicating event end and data information.
      */
     uint8_t flags;
     /**
@@ -888,7 +888,7 @@ typedef struct OrderBookDepth10_t {
 } OrderBookDepth10_t;
 
 /**
- * Represents a single quote tick in a financial market.
+ * Represents a single quote tick in a market.
  */
 typedef struct QuoteTick_t {
     /**
@@ -939,7 +939,7 @@ typedef struct TradeId_t {
 } TradeId_t;
 
 /**
- * Represents a single trade tick in a financial market.
+ * Represents a single trade tick in a market.
  */
 typedef struct TradeTick_t {
     /**
@@ -1048,6 +1048,12 @@ typedef struct Bar_t {
     uint64_t ts_init;
 } Bar_t;
 
+/**
+ * A built-in Nautilus data type.
+ *
+ * Not recommended for storing large amounts of data, as the largest variant is significantly
+ * larger (10x) than the smallest.
+ */
 typedef enum Data_t_Tag {
     DELTA,
     DELTAS,
@@ -1828,9 +1834,6 @@ const char *trigger_type_to_cstr(enum TriggerType value);
 enum TriggerType trigger_type_from_cstr(const char *ptr);
 
 /**
- * # Safety
- *
- * - Assumes valid C string pointers.
  * # Safety
  *
  * - Assumes `reason_ptr` is a valid C string pointer.

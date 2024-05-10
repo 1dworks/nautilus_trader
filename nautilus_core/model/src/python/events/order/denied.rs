@@ -58,36 +58,20 @@ impl OrderDenied {
         .map_err(to_pyvalue_err)
     }
 
-    fn __repr__(&self) -> String {
-        format!(
-            "{}(trader_id={}, strategy_id={}, instrument_id={}, client_order_id={}, reason={}, event_id={}, ts_init={})",
-            stringify!(OrderDenied),
-            self.trader_id,
-            self.strategy_id,
-            self.instrument_id,
-            self.client_order_id,
-            self.reason,
-            self.event_id,
-            self.ts_init
-        )
-    }
-
-    fn __str__(&self) -> String {
-        format!(
-            "{}(instrument_id={}, client_order_id={}, reason={})",
-            stringify!(OrderDenied),
-            self.instrument_id,
-            self.client_order_id,
-            self.reason,
-        )
-    }
-
     fn __richcmp__(&self, other: &Self, op: CompareOp, py: Python<'_>) -> Py<PyAny> {
         match op {
             CompareOp::Eq => self.eq(other).into_py(py),
             CompareOp::Ne => self.ne(other).into_py(py),
             _ => py.NotImplemented(),
         }
+    }
+
+    fn __repr__(&self) -> String {
+        format!("{:?}", self)
+    }
+
+    fn __str__(&self) -> String {
+        self.to_string()
     }
 
     #[getter]

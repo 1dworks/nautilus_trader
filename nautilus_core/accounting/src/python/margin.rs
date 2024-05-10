@@ -17,7 +17,7 @@ use nautilus_core::python::to_pyvalue_err;
 use nautilus_model::{
     events::account::state::AccountState,
     identifiers::{account_id::AccountId, instrument_id::InstrumentId},
-    instruments::InstrumentAny,
+    instruments::any::InstrumentAny,
     python::instruments::convert_pyobject_to_instrument_any,
     types::{money::Money, price::Price, quantity::Quantity},
 };
@@ -48,19 +48,6 @@ impl MarginAccount {
     #[getter]
     fn default_leverage(&self) -> f64 {
         self.default_leverage
-    }
-
-    fn __str__(&self) -> String {
-        format!(
-            "{}(id={}, type={}, base={})",
-            stringify!(MarginAccount),
-            self.id,
-            self.account_type,
-            self.base_currency.map_or_else(
-                || "None".to_string(),
-                |base_currency| format!("{}", base_currency.code)
-            )
-        )
     }
 
     fn __repr__(&self) -> String {

@@ -21,6 +21,7 @@ use ustr::Ustr;
 
 use crate::{
     enums::{ContingencyType, OrderSide, OrderStatus, OrderType, TimeInForce, TriggerType},
+    events::order::initialized::OrderInitialized,
     identifiers::{
         client_order_id::ClientOrderId, exec_algorithm_id::ExecAlgorithmId,
         instrument_id::InstrumentId, order_list_id::OrderListId, strategy_id::StrategyId,
@@ -30,7 +31,7 @@ use crate::{
         base::{str_hashmap_to_ustr, Order},
         stop_limit::StopLimitOrder,
     },
-    python::events::order::convert_order_event_to_pyobject,
+    python::{common::commissions_from_hashmap, events::order::convert_order_event_to_pyobject},
     types::{price::Price, quantity::Quantity},
 };
 
@@ -65,7 +66,7 @@ impl StopLimitOrder {
         exec_algorithm_id: Option<ExecAlgorithmId>,
         exec_algorithm_params: Option<HashMap<String, String>>,
         exec_spawn_id: Option<ClientOrderId>,
-        tags: Option<String>,
+        tags: Option<Vec<String>>,
     ) -> PyResult<Self> {
         let exec_algorithm_params = exec_algorithm_params.map(str_hashmap_to_ustr);
         Self::new(
@@ -93,7 +94,7 @@ impl StopLimitOrder {
             exec_algorithm_id,
             exec_algorithm_params,
             exec_spawn_id,
-            tags.map(|s| Ustr::from(&s)),
+            tags.map(|vec| vec.into_iter().map(|s| Ustr::from(s.as_str())).collect()),
             init_id,
             ts_init.into(),
         )
@@ -107,12 +108,18 @@ impl StopLimitOrder {
         }
     }
 
+    fn __repr__(&self) -> String {
+        self.to_string()
+    }
+
     fn __str__(&self) -> String {
         self.to_string()
     }
 
-    fn __repr__(&self) -> String {
-        self.to_string()
+    #[staticmethod]
+    #[pyo3(name = "create")]
+    fn py_create(init: OrderInitialized) -> PyResult<Self> {
+        Ok(StopLimitOrder::from(init))
     }
 
     #[getter]
@@ -318,10 +325,10 @@ impl StopLimitOrder {
 
     #[getter]
     #[pyo3(name = "exec_algorithm_params")]
-    fn py_exec_algorithm_params(&self) -> Option<HashMap<String, String>> {
-        self.exec_algorithm_params.clone().map(|x| {
+    fn py_exec_algorithm_params(&self) -> Option<HashMap<&str, &str>> {
+        self.exec_algorithm_params.as_ref().map(|x| {
             x.into_iter()
-                .map(|(k, v)| (k.to_string(), v.to_string()))
+                .map(|(k, v)| (k.as_str(), v.as_str()))
                 .collect()
         })
     }
@@ -334,8 +341,19 @@ impl StopLimitOrder {
 
     #[getter]
     #[pyo3(name = "tags")]
-    fn py_tags(&self) -> Option<String> {
-        self.tags.map(|x| x.to_string())
+    fn py_tags(&self) -> Option<Vec<&str>> {
+        self.tags
+            .as_ref()
+            .map(|vec| vec.iter().map(|s| s.as_str()).collect())
+    }
+
+    #[getter]
+    #[pyo3(name = "events")]
+    fn py_events(&self, py: Python<'_>) -> PyResult<Vec<PyObject>> {
+        self.events()
+            .into_iter()
+            .map(|order_event| convert_order_event_to_pyobject(py, order_event.clone()))
+            .collect()
     }
 
     #[pyo3(name = "to_dict")]
@@ -365,11 +383,10 @@ impl StopLimitOrder {
         )?;
         dict.set_item("ts_init", self.ts_init.as_u64())?;
         dict.set_item("ts_last", self.ts_last.as_u64())?;
-        let commissions_dict = PyDict::new(py);
-        for (key, value) in &self.commissions {
-            commissions_dict.set_item(key.code.to_string(), value.to_string())?;
-        }
-        dict.set_item("commissions", commissions_dict)?;
+        dict.set_item(
+            "commissions",
+            commissions_from_hashmap(py, self.commissions())?,
+        )?;
         self.last_trade_id.map_or_else(
             || dict.set_item("last_trade_id", py.None()),
             |x| dict.set_item("last_trade_id", x.to_string()),
@@ -445,7 +462,9 @@ impl StopLimitOrder {
         )?;
         dict.set_item(
             "tags",
-            self.tags.as_ref().map(std::string::ToString::to_string),
+            self.tags
+                .as_ref()
+                .map(|vec| vec.iter().map(|s| s.to_string()).collect::<Vec<String>>()),
         )?;
         Ok(dict.into())
     }
@@ -603,9 +622,9 @@ impl StopLimitOrder {
             .unwrap();
         let tags = dict.get_item("tags").map(|x| {
             x.and_then(|inner| {
-                let extracted_str = inner.extract::<&str>();
+                let extracted_str = inner.extract::<Vec<String>>();
                 match extracted_str {
-                    Ok(item) => Some(Ustr::from(item)),
+                    Ok(item) => Some(item.iter().map(|s| Ustr::from(&s)).collect()),
                     Err(_) => None,
                 }
             })

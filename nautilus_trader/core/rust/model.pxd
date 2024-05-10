@@ -116,7 +116,7 @@ cdef extern from "../includes/model.h":
         # Trading halt is imposed by the venue to protect against extreme volatility.
         VOLATILITY # = 3,
 
-    # The asset type for a financial market product.
+    # The instrument class.
     cpdef enum InstrumentClass:
         # A spot market instrument class. The current market price of an instrument that is bought or sold for immediate delivery and payment.
         SPOT # = 1,
@@ -148,7 +148,7 @@ cdef extern from "../includes/model.h":
         # When the instrument expiration was reached.
         CONTRACT_EXPIRED # = 2,
 
-    # The liqudity side for a trade in a financial market.
+    # The liqudity side for a trade.
     cpdef enum LiquiditySide:
         # No liquidity side specified.
         NO_LIQUIDITY_SIDE # = 0,
@@ -283,7 +283,7 @@ cdef extern from "../includes/model.h":
         # A short position in the market, typically acquired through one or many SELL orders.
         SHORT # = 3,
 
-    # The type of price for an instrument in a financial market.
+    # The type of price for an instrument in a market.
     cpdef enum PriceType:
         # A quoted order price where a buyer is willing to buy a quantity of an instrument.
         BID # = 1,
@@ -294,7 +294,7 @@ cdef extern from "../includes/model.h":
         # The last price at which a trade was made for an instrument.
         LAST # = 4,
 
-    # A record flag bit field, indicating packet end and data information.
+    # A record flag bit field, indicating event end and data information.
     cpdef enum RecordFlag:
         # Last message in the packet from the venue for a given `instrument_id`.
         F_LAST # = (1 << 7),
@@ -309,7 +309,7 @@ cdef extern from "../includes/model.h":
         # Reserved for future use.
         RESERVED_1 # = (1 << 2),
 
-    # The 'Time in Force' instruction for an order in the financial market.
+    # The 'Time in Force' instruction for an order.
     cpdef enum TimeInForce:
         # Good Till Canceled (GTC) - the order remains active until canceled.
         GTC # = 1,
@@ -398,7 +398,7 @@ cdef extern from "../includes/model.h":
     cdef struct SyntheticInstrument:
         pass
 
-    # Represents a valid ticker symbol ID for a tradable financial market instrument.
+    # Represents a valid ticker symbol ID for a tradable instrument.
     cdef struct Symbol_t:
         char* _0;
 
@@ -442,7 +442,7 @@ cdef extern from "../includes/model.h":
         BookAction action;
         # The order to apply.
         BookOrder_t order;
-        # The record flags bit field, indicating packet end and data information.
+        # The record flags bit field, indicating event end and data information.
         uint8_t flags;
         # The message sequence number assigned at the venue.
         uint64_t sequence;
@@ -462,9 +462,9 @@ cdef extern from "../includes/model.h":
     cdef struct OrderBookDeltas_API:
         OrderBookDeltas_t *_0;
 
-    # Represents a self-contained order book update with a fixed depth of 10 levels per side.
+    # Represents a aggregated order book update with a fixed depth of 10 levels per side.
     #
-    # This struct is specifically designed for scenarios where a snapshot of the top 10 bid and
+    # This structure is specifically designed for scenarios where a snapshot of the top 10 bid and
     # ask levels in an order book is needed. It differs from `OrderBookDelta` or `OrderBookDeltas`
     # in its fixed-depth nature and is optimized for cases where a full depth representation is not
     # required or practical.
@@ -482,7 +482,7 @@ cdef extern from "../includes/model.h":
         uint32_t bid_counts[DEPTH10_LEN];
         # The count of ask orders per level for the depth update.
         uint32_t ask_counts[DEPTH10_LEN];
-        # The record flags bit field, indicating packet end and data information.
+        # The record flags bit field, indicating event end and data information.
         uint8_t flags;
         # The message sequence number assigned at the venue.
         uint64_t sequence;
@@ -491,7 +491,7 @@ cdef extern from "../includes/model.h":
         # The UNIX timestamp (nanoseconds) when the struct was initialized.
         uint64_t ts_init;
 
-    # Represents a single quote tick in a financial market.
+    # Represents a single quote tick in a market.
     cdef struct QuoteTick_t:
         # The quotes instrument ID.
         InstrumentId_t instrument_id;
@@ -520,7 +520,7 @@ cdef extern from "../includes/model.h":
         # The trade match ID value as a fixed-length C string byte array (includes null terminator).
         uint8_t value[37];
 
-    # Represents a single trade tick in a financial market.
+    # Represents a single trade tick in a market.
     cdef struct TradeTick_t:
         # The trade instrument ID.
         InstrumentId_t instrument_id;
@@ -576,6 +576,10 @@ cdef extern from "../includes/model.h":
         # The UNIX timestamp (nanoseconds) when the struct was initialized.
         uint64_t ts_init;
 
+    # A built-in Nautilus data type.
+    #
+    # Not recommended for storing large amounts of data, as the largest variant is significantly
+    # larger (10x) than the smallest.
     cpdef enum Data_t_Tag:
         DELTA,
         DELTAS,
@@ -1210,9 +1214,6 @@ cdef extern from "../includes/model.h":
     # - Assumes `ptr` is a valid C string pointer.
     TriggerType trigger_type_from_cstr(const char *ptr);
 
-    # # Safety
-    #
-    # - Assumes valid C string pointers.
     # # Safety
     #
     # - Assumes `reason_ptr` is a valid C string pointer.
