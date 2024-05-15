@@ -183,6 +183,9 @@ cdef class Cfd(Instrument):
             info=info,
         )
 
+        self.base_currency = base_currency
+
+
     @staticmethod
     cdef Cfd from_dict_c(dict values):
         Condition.not_none(values, "values")
@@ -234,6 +237,7 @@ cdef class Cfd(Instrument):
             "size_precision": obj.size_precision,
             "size_increment": str(obj.size_increment),
             "lot_size": str(obj.lot_size) if obj.lot_size is not None else None,
+            "base_currency": obj.base_currency.code if obj.base_currency is not None else None,
             "max_quantity": str(obj.max_quantity) if obj.max_quantity is not None else None,
             "min_quantity": str(obj.min_quantity) if obj.min_quantity is not None else None,
             "max_notional": str(obj.max_notional) if obj.max_notional is not None else None,
