@@ -24,12 +24,18 @@ import asyncio
 from decimal import Decimal
 from unittest.mock import AsyncMock
 
+import msgspec
 import pytest
 
+from nautilus_trader.accounting.factory import AccountFactory
+from nautilus_trader.cache.cache import Cache
+from nautilus_trader.cache.database import CacheDatabaseAdapter
 from nautilus_trader.common.component import LiveClock
 from nautilus_trader.common.component import MessageBus
 from nautilus_trader.common.factories import OrderFactory
 from nautilus_trader.common.providers import InstrumentProvider
+from nautilus_trader.config import CacheConfig
+from nautilus_trader.config import DatabaseConfig
 from nautilus_trader.config import LiveExecEngineConfig
 from nautilus_trader.core.uuid import UUID4
 from nautilus_trader.execution.reports import FillReport
@@ -39,6 +45,7 @@ from nautilus_trader.live.execution_engine import LiveExecutionEngine
 from nautilus_trader.model.currencies import USD
 from nautilus_trader.model.enums import AccountType
 from nautilus_trader.model.enums import LiquiditySide
+from nautilus_trader.model.enums import OmsType
 from nautilus_trader.model.enums import OrderSide
 from nautilus_trader.model.enums import OrderStatus
 from nautilus_trader.model.enums import OrderType
@@ -53,6 +60,7 @@ from nautilus_trader.model.objects import Money
 from nautilus_trader.model.objects import Price
 from nautilus_trader.model.objects import Quantity
 from nautilus_trader.portfolio.portfolio import Portfolio
+from nautilus_trader.serialization.serializer import MsgSpecSerializer
 from nautilus_trader.test_kit.functions import ensure_all_tasks_completed
 from nautilus_trader.test_kit.functions import eventually
 from nautilus_trader.test_kit.mocks.exec_clients import MockLiveExecutionClient
@@ -2078,8 +2086,8 @@ async def test_position_flip_cache_reload_netting_mode(
         serializer=MsgSpecSerializer(encoding=msgspec.msgpack, timestamps_as_str=True),
         config=CacheConfig(
             database=DatabaseConfig(
-                type='redis',
-                host='localhost',
+                type="redis",
+                host="localhost",
                 port=6379,
             ),
             buffer_interval_ms=10,
@@ -2123,7 +2131,7 @@ async def test_position_flip_cache_reload_netting_mode(
         msgbus=msgbus,
         cache=cache,
         clock=clock,
-        oms_type=OmsType.NETTING
+        oms_type=OmsType.NETTING,
     )
 
     exec_engine.register_client(exec_client)
@@ -2139,18 +2147,18 @@ async def test_position_flip_cache_reload_netting_mode(
         OrderSide.BUY,
         Quantity.from_int(100_000),
     )
-    cache.add_order( order_entry )
+    cache.add_order( order_entry)
     exec_engine.process(
         TestEventStubs.order_submitted(
             order_entry,
-            ts_event=clock.timestamp_ns()
-        )
+            ts_event=clock.timestamp_ns(),
+        ),
     )
     exec_engine.process(
         TestEventStubs.order_accepted(
             order_entry,
-            ts_event=clock.timestamp_ns()
-        )
+            ts_event=clock.timestamp_ns(),
+        ),
     )
 
     fill_entry = TestEventStubs.order_filled(
@@ -2159,7 +2167,7 @@ async def test_position_flip_cache_reload_netting_mode(
         account_id=account_id,
         last_px=Price.from_str("1.00000"),
         trade_id=TradeId("1"),
-        ts_event=clock.timestamp_ns()
+        ts_event=clock.timestamp_ns(),
     )
     exec_engine.process(fill_entry)
 
@@ -2173,18 +2181,18 @@ async def test_position_flip_cache_reload_netting_mode(
         OrderSide.SELL,
         Quantity.from_int(150_000),
     )
-    cache.add_order( order_flip )
+    cache.add_order( order_flip)
     exec_engine.process(
         TestEventStubs.order_submitted(
             order_flip,
-            ts_event=clock.timestamp_ns()
-        )
+            ts_event=clock.timestamp_ns(),
+        ),
     )
     exec_engine.process(
         TestEventStubs.order_accepted(
             order_flip,
-            ts_event=clock.timestamp_ns()
-        )
+            ts_event=clock.timestamp_ns(),
+        ),
     )
     exec_engine.process(
         TestEventStubs.order_filled(
@@ -2195,10 +2203,12 @@ async def test_position_flip_cache_reload_netting_mode(
             last_qty=Quantity.from_int(150_000),
             last_px=Price.from_str("1.00010"),
             trade_id=TradeId("2"),
-        )
+        ),
     )
     await asyncio.sleep(0.1)
 
+
+    position_id = cache.positions()[0].id
     assert cache.position(position_id).event_count == 1, "After the flip a new position should be created with only 1 event"
 
 
