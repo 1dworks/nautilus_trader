@@ -1661,6 +1661,11 @@ cdef class ExecutionEngine(Component):
                 flipped=True,
             )
 
+        # A NETTING position will have the same position ID when flipped
+        if oms_type == OmsType.NETTING:
+            self._cache.snapshot_position(position)
+
+
         # Generate order fill for flipped position
         cdef OrderFilled fill_split2 = OrderFilled(
             trader_id=fill.trader_id,
