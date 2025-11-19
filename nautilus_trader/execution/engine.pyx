@@ -1528,9 +1528,17 @@ cdef class ExecutionEngine(Component):
     cpdef Position _open_position(self, Instrument instrument, Position position, OrderFilled fill, OmsType oms_type):
         self._log.info(f"{position!r}, {self.snapshot_positions}")
 
-        if position is not None and self.snapshot_positions:
-            # QUESTION: Should we always snapshot opening positions to handle NETTING OMS??
-            self._cache.snapshot_position(position)
+        if position is not None:
+            # NOTE. This is only called when position is closed! Kept it as it is for backwards compatibility
+
+            try:
+                self._cache.snapshot_position(position)
+                position.apply(fill)
+                self._cache.update_position(position)
+            except KeyError as e:
+                # Protected against duplicate OrderFilled
+                self._log.exception(f"Error on applying {fill!r} to {position!r}", e)
+                return  # Not re-raising to avoid crashing engine
 
         position = Position(instrument, fill)
         self._cache.add_position(position, oms_type)
